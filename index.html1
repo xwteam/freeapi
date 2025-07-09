@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">加载中...</title>
+  <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png">
+  <link rel="stylesheet" href="css/loading.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="global-loader" id="globalLoader">
+    <div class="loading-container">
+      <div class="loader" style="--r: 1">
+        <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span>
+        <span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span>
+        <span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span>
+        <span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span>
+      </div>
+      <div class="loader" style="--r: 2">
+        <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span>
+        <span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span>
+        <span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span>
+        <span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span>
+      </div>
+      <div class="loader" style="--r: 3">
+        <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span>
+        <span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span>
+        <span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span>
+        <span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span>
+      </div>
+      <div class="loader" style="--r: 4">
+        <span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span>
+        <span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span>
+        <span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span>
+        <span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <h1 id="mainTitle"><span id="titleText">福利云</span></h1>
+      <div class="deploy-info"><span id="deployNoticeText"></span></div>
+    </header>
+    <div class="controls">
+      <input type="text" class="filter-input" id="searchInput" placeholder="搜索接口...">
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="card-container" id="cardContainer">
+      <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <p>正在加载接口数据...</p>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-title">
+        <i class="fas fa-lightbulb"></i>
+        <h3>部署说明</h3>
+      </div>
+      <ul class="tip-list">
+        <li><strong>部署方式</strong>：Gitee公开仓库 + EdgeOne Pages服务</li>
+        <li><strong>文件结构</strong>：HTML和JSON文件位于仓库同一目录</li>
+        <li><strong>加载机制</strong>：使用相对路径 <code>fetch('data.json')</code> 加载数据</li>
+        <li><strong>优势</strong>：同域名访问，无跨域问题，全球加速</li>
+        <li><strong>更新方法</strong>：在Gitee更新文件后，EdgeOne Pages会自动重新部署</li>
+      </ul>
+    </div>
+    <footer>
+      <p>© 2023 Gitee数据加载器 | EdgeOne Pages部署版 | 同目录JSON加载</p>
+    </footer>
+  </div>
+
+  <script>
+    let globalConfig = { webname: "福利云" };
+    async function initializeApp() {
+      showGlobalLoading();
+      try {
+        await loadTitleConfig();
+        loadData();
+      } catch (error) {
+        console.error('应用初始化失败:', error);
+        statsElem.textContent = "系统初始化失败，请刷新页面";
+        statsElem.style.color = 'var(--error)';
+      } finally {
+        hideGlobalLoading();
+      }
+    }
+    function showGlobalLoading() {
+      document.getElementById('globalLoader').style.display = 'flex';
+    }
+    function hideGlobalLoading() {
+      document.getElementById('globalLoader').style.display = 'none';
+    }
+    async function loadTitleConfig() {
+      try {
+        const res = await fetch('config/web_config.json');
+        if (!res.ok) throw new Error(`配置加载失败: ${res.status}`);
+        const config = await res.json();
+        document.title = `${config.title} - ${config.subhead}`;
+        document.getElementById('titleText').textContent = config.webname;
+        globalConfig = config;
+        const notice = config.notice?.trim();
+        startDeployTypewriterEffect(notice || "部署方式：Gitee公开仓库 → EdgeOne Pages → 全球加速访问");
+      } catch (err) {
+        console.warn('未能加载 web_config.json，使用默认标题。', err);
+        document.getElementById('titleText').textContent = "福利云";
+        document.title = "福利云API";
+        startDeployTypewriterEffect("部署方式：Gitee公开仓库 → EdgeOne Pages → 全球加速访问");
+      }
+    }
+    function startDeployTypewriterEffect(text) {
+      const deployText = document.getElementById('deployNoticeText');
+      deployText.innerHTML = '';
+      let index = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      deployText.appendChild(cursor);
+      function typeChar() {
+        if (index < text.length) {
+          const span = document.createElement('span');
+          span.textContent = text.charAt(index);
+          deployText.insertBefore(span, cursor);
+          index++;
+          setTimeout(typeChar, 50);
+        } else {
+          setTimeout(() => cursor.style.display = 'none', 1000);
+        }
+      }
+      setTimeout(typeChar, 500);
+    }
+    const cardContainer = document.getElementById("cardContainer");
+    const searchInput = document.getElementById("searchInput");
+    const statsElem = document.getElementById("stats");
+    const loaderElem = document.getElementById("loader");
+    let allAddons = [];
+    function showLoading() {
+      loaderElem.style.display = "block";
+      cardContainer.innerHTML = "";
+      statsElem.textContent = "";
+    }
+    function showError(message) {
+      loaderElem.style.display = "none";
+      cardContainer.innerHTML = `<div class="error-panel"><h2 class="error-title"><i class="fas fa-exclamation-triangle"></i> 加载数据失败</h2><p>${message}</p><div class="controls" style="margin-top: 20px;"><button class="btn" id="retryBtn"><i class="fas fa-redo"></i> 重试</button></div></div>`;
+      document.getElementById("retryBtn").addEventListener("click", loadData);
+      statsElem.textContent = "";
+    }
+    function showSuccess() {
+      loaderElem.style.display = "none";
+    }
+    async function loadData() {
+      showLoading();
+      statsElem.textContent = "正在加载接口数据...";
+      statsElem.style.color = "var(--primary)";
+      try {
+        const response = await fetch("data/apilist.json");
+        if (!response.ok) throw new Error(`服务器响应错误: ${response.status}`);
+        const result = await response.json();
+        if (!result.data || !Array.isArray(result.data)) throw new Error("JSON数据格式错误");
+        allAddons = result.data;
+        renderData(allAddons);
+        statsElem.textContent = `${globalConfig.webname} 当前共有 ${allAddons.length} 个接口`;
+        statsElem.style.color = "var(--success)";
+        showSuccess();
+      } catch (error) {
+        showError(`无法加载接口数据: ${error.message}<br><small>请确保 data/apilist.json 存在</small>`);
+        statsElem.textContent = "数据加载失败";
+        statsElem.style.color = "var(--error)";
+      }
+    }
+    function renderData(data) {
+      if (!data.length) {
+        cardContainer.innerHTML = `<div class="loader"><p>没有找到接口数据</p></div>`;
+        statsElem.textContent = `${globalConfig.webname} 暂无接口数据`;
+        return;
+      }
+      statsElem.textContent = `${globalConfig.webname} 共有 ${data.length} 个接口`;
+      statsElem.style.color = 'var(--primary)';
+      cardContainer.innerHTML = data.map(item => `<div class="card"><div class="card-header"><div class="card-id">ID: ${item.mp_addons_id}</div><h2 class="card-title">${item.mp_addons_title}</h2><span class="card-type">${item.mp_addons_type}</span></div><div class="card-body"><p class="card-desc">${item.mp_addons_desc}</p><div class="card-keyword"><i class="fas fa-key"></i><span>调用关键词: "${item.mp_addons_keyword}"</span></div></div></div>`).join('');
+    }
+    function filterData() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      if (!searchTerm) {
+        renderData(allAddons);
+        statsElem.textContent = `${globalConfig.webname} 共有 ${allAddons.length} 个接口`;
+        statsElem.style.color = 'var(--primary)';
+        return;
+      }
+      const filtered = allAddons.filter(item =>
+        item.mp_addons_title.toLowerCase().includes(searchTerm) ||
+        item.mp_addons_desc.toLowerCase().includes(searchTerm) ||
+        item.mp_addons_keyword.toLowerCase().includes(searchTerm) ||
+        item.mp_addons_type.toLowerCase().includes(searchTerm));
+      if (filtered.length) {
+        renderData(filtered);
+        statsElem.textContent = `找到 ${filtered.length} 个匹配的接口 (关键词: "${searchTerm}")`;
+        statsElem.style.color = 'var(--primary)';
+      } else {
+        cardContainer.innerHTML = `<div class="loader"><p>没有找到匹配的接口</p></div>`;
+        statsElem.textContent = `没有找到匹配 "${searchTerm}" 的接口`;
+        statsElem.style.color = 'var(--gray)';
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      searchInput.addEventListener("input", filterData);
+      searchInput.addEventListener("keypress", e => {
+        if (e.key === "Enter") filterData();
+      });
+      initializeApp();
+    });
+  </script>
+</body>
+</html>

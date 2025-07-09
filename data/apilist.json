@@ -1,0 +1,31 @@
+{
+	"data": [{
+			"mp_addons_id": "1",
+			"mp_addons_title": "关注自动回复（自用）",
+			"mp_addons_desc": "这是一个关注自动回复图文的插件，为自用插件，仅限指定账号返回这个图文内容",
+			"mp_addons_keyword": "新关注自动触发",
+			"mp_addons_type": "图文"
+		},
+		{
+			"mp_addons_id": "2",
+			"mp_addons_title": "关注自动本回复",
+			"mp_addons_desc": "这是一个关注后自动回复文本内容的插件，暂不支持自定义，统一回复固定内容。",
+			"mp_addons_keyword": "新关注自动触发",
+			"mp_addons_type": "文本"
+		},
+		{
+			"mp_addons_id": "3",
+			"mp_addons_title": "天气查询",
+			"mp_addons_desc": "输入触发关键词可查询城市天气，仅支持查询地级市，无需输入省份",
+			"mp_addons_keyword": "查询XX天气",
+			"mp_addons_type": "文本"
+		},
+		{
+			"mp_addons_id": "4",
+			"mp_addons_title": "生日倒计时查询",
+			"mp_addons_desc": "输入出生日期，计算详细的生日信息，以及最近一次生日倒计时，格式为 查询生日20010101",
+			"mp_addons_keyword": "查询生日XXXXXXXX",
+			"mp_addons_type": "文本"
+		}
+	]
+}
