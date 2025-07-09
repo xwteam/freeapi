@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="pageTitle">加载中...</title>
+  <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png" />
+  <link rel="stylesheet" href="css/loading.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div data-include="loading.html"></div>
+ <div data-include="nav.html"></div>
+ 
+  <div class="container">
+    <div data-include="header.html"></div>
+
+    <div class="controls">
+      <input type="text" class="filter-input" id="searchInput" placeholder="搜索接口..." />
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="card-container" id="cardContainer">
+      <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <p>正在加载接口数据...</p>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-title">
+        <i class="fas fa-lightbulb"></i>
+        <h3>部署说明</h3>
+      </div>
+      <ul class="tip-list">
+        <li><strong>部署方式</strong>：Gitee公开仓库 + EdgeOne Pages服务</li>
+        <li><strong>文件结构</strong>：HTML和JSON文件位于仓库同一目录</li>
+        <li><strong>加载机制</strong>：使用相对路径 <code>fetch('data.json')</code> 加载数据</li>
+        <li><strong>优势</strong>：同域名访问，无跨域问题，全球加速</li>
+        <li><strong>更新方法</strong>：在Gitee更新文件后，EdgeOne Pages会自动重新部署</li>
+      </ul>
+    </div>
+
+    <div data-include="footer.html"></div>
+  </div>
+  
+  <!-- 浮动按钮容器 -->
+  <div class="floating-buttons">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
+      <i class="fas fa-moon"></i>
+    </button>
+    <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/toproll.js" defer></script>
+</body>
+</html>
