@@ -304,8 +304,6 @@ async function loadDocData() {
         </div>
         <div>
           <h1 class="doc-title">${data.title || '接口文档'}</h1>
-          <div class="doc-type">${data.type || '未知类型'}</div>
-          <div class="doc-calls">调用次数: ${data.calls || 0} 次</div>
         </div>
       </div>
       
@@ -357,9 +355,6 @@ async function loadDocData() {
         <div class="doc-code">
           <div class="doc-code-header">
             <span>实时结果</span>
-            <button class="doc-code-refresh" onclick="refreshApiResult('${data.url || ''}')">
-              <i class="fas fa-sync-alt"></i> 刷新
-            </button>
             <button class="doc-code-copy" onclick="copyToClipboard(document.getElementById('apiResult').textContent)">
               <i class="fas fa-copy"></i> 复制
             </button>
@@ -368,7 +363,7 @@ async function loadDocData() {
             <div class="loader-spinner"></div>
             <p>正在请求API数据...</p>
           </div>
-          <pre id="apiResult" style="display: none;"></pre>
+          <div id="apiResult" class="json-tree" style="display: none;"></div>
         </div>
       </div>
       
@@ -494,7 +489,7 @@ async function refreshApiResult(url) {
   if (!url) {
     document.getElementById('apiResultLoading').style.display = 'none';
     document.getElementById('apiResult').style.display = 'block';
-    document.getElementById('apiResult').textContent = '无效的API地址';
+    document.getElementById('apiResult').innerHTML = '<pre>无效的API地址</pre>';
     return;
   }
   
@@ -506,12 +501,179 @@ async function refreshApiResult(url) {
     const result = await response.json();
     document.getElementById('apiResultLoading').style.display = 'none';
     document.getElementById('apiResult').style.display = 'block';
-    document.getElementById('apiResult').textContent = JSON.stringify(result, null, 2);
+    
+    // 渲染可折叠的JSON树
+    renderJsonTree(document.getElementById('apiResult'), result);
   } catch (error) {
     document.getElementById('apiResultLoading').style.display = 'none';
     document.getElementById('apiResult').style.display = 'block';
-    document.getElementById('apiResult').textContent = `请求失败: ${error.message}\n\n可能原因:\n1. API地址不可访问\n2. 跨域限制\n3. API返回的不是有效JSON\n\n静态示例:\n${JSON.stringify(data.example?.response || {}, null, 2)}`;
+    document.getElementById('apiResult').innerHTML = `<pre>接口状态获取失败，请尝试直接访问调用。</pre>`;
   }
+}
+
+// 渲染可折叠的JSON树
+function renderJsonTree(container, data) {
+  container.innerHTML = '';
+  const tree = document.createElement('div');
+  tree.className = 'json-tree-root';
+  container.appendChild(tree);
+  
+  // 添加CSS样式
+  if (!document.getElementById('json-tree-style')) {
+    const style = document.createElement('style');
+    style.id = 'json-tree-style';
+    style.textContent = `
+      .json-tree-root {
+        font-family: monospace;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .json-tree-key {
+        color: var(--primary);
+        cursor: pointer;
+      }
+      .json-tree-value {
+        color: var(--text-color);
+      }
+      .json-tree-string {
+        color: #388E3C;
+      }
+      .json-tree-number {
+        color: #0277BD;
+      }
+      .json-tree-boolean {
+        color: #F57C00;
+      }
+      .json-tree-null {
+        color: #9C27B0;
+      }
+      .json-tree-bracket {
+        cursor: pointer;
+      }
+      .json-tree-collapsed > .json-tree-content {
+        display: none;
+      }
+      .json-tree-expanded > .json-tree-content {
+        display: block;
+        padding-left: 20px;
+      }
+      .json-tree-toggle {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  function createNode(key, value, isRoot = false) {
+    const node = document.createElement('div');
+    
+    if (typeof value === 'object' && value !== null) {
+      // 对象或数组
+      const isArray = Array.isArray(value);
+      const isEmpty = Object.keys(value).length === 0;
+      
+      if (!isRoot) {
+        const toggle = document.createElement('span');
+        toggle.className = 'json-tree-toggle';
+        toggle.textContent = '▶';
+        toggle.onclick = function() {
+          const isCollapsed = node.classList.contains('json-tree-collapsed');
+          node.classList.toggle('json-tree-collapsed', !isCollapsed);
+          node.classList.toggle('json-tree-expanded', isCollapsed);
+          toggle.textContent = isCollapsed ? '▼' : '▶';
+        };
+        node.appendChild(toggle);
+        
+        const keySpan = document.createElement('span');
+        keySpan.className = 'json-tree-key';
+        keySpan.textContent = key + ': ';
+        keySpan.onclick = toggle.onclick;
+        node.appendChild(keySpan);
+      }
+      
+      const openBracket = document.createElement('span');
+      openBracket.className = 'json-tree-bracket';
+      openBracket.textContent = isArray ? '[' : '{';
+      openBracket.onclick = function() {
+        const isCollapsed = node.classList.contains('json-tree-collapsed');
+        node.classList.toggle('json-tree-collapsed', !isCollapsed);
+        node.classList.toggle('json-tree-expanded', isCollapsed);
+        if (node.querySelector('.json-tree-toggle')) {
+          node.querySelector('.json-tree-toggle').textContent = isCollapsed ? '▼' : '▶';
+        }
+      };
+      node.appendChild(openBracket);
+      
+      if (isEmpty) {
+        const closeBracket = document.createElement('span');
+        closeBracket.className = 'json-tree-bracket';
+        closeBracket.textContent = isArray ? ']' : '}';
+        node.appendChild(closeBracket);
+      } else {
+        const content = document.createElement('div');
+        content.className = 'json-tree-content';
+        
+        Object.keys(value).forEach((k, i, arr) => {
+          const childNode = createNode(k, value[k]);
+          if (i < arr.length - 1) {
+            childNode.appendChild(document.createTextNode(','));
+          }
+          content.appendChild(childNode);
+        });
+        
+        node.appendChild(content);
+        
+        const closeBracket = document.createElement('span');
+        closeBracket.className = 'json-tree-bracket';
+        closeBracket.textContent = isArray ? ']' : '}';
+        node.appendChild(closeBracket);
+        
+        // 默认展开根节点，折叠其他节点
+        if (isRoot) {
+          node.classList.add('json-tree-expanded');
+        } else {
+          node.classList.add('json-tree-collapsed');
+        }
+      }
+    } else {
+      // 基本类型值
+      if (!isRoot) {
+        const keySpan = document.createElement('span');
+        keySpan.className = 'json-tree-key';
+        keySpan.textContent = key + ': ';
+        node.appendChild(keySpan);
+      }
+      
+      const valueSpan = document.createElement('span');
+      valueSpan.className = 'json-tree-value';
+      
+      if (typeof value === 'string') {
+        valueSpan.className += ' json-tree-string';
+        valueSpan.textContent = `"${value}"`;
+      } else if (typeof value === 'number') {
+        valueSpan.className += ' json-tree-number';
+        valueSpan.textContent = value;
+      } else if (typeof value === 'boolean') {
+        valueSpan.className += ' json-tree-boolean';
+        valueSpan.textContent = value;
+      } else {
+        valueSpan.className += ' json-tree-null';
+        valueSpan.textContent = 'null';
+      }
+      
+      node.appendChild(valueSpan);
+    }
+    
+    return node;
+  }
+  
+  tree.appendChild(createNode('root', data, true));
 }
 </script>
 </body>
