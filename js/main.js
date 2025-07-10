@@ -24,18 +24,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 let globalConfig = { webname: "福利云" };
 
 async function initializeApp() {
-  showGlobalLoading();
+  showLoading(); // 修复：替换未定义的`showGlobalLoading`
   try {
     await loadTitleConfig();
     await loadData();
   } catch (error) {
     console.error('应用初始化失败:', error);
-    statsElem.textContent = "系统初始化失败，请刷新页面";
-    statsElem.style.color = 'var(--error)';
+    if (statsElem) { // 修复：避免statsElem不存在导致报错
+      statsElem.textContent = "系统初始化失败，请刷新页面";
+      statsElem.style.color = 'var(--error)';
+    }
   } finally {
-    hideGlobalLoading();
+    hideLoading(); // 修复：替换未定义的`hideGlobalLoading`
   }
 }
+
 async function loadTitleConfig() {
   try {
     const res = await fetch('config/web_config.json');
@@ -56,6 +59,7 @@ async function loadTitleConfig() {
 
 function startDeployTypewriterEffect(text) {
   const deployText = document.getElementById('deployNoticeText');
+  if (!deployText) return; // 修复：避免元素不存在导致报错
   deployText.innerHTML = '';
   let index = 0;
   const cursor = document.createElement('span');
