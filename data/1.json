@@ -13,6 +13,7 @@
       "description": "无需参数"
     }
   ],
+  "example": "https://free.xwteam.cn/api/code/uuid",
   "returnParams": [
     {
       "name": "code",
