@@ -18,6 +18,7 @@ async function loadIncludes() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadIncludes();
+  initializeTopNav();    // ✅ 添加这行
   initializeApp();
 });
 
