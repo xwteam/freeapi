@@ -1,10 +1,14 @@
-// js/toproll.js
-
 function initializeTopNav() {
-  // 所有的 DOM 相关逻辑，放在这个函数里
+  // DOM 元素
   const themeToggleBtn = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
+  const scrollToTopBtn = document.getElementById('scroll-to-top');
+  const topNav = document.querySelector('.top-nav');
+  const container = document.querySelector('.container');
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
 
+  // 主题应用
   const applyTheme = (theme) => {
     htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
@@ -26,6 +30,7 @@ function initializeTopNav() {
     }
   };
 
+  // 初始化主题
   const initTheme = () => {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -33,34 +38,40 @@ function initializeTopNav() {
     applyTheme(currentTheme);
   };
 
+  // 点击主题按钮切换
   themeToggleBtn?.addEventListener('click', () => {
     const currentTheme = htmlElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     applyTheme(newTheme);
-    if (themeToggleBtn) {
-      themeToggleBtn.style.transform = 'scale(0.8)';
-      setTimeout(() => {
-        themeToggleBtn.style.transform = '';
-      }, 300);
+    themeToggleBtn.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+      themeToggleBtn.style.transform = '';
+    }, 300);
+  });
+
+  // 根据系统变化自动切换
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
     }
   });
 
+  // 初始化主题
   initTheme();
 
-  const scrollToTopBtn = document.getElementById('scroll-to-top');
+  // 返回顶部按钮
   window.addEventListener('scroll', () => {
-    if (scrollToTopBtn) {
-      if (window.pageYOffset > 200) {
-        scrollToTopBtn.style.display = 'flex';
-        scrollToTopBtn.style.opacity = '1';
-      } else {
-        scrollToTopBtn.style.opacity = '0';
-        setTimeout(() => {
-          if (window.pageYOffset <= 200) {
-            scrollToTopBtn.style.display = 'none';
-          }
-        }, 300);
-      }
+    if (!scrollToTopBtn) return;
+    if (window.pageYOffset > 200) {
+      scrollToTopBtn.style.display = 'flex';
+      scrollToTopBtn.style.opacity = '1';
+    } else {
+      scrollToTopBtn.style.opacity = '0';
+      setTimeout(() => {
+        if (window.pageYOffset <= 200) {
+          scrollToTopBtn.style.display = 'none';
+        }
+      }, 300);
     }
   });
 
@@ -72,71 +83,50 @@ function initializeTopNav() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      applyTheme(e.matches ? 'dark' : 'light');
-    }
-  });
-
-  const topNav = document.querySelector('.top-nav');
-  const container = document.querySelector('.container');
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-
-  let lastScrollY = 0;
-  const scrollThreshold = 200;
+  // 顶部导航栏滚动控制
+  let lastScrollY = window.scrollY;
+  const threshold = 200;
 
   const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    if (topNav && container) {
-      if (currentScrollY > scrollThreshold) {
-        if (currentScrollY > lastScrollY) {
-          topNav.classList.remove('show');
-          container.classList.remove('nav-visible');
-        } else {
-          topNav.classList.add('show');
-          container.classList.add('nav-visible');
-        }
+    const currentY = window.scrollY;
+    if (currentY > threshold) {
+      if (currentY < lastScrollY) {
+        topNav?.classList.add('show');
+        container?.classList.add('nav-visible');
       } else {
-        topNav.classList.remove('show');
-        container.classList.remove('nav-visible');
+        topNav?.classList.remove('show');
+        container?.classList.remove('nav-visible');
       }
-      lastScrollY = currentScrollY;
+    } else {
+      topNav?.classList.remove('show');
+      container?.classList.remove('nav-visible');
     }
+    lastScrollY = currentY;
   };
 
-  const handleHamburgerClick = () => {
-    if (navLinks && hamburger) {
-      navLinks.classList.toggle('active');
-      const icon = hamburger.querySelector('i');
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-times');
-    }
-  };
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('load', () => {
+    lastScrollY = window.scrollY;
+    handleScroll();
+  });
 
-  const handleNavLinkClick = () => {
-    if (navLinks && hamburger) {
+  // 手机汉堡菜单交互
+  hamburger?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+    const icon = hamburger.querySelector('i');
+    icon?.classList.toggle('fa-bars');
+    icon?.classList.toggle('fa-times');
+  });
+
+  navLinks?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
       navLinks.classList.remove('active');
       const icon = hamburger.querySelector('i');
-      icon.classList.replace('fa-times', 'fa-bars');
-    }
-  };
-
-  if (topNav && container) {
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('load', () => {
-      lastScrollY = window.scrollY;
-      handleScroll();
+      icon?.classList.replace('fa-times', 'fa-bars');
     });
-  }
+  });
 
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', handleHamburgerClick);
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', handleNavLinkClick);
-    });
-  }
-
+  // 快捷键切换主题和返回顶部
   document.addEventListener('keydown', (e) => {
     if (e.key === 't' && e.altKey) {
       themeToggleBtn?.click();
