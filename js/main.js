@@ -36,15 +36,6 @@ async function initializeApp() {
     hideGlobalLoading();
   }
 }
-
-function showGlobalLoading() {
-  document.getElementById('globalLoader').style.display = 'flex';
-}
-
-function hideGlobalLoading() {
-  document.getElementById('globalLoader').style.display = 'none';
-}
-
 async function loadTitleConfig() {
   try {
     const res = await fetch('config/web_config.json');
