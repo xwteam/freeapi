@@ -1,7 +1,5 @@
 {
   "title": "UUID生成",
-  "type": "工具类",
-  "calls": 569,
   "description": "UUID 是 通用唯一识别符（Universally Unique Identifier）的缩写，是一种软件建构的标准，为了确保在分布式系统中的所有元素，都有唯一的辨识信息。",
   "url": "https://free.xwteam.cn/api/code/uuid",
   "method": "GET/POST",
@@ -15,16 +13,6 @@
       "description": "无需参数"
     }
   ],
-  "example": {
-    "request": "https://free.xwteam.cn/api/code/uuid",
-    "response": {
-      "code": 200,
-      "msg": "生成成功",
-      "data": "133c6153-8e61-4f28-b75e-3e0284eb9182",
-      "exec_time": 0.01857,
-      "ip": "197.149.235.178"
-    }
-  },
   "returnParams": [
     {
       "name": "code",
