@@ -18,25 +18,25 @@ async function loadIncludes() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadIncludes();
-  initializeTopNav();    // ✅ 添加这行
+  initializeTopNav();
   initializeApp();
 });
 
-let globalConfig = { webname: "福利云" };
+let globalConfig = {};
 
 async function initializeApp() {
-  showLoading(); // 修复：替换未定义的`showGlobalLoading`
+  showLoading();
   try {
     await loadTitleConfig();
     await loadData();
   } catch (error) {
     console.error('应用初始化失败:', error);
-    if (statsElem) { // 修复：避免statsElem不存在导致报错
+    if (statsElem) {
       statsElem.textContent = "系统初始化失败，请刷新页面";
       statsElem.style.color = 'var(--error)';
     }
   } finally {
-    hideLoading(); // 修复：替换未定义的`hideGlobalLoading`
+    hideLoading();
   }
 }
 
@@ -133,15 +133,13 @@ function renderData(data) {
   statsElem.textContent = `${globalConfig.webname} 共有 ${data.length} 个接口`;
   statsElem.style.color = 'var(--primary)';
   cardContainer.innerHTML = data.map(item => `
-    <div class="card" onclick="goToApiDoc('${item.mp_addons_id}')">
+    <div class="card" onclick="goToApiDoc('${item.xwteam_api_id}')">
       <div class="card-header">
-        <div class="card-id">ID: ${item.mp_addons_id}</div>
-        <h2 class="card-title">${item.mp_addons_title}</h2>
-        <span class="card-type">${item.mp_addons_type}</span>
+        <div class="card-id">ID: ${item.xwteam_api_id}</div>
+        <h2 class="card-title">${item.xwteam_api_title}</h2>
       </div>
       <div class="card-body">
-        <p class="card-desc">${item.mp_addons_desc}</p>
-        <div class="card-keyword"><i class="fas fa-key"></i><span>调用关键词: "${item.mp_addons_keyword}"</span></div>
+        <p class="card-desc">${item.xwteam_api_desc}</p>
       </div>
     </div>
   `).join('');
@@ -161,10 +159,8 @@ function filterData() {
     return;
   }
   const filtered = allAddons.filter(item =>
-    item.mp_addons_title.toLowerCase().includes(searchTerm) ||
-    item.mp_addons_desc.toLowerCase().includes(searchTerm) ||
-    item.mp_addons_keyword.toLowerCase().includes(searchTerm) ||
-    item.mp_addons_type.toLowerCase().includes(searchTerm)
+    item.xwteam_api_title.toLowerCase().includes(searchTerm) ||
+    item.xwteam_api_desc.toLowerCase().includes(searchTerm)
   );
   if (filtered.length) {
     renderData(filtered);
