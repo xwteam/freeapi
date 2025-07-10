@@ -189,7 +189,7 @@ h1 {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
 }
 
-/* 卡片头部（包含ID、标题、类型） */
+/* 卡片头部（包含ID、标题） */
 .card-header {
   background: var(--card-header-bg); /* 头部背景随主题变化（亮色浅红/暗色深红） */
   padding: 20px;
@@ -198,60 +198,28 @@ h1 {
 /* 卡片ID */
 .card-id {
   font-size: 0.9rem;
-  color: var(--gray); /* ID颜色随主题变化（亮色灰/暗色浅灰） */
+  color: var(--gray);
   margin-bottom: 5px;
 }
 
 /* 卡片标题 */
 .card-title {
-  font-size: 1.3rem;
-  margin: 5px 0;
-  font-weight: 700;
+  font-size: 1.4rem;
+  margin: 0;
   color: var(--primary); /* 标题颜色随主题变化（亮色红/暗色提亮红） */
+  font-weight: 600;
 }
 
-/* 卡片类型标签（比如"图文"、"文本"） */
-.card-type {
-  display: inline-block;
-  background: var(--deploy-info-bg); /* 背景随主题变化（与部署信息栏一致） */
-  color: var(--primary); /* 文字颜色随主题变化 */
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  margin-top: 10px;
-}
-
-/* 卡片主体（包含描述、关键词） */
+/* 卡片正文 */
 .card-body {
   padding: 20px;
-  flex-grow: 1;
-  background: var(--card-bg); /* 主体背景与卡片一致 */
 }
 
 /* 卡片描述 */
 .card-desc {
-  color: var(--gray); /* 描述颜色随主题变化（亮色灰/暗色浅灰） */
-  margin-bottom: 20px;
-  line-height: 1.7;
-}
-
-/* 调用关键词容器（比如"调用关键词：'新关注自动触发'"） */
-.card-keyword {
-  background: var(--tip-box-bg); /* 背景随主题变化（亮色浅灰/暗色深灰） */
-  padding: 12px 15px;
-  border-radius: 10px;
-  font-family: monospace;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  border-left: 3px solid var(--primary); /* 左侧主题红边框 */
-  color: var(--text-color); /* 文字颜色随主题变化 */
-}
-
-/* 关键词图标 */
-.card-keyword i {
-  margin-right: 10px;
-  color: var(--primary); /* 图标颜色随主题变化 */
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-color); /* 描述颜色随主题变化（亮色黑/暗色白） */
 }
 
 /* 加载动画（通用） */
@@ -554,4 +522,60 @@ footer {
     font-size: 1.1rem; /* 增大字体（比桌面端大，更易阅读） */
     padding: 10px 0; /* 增加上下内边距（增大点击区域） */
   }
+}
+
+/* 错误信息样式 */
+.doc-error {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.doc-error h2 {
+  color: #e74c3c;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.doc-error i {
+  margin-right: 8px;
+}
+
+.doc-error p {
+  color: #555;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.doc-back {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.doc-back:hover {
+  background-color: #2980b9;
+  text-decoration: none;
+  color: #fff;
+}
+
+.json-error {
+  padding: 15px;
+  background-color: #fff3f3;
+  border-left: 4px solid #e74c3c;
+  color: #c0392b;
+  font-family: monospace;
+  font-size: 14px;
+  margin: 10px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
