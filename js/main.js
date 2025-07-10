@@ -133,7 +133,7 @@ function renderData(data) {
   statsElem.textContent = `${globalConfig.webname} 共有 ${data.length} 个接口`;
   statsElem.style.color = 'var(--primary)';
   cardContainer.innerHTML = data.map(item => `
-    <div class="card">
+    <div class="card" onclick="goToApiDoc('${item.mp_addons_id}')">
       <div class="card-header">
         <div class="card-id">ID: ${item.mp_addons_id}</div>
         <h2 class="card-title">${item.mp_addons_title}</h2>
@@ -145,6 +145,11 @@ function renderData(data) {
       </div>
     </div>
   `).join('');
+}
+
+// 添加跳转到API文档页面的函数
+function goToApiDoc(id) {
+  window.location.href = `doc.html?id=${id}`;
 }
 
 function filterData() {
