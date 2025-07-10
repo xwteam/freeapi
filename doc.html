@@ -288,97 +288,99 @@ async function loadDocData() {
     }
     
     // 加载对应的JSON数据
-    const response = await fetch(`data/${docId}.json`);
-    if (!response.ok) {
-      throw new Error(`接口数据加载失败: ${response.status}`);
+    try {
+      const response = await fetch(`data/${docId}.json`);
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error(`找不到接口 #${docId}，该接口可能不存在或已被移除`);
+        } else {
+          throw new Error(`接口数据加载失败: ${response.status}`);
+        }
+      }
+      
+      const data = await response.json();
+      document.title = `${data.title || '接口文档'} - 福利云 API`;
+      
+      // 渲染接口文档
+      docContainer.innerHTML = `
+        <div class="doc-header">
+          <div class="doc-icon">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <div>
+            <h1 class="doc-title">${data.title || '接口文档'}</h1>
+          </div>
+        </div>
+        
+        <div class="doc-section">
+          <h2 class="doc-section-title">接口详情</h2>
+          <p>${data.description || '暂无详细描述'}</p>
+        </div>
+        
+        <div class="doc-section">
+          <h2 class="doc-section-title">接口地址</h2>
+          <div class="doc-code">
+            <div class="doc-code-header">
+              <span>URL</span>
+              <button class="doc-code-copy" onclick="copyToClipboard('${data.url || ''}')">
+                <i class="fas fa-copy"></i> 复制
+              </button>
+            </div>
+            <pre>${data.url || '暂无接口地址'}</pre>
+          </div>
+        </div>
+        
+        <div class="doc-section">
+          <h2 class="doc-section-title">请求方式</h2>
+          <p>${data.method || 'GET/POST'}</p>
+        </div>
+        
+        <div class="doc-section">
+          <h2 class="doc-section-title">返回格式</h2>
+          <p>${data.returnFormat || 'application/json'}</p>
+        </div>
+        
+        ${renderParamsTable(data.params)}
+        
+        <div class="doc-section">
+          <h2 class="doc-section-title">返回示例</h2>
+          <div class="doc-code">
+            <div class="doc-code-header">
+              <span>实时结果</span>
+              <button class="doc-code-copy" onclick="copyToClipboard(document.getElementById('apiResult').textContent)">
+                <i class="fas fa-copy"></i> 复制
+              </button>
+            </div>
+            <div id="apiResultLoading" style="text-align: center; padding: 20px;">
+              <div class="loader-spinner"></div>
+              <p>正在请求API数据...</p>
+            </div>
+            <div id="apiResult" class="json-tree" style="display: none;"></div>
+          </div>
+        </div>
+        
+        ${renderReturnParamsTable(data.returnParams)}
+      `;
+      
+      // 立即请求API获取实时结果
+      refreshApiResult(data.url);
+      
+    } catch (error) {
+      console.error('文档加载失败:', error);
+      docContainer.innerHTML = `
+        <div class="doc-error">
+          <h2><i class="fas fa-exclamation-triangle"></i> 加载失败</h2>
+          <p>${error.message || '无法加载接口文档'}</p>
+          <a href="/" class="doc-back">返回接口列表</a>
+        </div>
+      `;
     }
-    
-    const data = await response.json();
-    document.title = `${data.title || '接口文档'} - 福利云 API`;
-    
-    // 渲染接口文档
-    docContainer.innerHTML = `
-      <div class="doc-header">
-        <div class="doc-icon">
-          <i class="fas fa-cloud"></i>
-        </div>
-        <div>
-          <h1 class="doc-title">${data.title || '接口文档'}</h1>
-        </div>
-      </div>
-      
-      <div class="doc-section">
-        <h2 class="doc-section-title">接口详情</h2>
-        <p>${data.description || '暂无详细描述'}</p>
-      </div>
-      
-      <div class="doc-section">
-        <h2 class="doc-section-title">接口地址</h2>
-        <div class="doc-code">
-          <div class="doc-code-header">
-            <span>URL</span>
-            <button class="doc-code-copy" onclick="copyToClipboard('${data.url || ''}')">
-              <i class="fas fa-copy"></i> 复制
-            </button>
-          </div>
-          <pre>${data.url || '暂无接口地址'}</pre>
-        </div>
-      </div>
-      
-      <div class="doc-section">
-        <h2 class="doc-section-title">请求方式</h2>
-        <p>${data.method || 'GET/POST'}</p>
-      </div>
-      
-      <div class="doc-section">
-        <h2 class="doc-section-title">返回格式</h2>
-        <p>${data.returnFormat || 'application/json'}</p>
-      </div>
-      
-      ${renderParamsTable(data.params)}
-      
-      <div class="doc-section">
-        <h2 class="doc-section-title">调用示例</h2>
-        <div class="doc-code">
-          <div class="doc-code-header">
-            <span>示例请求</span>
-            <button class="doc-code-copy" onclick="copyToClipboard('${data.example || ''}')">
-              <i class="fas fa-copy"></i> 复制
-            </button>
-          </div>
-          <pre>${data.example || '暂无示例'}</pre>
-        </div>
-      </div>
-      
-      <div class="doc-section">
-        <h2 class="doc-section-title">返回示例</h2>
-        <div class="doc-code">
-          <div class="doc-code-header">
-            <span>实时结果</span>
-            <button class="doc-code-copy" onclick="copyToClipboard(document.getElementById('apiResult').textContent)">
-              <i class="fas fa-copy"></i> 复制
-            </button>
-          </div>
-          <div id="apiResultLoading" style="text-align: center; padding: 20px;">
-            <div class="loader-spinner"></div>
-            <p>正在请求API数据...</p>
-          </div>
-          <div id="apiResult" class="json-tree" style="display: none;"></div>
-        </div>
-      </div>
-      
-      ${renderReturnParamsTable(data.returnParams)}
-    `;
-    
-    // 立即请求API获取实时结果
-    refreshApiResult(data.url);
-
   } catch (error) {
-    console.error('文档加载失败:', error);
+    console.error('参数解析失败:', error);
     docContainer.innerHTML = `
       <div class="doc-error">
-        <h2><i class="fas fa-exclamation-triangle"></i> 加载失败</h2>
-        <p>${error.message || '无法加载接口文档'}</p>
+        <h2><i class="fas fa-exclamation-triangle"></i> 请求错误</h2>
+        <p>${error.message || '无效的请求参数'}</p>
         <a href="/" class="doc-back">返回接口列表</a>
       </div>
     `;
