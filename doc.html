@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="pageTitle">接口文档 - 福利云 API</title>
+  <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* 文档页面特定样式 */
+    .doc-container {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-top: 20px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .doc-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .doc-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    
+    .doc-title {
+      margin: 0;
+      color: var(--primary);
+    }
+    
+    .doc-type {
+      background-color: var(--deploy-info-bg);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-top: 5px;
+    }
+    
+    .doc-calls {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    
+    .doc-section {
+      margin-bottom: 30px;
+    }
+    
+    .doc-section-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--text-color);
+      border-left: 4px solid var(--primary);
+      padding-left: 10px;
+    }
+    
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    
+    .doc-table th, .doc-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .doc-table th {
+      background-color: var(--tip-box-bg);
+      font-weight: 600;
+    }
+    
+    .doc-code {
+      background-color: var(--tip-box-bg);
+      border-radius: var(--radius);
+      padding: 15px;
+      margin: 15px 0;
+      overflow-x: auto;
+      font-family: monospace;
+      position: relative;
+    }
+    
+    .doc-code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .doc-code-copy {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .doc-code pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .doc-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    
+    .doc-back:hover {
+      text-decoration: underline;
+    }
+    
+    .doc-loading {
+      text-align: center;
+      padding: 50px 0;
+      color: var(--gray);
+    }
+    
+    .doc-error {
+      background-color: rgba(229, 62, 62, 0.1);
+      border-left: 4px solid var(--error);
+      padding: 15px;
+      margin: 20px 0;
+      color: var(--error);
+    }
+  </style>
+</head>
+<body>
+
+<div data-include="nav.html"></div>
+
+<!-- 页面主体内容 -->
+<div class="container">
+  <a href="/" class="doc-back">
+    <i class="fas fa-arrow-left"></i> 返回接口列表
+  </a>
+  
+  <div class="doc-container" id="docContainer">
+    <div class="doc-loading" id="docLoading">
+      <div class="loader-spinner"></div>
+      <p>正在加载接口数据...</p>
+    </div>
+  </div>
+  
+  <div data-include="footer.html"></div>
+</div>
+
+<!-- 浮动按钮 -->
+<div class="floating-buttons">
+  <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
+    <i class="fas fa-moon"></i>
+  </button>
+  <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+</div>
+
+<!-- 脚本 -->
+<script src="js/main.js" defer></script>
+<script src="js/toproll.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadIncludes();
+  initializeTopNav();
+  loadDocData();
+});
+
+async function loadDocData() {
+  const docContainer = document.getElementById('docContainer');
+  const docLoading = document.getElementById('docLoading');
+  
+  try {
+    // 从URL参数中获取ID
+    const urlParams = new URLSearchParams(window.location.search);
+    let docId = urlParams.get('id');
+    
+    // 如果没有URL参数，尝试从路径中获取
+    if (!docId) {
+      const pathParts = window.location.pathname.split('/');
+      
+      // 如果路径是 /doc/1 格式，提取ID
+      if (pathParts.includes('doc')) {
+        docId = pathParts[pathParts.indexOf('doc') + 1];
+      } else {
+        // 否则尝试获取最后一个路径部分
+        docId = pathParts[pathParts.length - 1];
+        // 如果最后一个部分是doc.html，则无效
+        if (docId === 'doc.html') {
+          docId = null;
+        }
+      }
+    }
+    
+    // 如果没有ID或不是数字，显示错误
+    if (!docId || isNaN(parseInt(docId))) {
+      throw new Error('无效的接口ID');
+    }
+    
+    // 加载对应的JSON数据
+    const response = await fetch(`data/${docId}.json`);
+    if (!response.ok) {
+      throw new Error(`接口数据加载失败: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    document.title = `${data.title || '接口文档'} - 福利云 API`;
+    
+    // 渲染接口文档
+    docContainer.innerHTML = `
+      <div class="doc-header">
+        <div class="doc-icon">
+          <i class="fas fa-cloud"></i>
+        </div>
+        <div>
+          <h1 class="doc-title">${data.title || '接口文档'}</h1>
+          <div class="doc-type">${data.type || '未知类型'}</div>
+          <div class="doc-calls">调用次数: ${data.calls || 0} 次</div>
+        </div>
+      </div>
+      
+      <div class="doc-section">
+        <h2 class="doc-section-title">接口详情</h2>
+        <p>${data.description || '暂无详细描述'}</p>
+      </div>
+      
+      <div class="doc-section">
+        <h2 class="doc-section-title">接口地址</h2>
+        <div class="doc-code">
+          <div class="doc-code-header">
+            <span>URL</span>
+            <button class="doc-code-copy" onclick="copyToClipboard('${data.url || ''}')">
+              <i class="fas fa-copy"></i> 复制
+            </button>
+          </div>
+          <pre>${data.url || '暂无接口地址'}</pre>
+        </div>
+      </div>
+      
+      <div class="doc-section">
+        <h2 class="doc-section-title">请求方式</h2>
+        <p>${data.method || 'GET/POST'}</p>
+      </div>
+      
+      <div class="doc-section">
+        <h2 class="doc-section-title">返回格式</h2>
+        <p>${data.returnFormat || 'application/json'}</p>
+      </div>
+      
+      ${renderParamsTable(data.params)}
+      
+      <div class="doc-section">
+        <h2 class="doc-section-title">调用示例</h2>
+        <div class="doc-code">
+          <div class="doc-code-header">
+            <span>示例请求</span>
+            <button class="doc-code-copy" onclick="copyToClipboard('${data.example?.request || ''}')">
+              <i class="fas fa-copy"></i> 复制
+            </button>
+          </div>
+          <pre>${data.example?.request || '暂无示例'}</pre>
+        </div>
+      </div>
+      
+      <div class="doc-section">
+        <h2 class="doc-section-title">返回示例</h2>
+        <div class="doc-code">
+          <div class="doc-code-header">
+            <span>JSON</span>
+            <button class="doc-code-copy" onclick="copyToClipboard('${JSON.stringify(data.example?.response || {}, null, 2)}')">
+              <i class="fas fa-copy"></i> 复制
+            </button>
+          </div>
+          <pre>${formatJSON(data.example?.response || {})}</pre>
+        </div>
+      </div>
+      
+      ${renderReturnParamsTable(data.returnParams)}
+    `;
+    
+  } catch (error) {
+    console.error('文档加载失败:', error);
+    docContainer.innerHTML = `
+      <div class="doc-error">
+        <h2><i class="fas fa-exclamation-triangle"></i> 加载失败</h2>
+        <p>${error.message || '无法加载接口文档'}</p>
+        <a href="/" class="doc-back">返回接口列表</a>
+      </div>
+    `;
+  } finally {
+    docLoading.style.display = 'none';
+  }
+}
+
+// 渲染请求参数表格
+function renderParamsTable(params) {
+  if (!params || params.length === 0) {
+    return `
+      <div class="doc-section">
+        <h2 class="doc-section-title">请求参数</h2>
+        <p>无需请求参数</p>
+      </div>
+    `;
+  }
+  
+  return `
+    <div class="doc-section">
+      <h2 class="doc-section-title">请求参数</h2>
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>必填</th>
+            <th>类型</th>
+            <th>示例值</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${params.map(param => `
+            <tr>
+              <td>${param.name || ''}</td>
+              <td>${param.required ? '是' : '否'}</td>
+              <td>${param.type || ''}</td>
+              <td>${param.example || ''}</td>
+              <td>${param.description || ''}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// 渲染返回参数表格
+function renderReturnParamsTable(params) {
+  if (!params || params.length === 0) {
+    return `
+      <div class="doc-section">
+        <h2 class="doc-section-title">返回参数说明</h2>
+        <p>无返回参数说明</p>
+      </div>
+    `;
+  }
+  
+  return `
+    <div class="doc-section">
+      <h2 class="doc-section-title">返回参数说明</h2>
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>类型</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${params.map(param => `
+            <tr>
+              <td>${param.name || ''}</td>
+              <td>${param.type || ''}</td>
+              <td>${param.description || ''}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// 格式化JSON显示
+function formatJSON(json) {
+  try {
+    return JSON.stringify(json, null, 2)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  } catch (e) {
+    return '无效的JSON数据';
+  }
+}
+
+// 复制到剪贴板
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('已复制到剪贴板');
+  }).catch(err => {
+    console.error('复制失败:', err);
+  });
+}
+</script>
+</body>
+</html> 
