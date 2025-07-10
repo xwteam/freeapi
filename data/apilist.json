@@ -1,8 +1,8 @@
 {
 	"data": [{
 			"xwteam_api_id": "1",
-			"xwteam_api_title": "关注自动回复（自用）",
-			"xwteam_api_desc": "这是一个关注自动回复图文的插件，为自用插件，仅限指定账号返回这个图文内容"
+			"xwteam_api_title": "UUID生成",
+			"xwteam_api_desc": "UUID 是 通用唯一识别符（Universally Unique Identifier）的缩写，是一种软件建构的标准，为了确保在分布式系统中的所有元素，都有唯一的辨识信息。"
 		},
 		{
 			"xwteam_api_id": "2",
