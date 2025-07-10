@@ -188,10 +188,10 @@
 <script src="js/main.js" defer></script>
 <script src="js/toproll.js" defer></script>
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async function() {
   await loadIncludes();
   initializeTopNav();    // 确保调用了initializeTopNav函数
-  loadDocData();
+  loadDocData();         // 确保调用loadDocData函数
   
   // 添加主题切换功能
   const themeToggleBtn = document.getElementById('theme-toggle');
@@ -256,6 +256,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
+// 检查文件是否存在
+async function fileExists(url) {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    console.error('检查文件存在性失败:', error);
+    return false;
+  }
+}
+
 async function loadDocData() {
   const docContainer = document.getElementById('docContainer');
   const docLoading = document.getElementById('docLoading');
@@ -287,9 +298,24 @@ async function loadDocData() {
       throw new Error('无效的接口ID');
     }
     
+    // 先检查文件是否存在
+    const jsonUrl = `data/${docId}.json`;
+    const exists = await fileExists(jsonUrl);
+    
+    if (!exists) {
+      throw new Error(`找不到接口 #${docId}，该接口可能不存在或已被移除`);
+    }
+    
     // 加载对应的JSON数据
     try {
-      const response = await fetch(`data/${docId}.json`);
+      const response = await fetch(jsonUrl);
+      
+      // 检查响应类型是否为JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`找不到接口 #${docId}，该接口可能不存在或已被移除`);
+      }
+      
       if (!response.ok) {
         if (response.status === 404) {
           throw new Error(`找不到接口 #${docId}，该接口可能不存在或已被移除`);
@@ -298,7 +324,14 @@ async function loadDocData() {
         }
       }
       
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('JSON解析错误:', jsonError);
+        throw new Error(`找不到接口 #${docId}，该接口可能不存在或已被移除`);
+      }
+      
       document.title = `${data.title || '接口文档'} - 福利云 API`;
       
       // 渲染接口文档
@@ -487,29 +520,48 @@ function copyToClipboard(text) {
 }
 
 // 刷新API结果
-async function refreshApiResult(url) {
-  if (!url) {
+async function refreshApiResult(apiUrl) {
+  if (!apiUrl) {
     document.getElementById('apiResultLoading').style.display = 'none';
     document.getElementById('apiResult').style.display = 'block';
-    document.getElementById('apiResult').innerHTML = '<pre>无效的API地址</pre>';
+    document.getElementById('apiResult').innerHTML = '<div class="json-error">无效的API地址</div>';
     return;
   }
   
+  // 显示加载中提示
   document.getElementById('apiResultLoading').style.display = 'block';
   document.getElementById('apiResult').style.display = 'none';
   
   try {
-    const response = await fetch(url);
-    const result = await response.json();
-    document.getElementById('apiResultLoading').style.display = 'none';
-    document.getElementById('apiResult').style.display = 'block';
+    const response = await fetch(apiUrl);
     
-    // 渲染可折叠的JSON树
-    renderJsonTree(document.getElementById('apiResult'), result);
+    if (!response.ok) {
+      throw new Error(`API请求失败: ${response.status}`);
+    }
+    
+    let data;
+    try {
+      data = await response.json();
+    } catch (jsonError) {
+      console.error('API结果JSON解析错误:', jsonError);
+      throw new Error('API返回的数据格式无效');
+    }
+    
+    // 隐藏加载中提示
+    document.getElementById('apiResultLoading').style.display = 'none';
+    
+    // 显示JSON树
+    const apiResultElement = document.getElementById('apiResult');
+    apiResultElement.style.display = 'block';
+    
+    // 渲染JSON树
+    renderJsonTree(apiResultElement, data);
+    
   } catch (error) {
+    console.error('获取API结果失败:', error);
     document.getElementById('apiResultLoading').style.display = 'none';
     document.getElementById('apiResult').style.display = 'block';
-    document.getElementById('apiResult').innerHTML = `<pre>接口状态获取失败，请尝试直接访问调用。</pre>`;
+    document.getElementById('apiResult').innerHTML = `<div class="json-error">${error.message || 'API请求失败'}</div>`;
   }
 }
 
