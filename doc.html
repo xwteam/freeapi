@@ -190,8 +190,70 @@
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   await loadIncludes();
-  initializeTopNav();
+  initializeTopNav();    // 确保调用了initializeTopNav函数
   loadDocData();
+  
+  // 添加主题切换功能
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const htmlElement = document.documentElement;
+  const scrollToTopBtn = document.getElementById('scroll-to-top');
+  
+  // 应用主题
+  const applyTheme = (theme) => {
+    htmlElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    const themeIcon = themeToggleBtn?.querySelector('i');
+    if (themeIcon) {
+      themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    themeToggleBtn?.setAttribute('aria-label', theme === 'dark' ? '切换到亮色主题' : '切换到暗色主题');
+  };
+
+  // 初始化主题
+  const initTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    applyTheme(currentTheme);
+  };
+
+  // 点击主题按钮切换
+  themeToggleBtn?.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    themeToggleBtn.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+      themeToggleBtn.style.transform = '';
+    }, 300);
+  });
+
+  // 初始化主题
+  initTheme();
+  
+  // 返回顶部按钮
+  window.addEventListener('scroll', () => {
+    if (!scrollToTopBtn) return;
+    if (window.pageYOffset > 200) {
+      scrollToTopBtn.style.display = 'flex';
+      scrollToTopBtn.style.opacity = '1';
+    } else {
+      scrollToTopBtn.style.opacity = '0';
+      setTimeout(() => {
+        if (window.pageYOffset <= 200) {
+          scrollToTopBtn.style.display = 'none';
+        }
+      }, 300);
+    }
+  });
+
+  scrollToTopBtn?.addEventListener('click', () => {
+    scrollToTopBtn.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+      scrollToTopBtn.style.transform = '';
+    }, 300);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
 
 async function loadDocData() {
