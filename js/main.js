@@ -49,12 +49,19 @@ async function loadTitleConfig() {
     document.getElementById('titleText').textContent = config.webname;
     globalConfig = config;
     const notice = config.notice?.trim();
-    startDeployTypewriterEffect(notice || "部署方式：Gitee公开仓库 → EdgeOne Pages → 全球加速访问");
+    startDeployTypewriterEffect(notice || "为众多开发者免费提供专业的 API 服务，让您无忧探索广阔的数字世界。");
   } catch (err) {
     console.warn('未能加载 web_config.json，使用默认标题。', err);
-    document.getElementById('titleText').textContent = "福利云";
-    document.title = "福利云API";
-    startDeployTypewriterEffect("部署方式：Gitee公开仓库 → EdgeOne Pages → 全球加速访问");
+    // 使用默认值
+    globalConfig = {
+      title: "福利云API",
+      subhead: "不止是免费的API，更是一个免费的公益福利云",
+      webname: "福利云",
+      notice: "为众多开发者免费提供专业的 API 服务，让您无忧探索广阔的数字世界。"
+    };
+    document.getElementById('titleText').textContent = globalConfig.webname;
+    document.title = `${globalConfig.title} - ${globalConfig.subhead}`;
+    startDeployTypewriterEffect(globalConfig.notice);
   }
 }
 
