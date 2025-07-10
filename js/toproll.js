@@ -83,30 +83,26 @@ function initializeTopNav() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // 顶部导航栏滚动控制
-  let lastScrollY = window.scrollY;
-  const threshold = 200;
-
+  // 顶部导航栏滚动控制 - 修改后的逻辑
   const handleScroll = () => {
     const currentY = window.scrollY;
-    if (currentY > threshold) {
-      if (currentY < lastScrollY) {
-        topNav?.classList.add('show');
-        container?.classList.add('nav-visible');
-      } else {
-        topNav?.classList.remove('show');
-        container?.classList.remove('nav-visible');
-      }
-    } else {
+    
+    // 当页面在顶部时，隐藏导航栏
+    if (currentY <= 10) {
       topNav?.classList.remove('show');
       container?.classList.remove('nav-visible');
+    } 
+    // 当页面向下滚动超过阈值时，显示导航栏
+    else if (currentY > 10) {
+      topNav?.classList.add('show');
+      container?.classList.add('nav-visible');
     }
-    lastScrollY = currentY;
   };
 
   window.addEventListener('scroll', handleScroll);
+  
+  // 页面加载时检查滚动位置
   window.addEventListener('load', () => {
-    lastScrollY = window.scrollY;
     handleScroll();
   });
 
