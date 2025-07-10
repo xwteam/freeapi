@@ -2,6 +2,29 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------
+  // 新增：动态加载 data-include 模块（如 nav.html / loading.html）
+  // ------------------------------
+  const loadIncludes = () => {
+    const includeElements = document.querySelectorAll('[data-include]');
+    includeElements.forEach(el => {
+      const file = el.getAttribute('data-include');
+      if (file) {
+        fetch(file)
+          .then(res => res.text())
+          .then(data => {
+            el.innerHTML = data;
+            // 加载完后递归处理嵌套的 data-include
+            loadIncludes();
+          })
+          .catch(err => {
+            console.error(`模块加载失败: ${file}`, err);
+          });
+      }
+    });
+  };
+  loadIncludes();
+
+  // ------------------------------
   // 主题切换与浮动按钮功能（保留原有逻辑）
   // ------------------------------
   const themeToggleBtn = document.getElementById('theme-toggle');
@@ -11,9 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
-    const themeIcon = themeToggleBtn.querySelector('i');
-    themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? '切换到亮色主题' : '切换到暗色主题');
+    const themeIcon = themeToggleBtn?.querySelector('i');
+    if (themeIcon) themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    
+    themeToggleBtn?.setAttribute('aria-label', theme === 'dark' ? '切换到亮色主题' : '切换到暗色主题');
     
     const favicons = document.querySelectorAll('link[rel~="icon"]');
     if (theme === 'dark' && !favicons[0].href.includes('FreeAPI-dark.png')) {
@@ -42,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTheme(currentTheme);
   };
   
-  themeToggleBtn.addEventListener('click', () => {
+  themeToggleBtn?.addEventListener('click', () => {
     const currentTheme = htmlElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     applyTheme(newTheme);
@@ -55,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   initTheme();
   
-  // 返回顶部功能（保留原有逻辑）
+  // ------------------------------
+  // 返回顶部功能
+  // ------------------------------
   const scrollToTopBtn = document.getElementById('scroll-to-top');
   
   window.addEventListener('scroll', () => {
@@ -72,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  scrollToTopBtn.addEventListener('click', () => {
+  scrollToTopBtn?.addEventListener('click', () => {
     scrollToTopBtn.style.transform = 'scale(0.8)';
     setTimeout(() => {
       scrollToTopBtn.style.transform = '';
@@ -100,17 +126,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.addEventListener('keydown', (e) => {
     if (e.key === 't' && e.altKey) {
-      themeToggleBtn.click();
+      themeToggleBtn?.click();
       e.preventDefault();
     }
     if (e.key === 'ArrowUp' && e.altKey) {
-      scrollToTopBtn.click();
+      scrollToTopBtn?.click();
       e.preventDefault();
     }
   });
 
   // ------------------------------
-  // 顶部导航栏交互逻辑（修改重点）
+  // 顶部导航栏交互逻辑
   // ------------------------------
   const topNav = document.querySelector('.top-nav');
   const container = document.querySelector('.container');
@@ -118,54 +144,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelector('.nav-links'); // 导航链接
   
   let lastScrollY = 0;
-  const scrollThreshold = 200; // 滚动超过200px才开始判断方向（避免顶部小滚动频繁切换）
+  const scrollThreshold = 200;
 
-  // 1. 滚动监听：根据方向显示/隐藏导航栏
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
     
-    // 当滚动超过阈值时，根据方向判断
     if (currentScrollY > scrollThreshold) {
-      // 向下滚动：隐藏导航栏
       if (currentScrollY > lastScrollY) {
-        topNav.classList.remove('show');
-        container.classList.remove('nav-visible');
+        topNav?.classList.remove('show');
+        container?.classList.remove('nav-visible');
       } else {
-        // 向上滚动：显示导航栏
-        topNav.classList.add('show');
-        container.classList.add('nav-visible');
+        topNav?.classList.add('show');
+        container?.classList.add('nav-visible');
       }
     } else {
-      // 滚动未超过阈值（顶部区域）：隐藏导航栏
-      topNav.classList.remove('show');
-      container.classList.remove('nav-visible');
+      topNav?.classList.remove('show');
+      container?.classList.remove('nav-visible');
     }
     
     lastScrollY = currentScrollY;
   };
 
-  // 2. 汉堡菜单交互（手机端）
   const handleHamburgerClick = () => {
     if (!navLinks) return;
-    navLinks.classList.toggle('active'); // 切换导航链接显示状态
-    
-    // 切换汉堡图标（fa-bars → fa-times）
+    navLinks.classList.toggle('active');
     const icon = hamburger.querySelector('i');
     icon.classList.toggle('fa-bars');
     icon.classList.toggle('fa-times');
   };
 
-  // 3. 点击导航链接：关闭菜单（提升用户体验）
   const handleNavLinkClick = () => {
     if (!navLinks || !hamburger) return;
-    navLinks.classList.remove('active'); // 关闭菜单
-    hamburger.querySelector('i').classList.replace('fa-times', 'fa-bars'); // 恢复汉堡图标
+    navLinks.classList.remove('active');
+    hamburger.querySelector('i').classList.replace('fa-times', 'fa-bars');
   };
 
-  // 绑定事件
   if (topNav && container) {
     window.addEventListener('scroll', handleScroll);
-    // 页面加载时初始化导航栏状态（避免刷新时滚动位置保留导致异常）
     window.addEventListener('load', () => {
       lastScrollY = window.scrollY;
       handleScroll();
@@ -174,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (hamburger && navLinks) {
     hamburger.addEventListener('click', handleHamburgerClick);
-    // 给所有导航链接绑定点击事件
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', handleNavLinkClick);
     });
