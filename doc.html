@@ -356,18 +356,28 @@ async function loadDocData() {
         <h2 class="doc-section-title">返回示例</h2>
         <div class="doc-code">
           <div class="doc-code-header">
-            <span>JSON</span>
-            <button class="doc-code-copy" onclick="copyToClipboard('${JSON.stringify(data.example?.response || {}, null, 2)}')">
+            <span>实时结果</span>
+            <button class="doc-code-refresh" onclick="refreshApiResult('${data.url || ''}')">
+              <i class="fas fa-sync-alt"></i> 刷新
+            </button>
+            <button class="doc-code-copy" onclick="copyToClipboard(document.getElementById('apiResult').textContent)">
               <i class="fas fa-copy"></i> 复制
             </button>
           </div>
-          <pre>${formatJSON(data.example?.response || {})}</pre>
+          <div id="apiResultLoading" style="text-align: center; padding: 20px;">
+            <div class="loader-spinner"></div>
+            <p>正在请求API数据...</p>
+          </div>
+          <pre id="apiResult" style="display: none;"></pre>
         </div>
       </div>
       
       ${renderReturnParamsTable(data.returnParams)}
     `;
     
+    // 立即请求API获取实时结果
+    refreshApiResult(data.url);
+
   } catch (error) {
     console.error('文档加载失败:', error);
     docContainer.innerHTML = `
@@ -477,6 +487,31 @@ function copyToClipboard(text) {
   }).catch(err => {
     console.error('复制失败:', err);
   });
+}
+
+// 刷新API结果
+async function refreshApiResult(url) {
+  if (!url) {
+    document.getElementById('apiResultLoading').style.display = 'none';
+    document.getElementById('apiResult').style.display = 'block';
+    document.getElementById('apiResult').textContent = '无效的API地址';
+    return;
+  }
+  
+  document.getElementById('apiResultLoading').style.display = 'block';
+  document.getElementById('apiResult').style.display = 'none';
+  
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    document.getElementById('apiResultLoading').style.display = 'none';
+    document.getElementById('apiResult').style.display = 'block';
+    document.getElementById('apiResult').textContent = JSON.stringify(result, null, 2);
+  } catch (error) {
+    document.getElementById('apiResultLoading').style.display = 'none';
+    document.getElementById('apiResult').style.display = 'block';
+    document.getElementById('apiResult').textContent = `请求失败: ${error.message}\n\n可能原因:\n1. API地址不可访问\n2. 跨域限制\n3. API返回的不是有效JSON\n\n静态示例:\n${JSON.stringify(data.example?.response || {}, null, 2)}`;
+  }
 }
 </script>
 </body>
