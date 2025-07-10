@@ -342,11 +342,11 @@ async function loadDocData() {
         <div class="doc-code">
           <div class="doc-code-header">
             <span>示例请求</span>
-            <button class="doc-code-copy" onclick="copyToClipboard('${data.example?.request || ''}')">
+            <button class="doc-code-copy" onclick="copyToClipboard('${data.example || ''}')">
               <i class="fas fa-copy"></i> 复制
             </button>
           </div>
-          <pre>${data.example?.request || '暂无示例'}</pre>
+          <pre>${data.example || '暂无示例'}</pre>
         </div>
       </div>
       
