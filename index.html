@@ -11,10 +11,103 @@
 </head>
 <body>
 
-  <div data-include="loading.html"></div>
- <div data-include="nav.html"></div>
- 
-  <div class="container">
+  <!-- loading 动画直接写入页面，不使用异步 data-include -->
+  <div class="global-loader" id="globalLoader">
+    <div class="loading-container">
+    <div class="loader" style="--r: 1">
+      <span style="--i: 1"></span>
+      <span style="--i: 2"></span>
+      <span style="--i: 3"></span>
+      <span style="--i: 4"></span>
+      <span style="--i: 5"></span>
+      <span style="--i: 6"></span>
+      <span style="--i: 7"></span>
+      <span style="--i: 8"></span>
+      <span style="--i: 9"></span>
+      <span style="--i: 10"></span>
+      <span style="--i: 11"></span>
+      <span style="--i: 12"></span>
+      <span style="--i: 13"></span>
+      <span style="--i: 14"></span>
+      <span style="--i: 15"></span>
+      <span style="--i: 16"></span>
+      <span style="--i: 17"></span>
+      <span style="--i: 18"></span>
+      <span style="--i: 19"></span>
+      <span style="--i: 20"></span>
+    </div>
+    <div class="loader" style="--r: 2">
+      <span style="--i: 1"></span>
+      <span style="--i: 2"></span>
+      <span style="--i: 3"></span>
+      <span style="--i: 4"></span>
+      <span style="--i: 5"></span>
+      <span style="--i: 6"></span>
+      <span style="--i: 7"></span>
+      <span style="--i: 8"></span>
+      <span style="--i: 9"></span>
+      <span style="--i: 10"></span>
+      <span style="--i: 11"></span>
+      <span style="--i: 12"></span>
+      <span style="--i: 13"></span>
+      <span style="--i: 14"></span>
+      <span style="--i: 15"></span>
+      <span style="--i: 16"></span>
+      <span style="--i: 17"></span>
+      <span style="--i: 18"></span>
+      <span style="--i: 19"></span>
+      <span style="--i: 20"></span>
+    </div>
+    <div class="loader" style="--r: 3">
+      <span style="--i: 1"></span>
+      <span style="--i: 2"></span>
+      <span style="--i: 3"></span>
+      <span style="--i: 4"></span>
+      <span style="--i: 5"></span>
+      <span style="--i: 6"></span>
+      <span style="--i: 7"></span>
+      <span style="--i: 8"></span>
+      <span style="--i: 9"></span>
+      <span style="--i: 10"></span>
+      <span style="--i: 11"></span>
+      <span style="--i: 12"></span>
+      <span style="--i: 13"></span>
+      <span style="--i: 14"></span>
+      <span style="--i: 15"></span>
+      <span style="--i: 16"></span>
+      <span style="--i: 17"></span>
+      <span style="--i: 18"></span>
+      <span style="--i: 19"></span>
+      <span style="--i: 20"></span>
+    </div>
+    <div class="loader" style="--r: 4">
+      <span style="--i: 1"></span>
+      <span style="--i: 2"></span>
+      <span style="--i: 3"></span>
+      <span style="--i: 4"></span>
+      <span style="--i: 5"></span>
+      <span style="--i: 6"></span>
+      <span style="--i: 7"></span>
+      <span style="--i: 8"></span>
+      <span style="--i: 9"></span>
+      <span style="--i: 10"></span>
+      <span style="--i: 11"></span>
+      <span style="--i: 12"></span>
+      <span style="--i: 13"></span>
+      <span style="--i: 14"></span>
+      <span style="--i: 15"></span>
+      <span style="--i: 16"></span>
+      <span style="--i: 17"></span>
+      <span style="--i: 18"></span>
+      <span style="--i: 19"></span>
+      <span style="--i: 20"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主内容部分，初始隐藏 -->
+  <div class="container" id="mainContent" style="display: none;">
+    <div data-include="nav.html"></div>
     <div data-include="header.html"></div>
 
     <div class="controls">
@@ -44,8 +137,8 @@
 
     <div data-include="footer.html"></div>
   </div>
-  
-  <!-- 浮动按钮容器 -->
+
+  <!-- 浮动按钮 -->
   <div class="floating-buttons">
     <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
       <i class="fas fa-moon"></i>
@@ -54,6 +147,24 @@
       <i class="fas fa-arrow-up"></i>
     </button>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const globalLoader = document.getElementById("globalLoader");
+      const mainContent = document.getElementById("mainContent");
+
+      // 确保加载动画先展示
+      globalLoader.style.display = "flex";
+      mainContent.style.display = "none";
+
+      // 加载数据或初始化逻辑（你原有的 initializeApp 函数）
+      setTimeout(() => {
+        // 加载完成后显示主内容，隐藏 loading
+        globalLoader.style.display = "none";
+        mainContent.style.display = "block";
+      }, 1200); // 可换成真正数据加载完的时机
+    });
+  </script>
 
   <script src="js/main.js" defer></script>
   <script src="js/toproll.js" defer></script>
