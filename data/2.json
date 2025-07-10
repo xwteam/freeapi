@@ -8,8 +8,8 @@
     {
       "name": "line",
       "required": false,
-      "type": "	string",
-      "example": "	yt",
+      "type": "string",
+      "example": "yt",
       "description": "仅line=yt时有用"
     }
   ],
