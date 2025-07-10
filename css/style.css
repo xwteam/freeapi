@@ -498,6 +498,15 @@ footer {
   color: var(--primary); /* hover时变为主题红（与现有按钮一致） */
 }
 
+/* 汉堡菜单图标（默认隐藏，只在移动端显示） */
+.hamburger {
+  display: none; /* 默认隐藏汉堡图标 */
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0 10px;
+}
+
 /* ==============================
    容器调整（避免导航栏覆盖内容）
    ============================== */
@@ -537,11 +546,7 @@ footer {
 
   /* 3. 手机端汉堡图标：显示并优化点击区域 */
   .hamburger {
-    display: block; /* 显示汉堡图标 */
-    font-size: 1.5rem; /* 图标大小（与现有浮动按钮一致） */
-    color: var(--text-color); /* 图标颜色（与文字一致） */
-    cursor: pointer; /* 指针样式，提示可点击 */
-    padding: 0 10px; /* 增加左右点击区域（避免点击过小） */
+    display: block; /* 在移动端显示汉堡图标 */
   }
 
   /* 4. 手机端导航链接样式优化：增大字体与点击区域 */
