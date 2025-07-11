@@ -8,72 +8,111 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .hero-container {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 30px 0;
-      flex-wrap: wrap;
-    }
-    
-    .hero-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      text-align: center;
-      padding: 20px;
-      border: 1px solid var(--border-color);
-      position: relative;
-      cursor: pointer;
-      width: 180px;
-    }
-    
-    .hero-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .hero-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      object-fit: cover;
-      border: 3px solid var(--primary);
-    }
-    
-    .hero-name {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: var(--text-color);
-    }
-    
-    .hero-amount {
-      color: var(--primary);
-      font-weight: bold;
-    }
-    
-    
-    
-    .hero-badge {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      width: 40px;
-      height: 40px;
-      background: var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      box-shadow: var(--shadow);
-      border: 2px solid white;
-    }
+         .hero-container {
+       display: flex;
+       justify-content: center;
+       align-items: flex-end;
+       gap: 15px;
+       margin: 30px 0;
+       flex-wrap: wrap;
+     }
+     
+     .hero-card {
+       background: var(--card-bg);
+       border-radius: var(--radius);
+       overflow: hidden;
+       box-shadow: var(--shadow);
+       transition: var(--transition);
+       text-align: center;
+       padding: 15px;
+       border: 1px solid var(--border-color);
+       position: relative;
+       cursor: pointer;
+     }
+     
+     .hero-card:hover {
+       transform: translateY(-5px);
+     }
+     
+     .hero-card.first {
+       order: 2;
+       width: 160px;
+       z-index: 3;
+     }
+     
+     .hero-card.second {
+       order: 1;
+       width: 140px;
+       z-index: 2;
+     }
+     
+     .hero-card.third {
+       order: 3;
+       width: 130px;
+       z-index: 1;
+     }
+     
+     .hero-avatar-container {
+       position: relative;
+       display: inline-block;
+       margin-bottom: 15px;
+     }
+     
+     .hero-avatar {
+       border-radius: 50%;
+       object-fit: cover;
+       border: 3px solid var(--primary);
+       display: block;
+     }
+     
+     .hero-card.first .hero-avatar {
+       width: 80px;
+       height: 80px;
+     }
+     
+     .hero-card.second .hero-avatar {
+       width: 75px;
+       height: 75px;
+     }
+     
+     .hero-card.third .hero-avatar {
+       width: 70px;
+       height: 70px;
+     }
+     
+     .hero-name {
+       font-size: 1.1rem;
+       font-weight: bold;
+       margin-bottom: 5px;
+       color: var(--text-color);
+     }
+     
+     .hero-amount {
+       color: var(--primary);
+       font-weight: bold;
+     }
+     
+     .hero-medal {
+       position: absolute;
+       bottom: -5px;
+       right: -5px;
+       z-index: 10;
+     }
+     
+     .hero-card.first .hero-medal {
+       width: 46px;
+       height: 46px;
+     }
+     
+     .hero-card.second .hero-medal {
+       width: 36px;
+       height: 36px;
+     }
+     
+     .hero-card.third .hero-medal {
+       width: 32px;
+       height: 32px;
+     }
     
     .donor-container {
       display: grid;
@@ -200,6 +239,7 @@
 
   <!-- 页面主体内容 -->
   <div class="container">
+    <div data-include="header.html"></div>
 
          <div class="donate-header">
        <h1 class="donate-title" id="donateTitle">赞赏名单</h1>
@@ -357,14 +397,64 @@
        
        const topThree = sortedDonors.slice(0, 3);
        
-       heroContainer.innerHTML = topThree.map((donor, index) => `
-         <div class="hero-card">
-           <div class="hero-badge">${index + 1}</div>
-           <img src="${donor.avatar}" alt="${donor.intro || donor.name}" title="${donor.intro || donor.name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
-           <div class="hero-name">${donor.name}</div>
-           <div class="hero-amount">${donor.amount}</div>
-         </div>
-       `).join('');
+       // 重新排序：第一名在中间，第二名在左边，第三名在右边
+       const orderedHeroes = [];
+       
+       // 确保有足够的赞赏者
+       if (topThree.length >= 1) orderedHeroes[0] = topThree[0]; // 第一名
+       if (topThree.length >= 2) orderedHeroes[1] = topThree[1]; // 第二名
+       if (topThree.length >= 3) orderedHeroes[2] = topThree[2]; // 第三名
+       
+       // 填充缺失的位置
+       while (orderedHeroes.length < 3) {
+         orderedHeroes.push(null);
+       }
+       
+       const heroCards = [];
+       
+       // 第一名（中间）
+       if (orderedHeroes[0]) {
+         heroCards.push(`
+           <div class="hero-card first">
+             <div class="hero-avatar-container">
+               <img src="${orderedHeroes[0].avatar}" alt="${orderedHeroes[0].intro || orderedHeroes[0].name}" title="${orderedHeroes[0].intro || orderedHeroes[0].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+               <img src="img/01.png" class="hero-medal" alt="第一名" onerror="this.src='images/default-medal.jpg'">
+             </div>
+             <div class="hero-name">${orderedHeroes[0].name}</div>
+             <div class="hero-amount">${orderedHeroes[0].amount}</div>
+           </div>
+         `);
+       }
+       
+       // 第二名（左边）
+       if (orderedHeroes[1]) {
+         heroCards.push(`
+           <div class="hero-card second">
+             <div class="hero-avatar-container">
+               <img src="${orderedHeroes[1].avatar}" alt="${orderedHeroes[1].intro || orderedHeroes[1].name}" title="${orderedHeroes[1].intro || orderedHeroes[1].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+               <img src="img/02.png" class="hero-medal" alt="第二名" onerror="this.src='images/default-medal.jpg'">
+             </div>
+             <div class="hero-name">${orderedHeroes[1].name}</div>
+             <div class="hero-amount">${orderedHeroes[1].amount}</div>
+           </div>
+         `);
+       }
+       
+       // 第三名（右边）
+       if (orderedHeroes[2]) {
+         heroCards.push(`
+           <div class="hero-card third">
+             <div class="hero-avatar-container">
+               <img src="${orderedHeroes[2].avatar}" alt="${orderedHeroes[2].intro || orderedHeroes[2].name}" title="${orderedHeroes[2].intro || orderedHeroes[2].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+               <img src="img/03.png" class="hero-medal" alt="第三名" onerror="this.src='images/default-medal.jpg'">
+             </div>
+             <div class="hero-name">${orderedHeroes[2].name}</div>
+             <div class="hero-amount">${orderedHeroes[2].amount}</div>
+           </div>
+         `);
+       }
+       
+       heroContainer.innerHTML = heroCards.join('');
      }
 
      function renderDonors(donors) {
