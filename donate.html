@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="pageTitle">赞赏名单 - 福利云API</title>
+  <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .donor-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .donor-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .donor-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .donor-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+    }
+    
+    .donor-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--text-color);
+    }
+    
+    .donor-amount {
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    .donor-tooltip {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 15px;
+      width: 220px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+      text-align: left;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .donor-card:hover .donor-tooltip {
+      opacity: 1;
+      visibility: visible;
+      top: calc(100% + 10px);
+    }
+    
+    .donor-tooltip::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px;
+      border-style: solid;
+      border-color: transparent transparent var(--border-color) transparent;
+    }
+    
+    .qrcode-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+    
+    .qrcode-item {
+      text-align: center;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+    
+    .qrcode-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .qrcode-img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+    
+    .qrcode-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    .donate-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .donate-title {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .donate-subtitle {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin: 40px 0 20px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary);
+      margin: 10px auto 0;
+    }
+  </style>
+</head>
+<body>
+
+<div data-include="nav.html"></div>
+
+  <!-- 页面主体内容 -->
+  <div class="container">
+    <div data-include="header.html"></div>
+
+    <div class="donate-header">
+      <h1 class="donate-title" id="donateTitle">赞赏名单</h1>
+      <p class="donate-subtitle" id="donateSubtitle">感谢赞赏的人，因为你们，让我感受到更新更多API的动力。</p>
+    </div>
+
+    <h2 class="section-title">赞赏英雄榜</h2>
+    
+    <div class="donor-container" id="donorContainer">
+      <!-- 赞赏者卡片将通过JS动态加载 -->
+      <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <p>正在加载赞赏数据...</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">扫码上榜</h2>
+    
+    <div class="qrcode-container" id="qrcodeContainer">
+      <!-- 二维码将通过JS动态加载 -->
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-title">
+        <i class="fas fa-lightbulb"></i>
+        <h3>赞赏说明</h3>
+      </div>
+      <ul class="tip-list">
+        <li><strong>赞赏用途</strong>：所有赞赏将用于服务器维护和API开发</li>
+        <li><strong>上榜方式</strong>：赞赏后请在备注中留下您想展示的称呼</li>
+        <li><strong>金额显示</strong>：我们会如实展示您的赞赏金额</li>
+        <li><strong>隐私保护</strong>：如无特别说明，我们不会展示您的真实姓名</li>
+      </ul>
+    </div>
+
+    <div data-include="footer.html"></div>
+  </div>
+
+  <!-- 浮动按钮 -->
+  <div class="floating-buttons">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
+      <i class="fas fa-moon"></i>
+    </button>
+    <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- 脚本 -->
+  <script src="js/toproll.js" defer></script>
+  <script>
+    async function loadIncludes() {
+      const includes = document.querySelectorAll('[data-include]');
+      for (const el of includes) {
+        const url = el.getAttribute('data-include');
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const html = await res.text();
+            el.innerHTML = html;
+          } else {
+            el.innerHTML = `<p style="color:red;">加载失败：${url}</p>`;
+          }
+        } catch {
+          el.innerHTML = `<p style="color:red;">加载失败：${url}</p>`;
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadIncludes();
+      initializeTopNav();
+      loadDonateData();
+    });
+
+    const donorContainer = document.getElementById('donorContainer');
+    const qrcodeContainer = document.getElementById('qrcodeContainer');
+    const loader = document.getElementById('loader');
+
+    async function loadDonateData() {
+      try {
+        // 显示加载中
+        if (loader) loader.style.display = 'block';
+        
+        // 加载赞赏数据
+        const response = await fetch('config/donate.json');
+        if (!response.ok) throw new Error(`服务器响应错误: ${response.status}`);
+        
+        const data = await response.json();
+        
+        // 更新标题和副标题
+        if (data.title) document.getElementById('donateTitle').textContent = data.title;
+        if (data.subtitle) document.getElementById('donateSubtitle').textContent = data.subtitle;
+        
+        // 渲染赞赏者列表
+        renderDonors(data.donors || []);
+        
+        // 渲染二维码
+        renderQRCodes(data.qrcode || {});
+        
+      } catch (error) {
+        console.error('加载赞赏数据失败:', error);
+        donorContainer.innerHTML = `
+          <div class="error-panel" style="grid-column: 1 / -1; text-align: center;">
+            <h2 class="error-title"><i class="fas fa-exclamation-triangle"></i> 加载数据失败</h2>
+            <p>${error.message}</p>
+            <div class="controls" style="margin-top: 20px;">
+              <button class="btn" onclick="loadDonateData()">
+                <i class="fas fa-redo"></i> 重试
+              </button>
+            </div>
+          </div>
+        `;
+      } finally {
+        // 隐藏加载中
+        if (loader) loader.style.display = 'none';
+      }
+    }
+
+         function renderDonors(donors) {
+       if (!donors.length) {
+         donorContainer.innerHTML = `
+           <div style="grid-column: 1 / -1; text-align: center; padding: 30px;">
+             <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
+             <p style="margin-top: 10px; color: var(--gray);">暂无赞赏数据</p>
+           </div>
+         `;
+         return;
+       }
+       
+       donorContainer.innerHTML = donors.map(donor => `
+         <div class="donor-card">
+           <img src="${donor.avatar}" alt="${donor.name}" class="donor-avatar" onerror="this.src='images/default-avatar.jpg'">
+           <div class="donor-name">${donor.name}</div>
+           <div class="donor-amount">${donor.amount}</div>
+           ${donor.intro ? `<div class="donor-tooltip">${donor.intro}</div>` : ''}
+         </div>
+       `).join('');
+    }
+
+    function renderQRCodes(qrcode) {
+      qrcodeContainer.innerHTML = '';
+      
+      if (qrcode.wechat) {
+        qrcodeContainer.innerHTML += `
+          <div class="qrcode-item">
+            <img src="${qrcode.wechat}" alt="微信赞赏码" class="qrcode-img" onerror="this.src='images/default-qrcode.jpg'">
+            <div class="qrcode-title">微信赞赏</div>
+          </div>
+        `;
+      }
+      
+      if (qrcode.alipay) {
+        qrcodeContainer.innerHTML += `
+          <div class="qrcode-item">
+            <img src="${qrcode.alipay}" alt="支付宝赞赏码" class="qrcode-img" onerror="this.src='images/default-qrcode.jpg'">
+            <div class="qrcode-title">支付宝赞赏</div>
+          </div>
+        `;
+      }
+      
+      if (!qrcode.wechat && !qrcode.alipay) {
+        qrcodeContainer.innerHTML = `
+          <div style="text-align: center; padding: 30px; width: 100%;">
+            <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
+            <p style="margin-top: 10px; color: var(--gray);">暂无赞赏二维码</p>
+          </div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html> 

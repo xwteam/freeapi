@@ -1,0 +1,40 @@
+{
+    "title": "赞赏名单",
+    "subtitle": "感谢赞赏的人，因为你们，让我感受到更新更多API的动力。",
+    "donors": [
+        {
+            "name": "香港的管理员",
+            "amount": "2,749.00元",
+            "avatar": "images/donors/donor1.jpg",
+            "intro": "香港地区的管理员，长期支持本站发展，提供了大量API资源和技术支持。"
+        },
+        {
+            "name": "香港的管理员",
+            "amount": "11,883.00元",
+            "avatar": "images/donors/donor2.jpg",
+            "intro": "香港地区的管理员，提供了服务器资源和技术支持，是本站最大的赞助者。"
+        },
+        {
+            "name": "雷锋",
+            "amount": "200.00元",
+            "avatar": "images/donors/donor3.jpg",
+            "intro": "热心网友，默默支持本站发展，不求回报。"
+        },
+        {
+            "name": "Lucifer",
+            "amount": "13.14元",
+            "avatar": "images/donors/donor4.jpg",
+            "intro": "资深程序员，提供了多个API的技术指导和代码优化建议。"
+        },
+        {
+            "name": "万物互联",
+            "amount": "100.00元",
+            "avatar": "images/donors/donor5.jpg",
+            "intro": "IoT领域的创业团队，赞助本站开发物联网相关API。"
+        }
+    ],
+    "qrcode": {
+        "wechat": "images/qrcode/wechat.jpg",
+        "alipay": "images/qrcode/alipay.jpg"
+    }
+} 
