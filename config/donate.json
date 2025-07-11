@@ -39,7 +39,5 @@
             "intro": "网站赞助"
         }
     ],
-    "qrcode": {
-        "wechat": "https://free.xwteam.cn/assets/img/dashang.jpg",
-    }
+    "qrcode": "https://free.xwteam.cn/assets/img/dashang.jpg"
 } 
