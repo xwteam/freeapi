@@ -332,7 +332,7 @@ async function loadDocData() {
         throw new Error(`找不到接口 #${docId}，该接口可能不存在或已被移除`);
       }
       
-      document.title = `${data.title || '接口文档'} - 福利云 API`;
+      document.title = `${data.title || '接口文档'} - 接口文档`;
       
       // 渲染接口文档
       docContainer.innerHTML = `
