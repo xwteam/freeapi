@@ -219,19 +219,50 @@
        margin-top: 5px;
      }
     
-    .donate-header {
-      text-align: center;
+    .header-box {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       margin-bottom: 30px;
+      overflow: hidden;
+    }
+    
+    .main-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      text-align: center;
+      padding: 30px 0;
+      margin: 0;
+    }
+    
+    .notice-banner {
+      background-color: #fef1f1;
+      padding: 15px 20px;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .notice-banner p {
+      margin: 0;
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    .donate-title-container {
+      text-align: center;
+      margin: 30px 0;
     }
     
     .donate-title {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--primary);
       margin-bottom: 10px;
     }
     
     .donate-subtitle {
       color: var(--gray);
+      font-size: 1rem;
       max-width: 600px;
       margin: 0 auto;
     }
@@ -264,9 +295,11 @@
       <i class="fas fa-arrow-left"></i> 返回首页
     </a>
 
-    <div class="donate-header">
-      <h1 class="donate-title" id="donateTitle">赞赏名单</h1>
-      <p class="donate-subtitle" id="donateSubtitle">感谢赞赏的人，因为你们，让我感受到更新更多API的动力。</p>
+    <div class="header-box">
+      <h1 class="main-title" id="donateTitle">赞赏名单</h1>
+      <div class="notice-banner">
+        <p id="donateSubtitle">感谢赞赏的人，因为你们，让我感受到更新更多API的动力。</p>
+      </div>
     </div>
 
     <h2 class="section-title">赞赏英雄榜</h2>
@@ -363,8 +396,8 @@
          const data = await response.json();
          
          // 更新标题和副标题
-         if (data.title) document.getElementById('donateTitle').textContent = data.title;
-         if (data.subtitle) document.getElementById('donateSubtitle').textContent = data.subtitle;
+         document.getElementById('donateTitle').textContent = "福利云";
+         document.getElementById('donateSubtitle').textContent = "为众多开发者免费提供专业的 API 服务，让您无忧探索广阔的数字世界。";
          
          // 渲染英雄榜（前三名）
          renderHeroes(data.donors || []);
