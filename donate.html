@@ -128,35 +128,36 @@
        align-items: center;
        margin: 30px auto;
        width: 100%;
-       max-width: 600px;
+       max-width: 30%;
      }
     
-    .qrcode-item {
-      text-align: center;
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-      transition: var(--transition);
-    }
+         .qrcode-item {
+       text-align: center;
+       background: var(--card-bg);
+       border-radius: var(--radius);
+       padding: 10px;
+       box-shadow: var(--shadow);
+       border: 1px solid var(--border-color);
+       transition: var(--transition);
+     }
+     
+     .qrcode-item:hover {
+       transform: translateY(-5px);
+     }
+     
+     .qrcode-img {
+       width: 100%;
+       height: auto;
+       margin-bottom: 10px;
+       border-radius: 8px;
+     }
     
-    .qrcode-item:hover {
-      transform: translateY(-5px);
-    }
-    
-    .qrcode-img {
-      width: 200px;
-      height: 200px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-    }
-    
-    .qrcode-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
+         .qrcode-title {
+       font-size: 1rem;
+       font-weight: bold;
+       color: var(--primary);
+       margin-top: 5px;
+     }
     
     .donate-header {
       text-align: center;
@@ -199,7 +200,6 @@
 
   <!-- 页面主体内容 -->
   <div class="container">
-    <div data-include="header.html"></div>
 
          <div class="donate-header">
        <h1 class="donate-title" id="donateTitle">赞赏名单</h1>
@@ -228,7 +228,7 @@
          <h3>请在备注中按照格式填写您的信息：</h3>
        </div>
        <p style="text-align: center; margin: 10px 0; color: var(--primary); font-weight: bold;">
-         头像介绍 名字 留空好评不留名的赞赏
+         头像 介绍 名字 留空好评不留名的赞赏
        </p>
      </div>
      
@@ -392,8 +392,8 @@
        
        if (qrcode) {
          qrcodeContainer.innerHTML = `
-           <div class="qrcode-item" style="width: 100%; max-width: 600px; margin: 0 auto;">
-             <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 100%; max-width: 600px; height: auto; max-height: 300px; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
+           <div class="qrcode-item" style="width: 100%; margin: 0 auto;">
+             <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 100%; height: auto; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
              <div class="qrcode-title">扫码赞赏</div>
            </div>
          `;
