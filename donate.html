@@ -7,15 +7,36 @@
   <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-         .hero-container {
-       display: flex;
-       justify-content: center;
-       align-items: flex-end;
-       gap: 15px;
-       margin: 30px 0;
-       flex-wrap: wrap;
-     }
+    <style>
+    .doc-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-weight: 500;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+    
+    .doc-back:hover {
+      text-decoration: underline;
+      color: var(--secondary);
+    }
+    
+    .doc-back i {
+      font-size: 0.9rem;
+    }
+    
+    .hero-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
      
      .hero-card {
        background: var(--card-bg);
@@ -240,48 +261,47 @@
   <!-- 页面主体内容 -->
   <div class="container">
     <a href="/" class="doc-back">
-    <i class="fas fa-arrow-left"></i> 返回首页
-  </a>
+      <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
 
-         <div class="donate-header">
-       <h1 class="donate-title" id="donateTitle">赞赏名单</h1>
-       <p class="donate-subtitle" id="donateSubtitle">感谢赞赏的人，因为你们，让我感受到更新更多API的动力。</p>
-     </div>
+    <div class="donate-header">
+      <h1 class="donate-title" id="donateTitle">赞赏名单</h1>
+      <p class="donate-subtitle" id="donateSubtitle">感谢赞赏的人，因为你们，让我感受到更新更多API的动力。</p>
+    </div>
 
-     <h2 class="section-title">赞赏英雄榜</h2>
-     
-     <div class="hero-container" id="heroContainer">
-       <!-- 前三名赞赏英雄将通过JS动态加载 -->
-       <div class="loader" id="heroLoader">
-         <div class="loader-spinner"></div>
-         <p>正在加载赞赏数据...</p>
-       </div>
-     </div>
+    <h2 class="section-title">赞赏英雄榜</h2>
+    
+    <div class="hero-container" id="heroContainer">
+      <!-- 前三名赞赏英雄将通过JS动态加载 -->
+      <div class="loader" id="heroLoader">
+        <div class="loader-spinner"></div>
+        <p>正在加载赞赏数据...</p>
+      </div>
+    </div>
 
-     <h2 class="section-title">扫码上榜</h2>
-     
-     <div class="qrcode-container" id="qrcodeContainer">
-       <!-- 二维码将通过JS动态加载 -->
-     </div>
-     
-     <div class="tip-box">
-       <div class="tip-title">
-         <i class="fas fa-lightbulb"></i>
-         <h3>请在备注中按照格式填写您的信息：</h3>
-       </div>
-       <p style="text-align: center; margin: 10px 0; color: var(--primary); font-weight: bold;">
-         头像 介绍 名字 留空好评不留名的赞赏
-       </p>
-     </div>
-     
-     <div class="donor-container" id="donorContainer">
-       <!-- 所有赞赏者卡片将通过JS动态加载 -->
-       <div class="loader" id="loader">
-         <div class="loader-spinner"></div>
-         <p>正在加载赞赏数据...</p>
-       </div>
-     </div>
-
+    <h2 class="section-title">扫码上榜</h2>
+    
+    <div class="qrcode-container" id="qrcodeContainer">
+      <!-- 二维码将通过JS动态加载 -->
+    </div>
+    
+    <div class="tip-box">
+      <div class="tip-title">
+        <i class="fas fa-lightbulb"></i>
+        <h3>请在备注中按照格式填写您的信息：</h3>
+      </div>
+      <p style="text-align: center; margin: 10px 0; color: var(--primary); font-weight: bold;">
+        头像 介绍 名字 留空好评不留名的赞赏
+      </p>
+    </div>
+    
+    <div class="donor-container" id="donorContainer">
+      <!-- 所有赞赏者卡片将通过JS动态加载 -->
+      <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <p>正在加载赞赏数据...</p>
+      </div>
+    </div>
     
 
     <div data-include="footer.html"></div>
@@ -500,4 +520,4 @@
      }
   </script>
 </body>
-</html> 
+</html>
