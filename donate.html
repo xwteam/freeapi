@@ -122,13 +122,14 @@
     
     
     
-    .qrcode-container {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 30px 0;
-      flex-wrap: wrap;
-    }
+         .qrcode-container {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin: 30px auto;
+       width: 100%;
+       max-width: 600px;
+     }
     
     .qrcode-item {
       text-align: center;
@@ -346,8 +347,15 @@
          return;
        }
        
-       // 只取前三名
-       const topThree = donors.slice(0, 3);
+       // 按金额排序并取前三名
+       const sortedDonors = [...donors].sort((a, b) => {
+         // 提取数字部分
+         const amountA = parseFloat(a.amount.replace(/,/g, '').replace(/元$/, ''));
+         const amountB = parseFloat(b.amount.replace(/,/g, '').replace(/元$/, ''));
+         return amountB - amountA; // 降序排列
+       });
+       
+       const topThree = sortedDonors.slice(0, 3);
        
        heroContainer.innerHTML = topThree.map((donor, index) => `
          <div class="hero-card">
@@ -384,8 +392,8 @@
        
        if (qrcode) {
          qrcodeContainer.innerHTML = `
-           <div class="qrcode-item" style="width: 600px; max-width: 100%;">
-             <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 600px; height: 300px; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
+           <div class="qrcode-item" style="width: 100%; max-width: 600px; margin: 0 auto;">
+             <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 100%; max-width: 600px; height: auto; max-height: 300px; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
              <div class="qrcode-title">扫码赞赏</div>
            </div>
          `;
