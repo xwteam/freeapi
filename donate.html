@@ -55,43 +55,7 @@
       font-weight: bold;
     }
     
-    .hero-tooltip {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      padding: 15px;
-      width: 220px;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 100;
-      text-align: left;
-      color: var(--text-color);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
     
-    .hero-card:hover .hero-tooltip {
-      opacity: 1;
-      visibility: visible;
-      top: calc(100% + 10px);
-    }
-    
-    .hero-tooltip::before {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 8px;
-      border-style: solid;
-      border-color: transparent transparent var(--border-color) transparent;
-    }
     
     .hero-badge {
       position: absolute;
@@ -156,43 +120,7 @@
       font-weight: bold;
     }
     
-    .donor-tooltip {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      padding: 15px;
-      width: 220px;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 100;
-      text-align: left;
-      color: var(--text-color);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
     
-    .donor-card:hover .donor-tooltip {
-      opacity: 1;
-      visibility: visible;
-      top: calc(100% + 10px);
-    }
-    
-    .donor-tooltip::before {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 8px;
-      border-style: solid;
-      border-color: transparent transparent var(--border-color) transparent;
-    }
     
     .qrcode-container {
       display: flex;
@@ -382,7 +310,7 @@
          renderDonors(data.donors || []);
          
          // 渲染二维码
-         renderQRCodes(data.qrcode || {});
+         renderQRCodes(data.qrcode || '');
          
        } catch (error) {
          console.error('加载赞赏数据失败:', error);
@@ -424,10 +352,9 @@
        heroContainer.innerHTML = topThree.map((donor, index) => `
          <div class="hero-card">
            <div class="hero-badge">${index + 1}</div>
-           <img src="${donor.avatar}" alt="${donor.name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+           <img src="${donor.avatar}" alt="${donor.intro || donor.name}" title="${donor.intro || donor.name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
            <div class="hero-name">${donor.name}</div>
            <div class="hero-amount">${donor.amount}</div>
-           ${donor.intro ? `<div class="hero-tooltip">${donor.intro}</div>` : ''}
          </div>
        `).join('');
      }
@@ -445,44 +372,32 @@
        
        donorContainer.innerHTML = donors.map(donor => `
          <div class="donor-card">
-           <img src="${donor.avatar}" alt="${donor.name}" class="donor-avatar" onerror="this.src='images/default-avatar.jpg'">
+           <img src="${donor.avatar}" alt="${donor.intro || donor.name}" title="${donor.intro || donor.name}" class="donor-avatar" onerror="this.src='images/default-avatar.jpg'">
            <div class="donor-name">${donor.name}</div>
            <div class="donor-amount">${donor.amount}</div>
-           ${donor.intro ? `<div class="donor-tooltip">${donor.intro}</div>` : ''}
          </div>
        `).join('');
     }
 
-    function renderQRCodes(qrcode) {
-      qrcodeContainer.innerHTML = '';
-      
-      if (qrcode.wechat) {
-        qrcodeContainer.innerHTML += `
-          <div class="qrcode-item">
-            <img src="${qrcode.wechat}" alt="微信赞赏码" class="qrcode-img" onerror="this.src='images/default-qrcode.jpg'">
-            <div class="qrcode-title">微信赞赏</div>
-          </div>
-        `;
-      }
-      
-      if (qrcode.alipay) {
-        qrcodeContainer.innerHTML += `
-          <div class="qrcode-item">
-            <img src="${qrcode.alipay}" alt="支付宝赞赏码" class="qrcode-img" onerror="this.src='images/default-qrcode.jpg'">
-            <div class="qrcode-title">支付宝赞赏</div>
-          </div>
-        `;
-      }
-      
-      if (!qrcode.wechat && !qrcode.alipay) {
-        qrcodeContainer.innerHTML = `
-          <div style="text-align: center; padding: 30px; width: 100%;">
-            <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
-            <p style="margin-top: 10px; color: var(--gray);">暂无赞赏二维码</p>
-          </div>
-        `;
-      }
-    }
+         function renderQRCodes(qrcode) {
+       qrcodeContainer.innerHTML = '';
+       
+       if (qrcode) {
+         qrcodeContainer.innerHTML = `
+           <div class="qrcode-item" style="width: 600px; max-width: 100%;">
+             <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 600px; height: 300px; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
+             <div class="qrcode-title">扫码赞赏</div>
+           </div>
+         `;
+       } else {
+         qrcodeContainer.innerHTML = `
+           <div style="text-align: center; padding: 30px; width: 100%;">
+             <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
+             <p style="margin-top: 10px; color: var(--gray);">暂无赞赏二维码</p>
+           </div>
+         `;
+       }
+     }
   </script>
 </body>
 </html> 
