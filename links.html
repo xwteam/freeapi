@@ -121,6 +121,7 @@
       linksContainer.innerHTML = links.map(link => {
         // 为每个链接创建一个唯一ID，用于更新状态
         const linkId = `link-${Math.random().toString(36).substr(2, 9)}`;
+        const visitId = `visit-${Math.random().toString(36).substr(2, 9)}`;
         
         return `
           <div class="link-card">
@@ -130,13 +131,13 @@
               </div>
               <div class="link-info">
                 <h3 class="link-name">${link.name}</h3>
-                <p class="link-desc">${link.description}</p>
+                <p class="link-desc">${link.description || '这家伙很懒但是啥都没留下'}</p>
               </div>
               <div class="link-actions">
-                <a href="${link.url}" target="_blank" class="link-btn visit-btn">
+                <a href="${link.url}" target="_blank" class="link-btn visit-btn" id="${visitId}">
                   <i class="fas fa-eye"></i> 访问
                 </a>
-                <a href="${link.url}" target="_blank" class="link-btn check-btn" id="${linkId}">
+                <a href="javascript:void(0)" class="link-btn check-btn" id="${linkId}">
                   <i class="fas fa-spinner fa-spin"></i> 检测中
                 </a>
               </div>

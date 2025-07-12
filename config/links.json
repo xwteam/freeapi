@@ -4,9 +4,39 @@
     "links": [
         {
             "name": "幸福の家",
-            "url": "https://www.xwteam.cn",
-            "image": "https://free.xwteam.cn/img/xwteam.png",
-            "description": "这家伙很懒都没留下介绍"
+            "url": "https://xwteam.cn",
+            "image": "https://picsum.photos/400/200?random=1",
+            "description": "这家伙很懒但是啥都没留下"
+        },
+        {
+            "name": "福利云API",
+            "url": "https://api.xwteam.cn",
+            "image": "https://picsum.photos/400/200?random=2",
+            "description": "不止是免费的API，更是一个免费的公益福利云"
+        },
+        {
+            "name": "技术博客",
+            "url": "https://blog.example.com",
+            "image": "https://picsum.photos/400/200?random=3",
+            "description": "分享各种前沿技术和开发经验"
+        },
+        {
+            "name": "开源社区",
+            "url": "https://github.com",
+            "image": "https://picsum.photos/400/200?random=4",
+            "description": "全球最大的开源代码托管平台"
+        },
+        {
+            "name": "学习资源",
+            "url": "https://learn.example.com",
+            "image": "https://picsum.photos/400/200?random=5",
+            "description": "提供各种编程语言和技术的学习资源"
+        },
+        {
+            "name": "设计灵感",
+            "url": "https://design.example.com",
+            "image": "https://picsum.photos/400/200?random=6",
+            "description": "收集各种优秀的设计作品和灵感"
         }
     ]
 } 
