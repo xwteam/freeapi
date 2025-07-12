@@ -601,6 +601,11 @@ footer {
   width: 120px;
   text-align: center;
   margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.donor-item:hover {
+  transform: translateY(-5px);
 }
 
 .donor-avatar {
@@ -616,12 +621,16 @@ footer {
   margin: 5px 0;
   font-size: 14px;
   color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .donor-info p {
   margin: 0;
   font-size: 12px;
   color: #666;
+  font-weight: bold;
 }
 
 /* 暗色模式下的赞赏名单样式 */

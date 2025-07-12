@@ -68,47 +68,25 @@
   
   // 加载赞赏数据
   fetch('config/donate.json')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`服务器响应错误: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
-      // 按金额排序（先将金额转换为数字）
-      const donors = data.donors.map((donor, index) => {
-        // 提取数字部分并转换为浮点数
-        let amount;
-        try {
-          // 移除非数字字符（保留小数点和数字）
-          const cleanedStr = donor.amount.replace(/[^\d.]/g, '');
-          amount = parseFloat(cleanedStr);
-          if (isNaN(amount)) {
-            amount = 0;
-            console.error(`无法解析金额: ${donor.amount}`);
-          }
-          console.log(`解析金额: ${donor.name} - ${donor.amount} => ${amount}`);
-        } catch (e) {
-          amount = 0;
-          console.error(`解析金额出错: ${donor.amount}`, e);
-        }
-        
-        return { 
-          ...donor, 
-          numAmount: amount,
-          originalIndex: index // 保存原始索引，用于处理重名情况
-        };
-      })
-      .sort((a, b) => {
-        // 先按金额从大到小排序
-        if (b.numAmount !== a.numAmount) {
-          return b.numAmount - a.numAmount;
-        }
-        // 如果金额相同，按原始索引排序
-        return a.originalIndex - b.originalIndex;
-      })
-      .slice(0, 8); // 只取前8名
+      // 按金额排序（参考donate.html中的方法）
+      const sortedDonors = [...data.donors].sort((a, b) => {
+        // 提取数字部分
+        const amountA = parseFloat(a.amount.replace(/,/g, '').replace(/元$/, ''));
+        const amountB = parseFloat(b.amount.replace(/,/g, '').replace(/元$/, ''));
+        return amountB - amountA; // 降序排列
+      });
       
-      console.log('排序后的赞助者：', donors.map(d => `${d.name}: ${d.amount} (${d.numAmount})`));
+      // 只取前8名
+      const topDonors = sortedDonors.slice(0, 8);
       
-      // 确保"苦逼的管理员"按金额从大到小排序
-      const adminDonors = donors.filter(d => d.name === "苦逼的管理员");
-      console.log('管理员赞助者：', adminDonors.map(d => `${d.amount} (${d.numAmount})`));
+      console.log('排序后的赞助者：', topDonors.map(d => `${d.name}: ${d.amount}`));
       
       const donorsContainer = document.getElementById('donorsContainer');
       
@@ -116,7 +94,7 @@
       donorsContainer.innerHTML = '';
       
       // 添加赞助者
-      donors.forEach(donor => {
+      topDonors.forEach(donor => {
         const donorElement = document.createElement('div');
         donorElement.className = 'donor-item';
         
@@ -133,7 +111,15 @@
         donorsContainer.appendChild(donorElement);
       });
     })
-    .catch(error => console.error('加载赞赏数据失败:', error));
+    .catch(error => {
+      console.error('加载赞赏数据失败:', error);
+      document.getElementById('donorsContainer').innerHTML = `
+        <div style="width: 100%; text-align: center; padding: 20px;">
+          <i class="fas fa-exclamation-triangle" style="color: #d85a5a; font-size: 24px;"></i>
+          <p style="margin-top: 10px;">加载赞赏数据失败</p>
+        </div>
+      `;
+    });
   </script>
 </body>
 </html>
