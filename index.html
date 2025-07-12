@@ -29,21 +29,17 @@
       </div>
     </div>
 
-    <div class="tip-box" id="donateBox">
-      <div class="tip-title">
-        <i class="fas fa-heart"></i>
-        <h3>赞赏名单</h3>
+    <div class="donate-section">
+      <h2 class="donate-title"><i class="fas fa-heart" style="color: #d85a5a;"></i> 赞赏名单</h2>
+      
+      <p class="donate-desc">感谢赞赏的人，因为你们，让我感受到更新更多免费API的动力。</p>
+      
+      <div class="donate-notice">
+        首页仅显示排名前 8 位，完整名单请看 <a href="donate.html">这里</a>
       </div>
-      <div class="donate-content">
-        <p>感谢赞赏的人，因为你们，让我感受到更新更多免费API的动力。</p>
-        
-        <div class="donate-notice">
-          首页仅显示排名前 8 位，完整名单请看 <a href="donate.html">这里</a>
-        </div>
-        
-        <div class="donors-container" id="donorsContainer">
-          <!-- 捐赠者将通过JavaScript动态加载 -->
-        </div>
+      
+      <div class="donors-list" id="donorsContainer">
+        <!-- 捐赠者将通过JavaScript动态加载 -->
       </div>
     </div>
 
@@ -64,62 +60,74 @@
   <script src="js/main.js" defer></script>
   <script src="js/toproll.js" defer></script>
   <script>
-  initializeTopNav();
+  // 初始化顶部导航
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeTopNav();
+    // 加载赞赏数据
+    loadDonors();
+  });
   
-  // 加载赞赏数据
-  fetch('config/donate.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`服务器响应错误: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      // 按金额排序（参考donate.html中的方法）
-      const sortedDonors = [...data.donors].sort((a, b) => {
-        // 提取数字部分
-        const amountA = parseFloat(a.amount.replace(/,/g, '').replace(/元$/, ''));
-        const amountB = parseFloat(b.amount.replace(/,/g, '').replace(/元$/, ''));
-        return amountB - amountA; // 降序排列
-      });
-      
-      // 只取前8名
-      const topDonors = sortedDonors.slice(0, 8);
-      
-      console.log('排序后的赞助者：', topDonors.map(d => `${d.name}: ${d.amount}`));
-      
-      const donorsContainer = document.getElementById('donorsContainer');
-      
-      // 清空容器
-      donorsContainer.innerHTML = '';
-      
-      // 添加赞助者
-      topDonors.forEach(donor => {
-        const donorElement = document.createElement('div');
-        donorElement.className = 'donor-item';
+  function loadDonors() {
+    fetch('config/donate.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`服务器响应错误: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // 按金额排序
+        const sortedDonors = [...data.donors].sort((a, b) => {
+          // 提取数字部分，先移除逗号，再移除"元"字符
+          const amountA = parseFloat(a.amount.replace(/,/g, '').replace(/元$/, ''));
+          const amountB = parseFloat(b.amount.replace(/,/g, '').replace(/元$/, ''));
+          
+          // 打印调试信息
+          console.log(`${a.name}: ${a.amount} => ${amountA}`);
+          console.log(`${b.name}: ${b.amount} => ${amountB}`);
+          
+          return amountB - amountA; // 降序排列
+        });
         
-        // 根据名称显示不同的文本（处理"苦逼的管理员"显示为"香港的管理员"）
-        const displayName = donor.name === "苦逼的管理员" ? "香港的管理员" : donor.name;
+        // 打印排序后的结果
+        console.log('排序后的赞助者：', sortedDonors.map(d => `${d.name}: ${d.amount}`));
         
-        donorElement.innerHTML = `
-          <img src="${donor.avatar}" alt="${displayName}" class="donor-avatar" onerror="this.src='img/01.png'">
-          <div class="donor-info">
-            <h4>${displayName}</h4>
-            <p>${donor.amount}</p>
+        // 只取前8名
+        const topDonors = sortedDonors.slice(0, 8);
+        
+        const donorsContainer = document.getElementById('donorsContainer');
+        
+        // 清空容器
+        donorsContainer.innerHTML = '';
+        
+        // 添加赞助者
+        topDonors.forEach(donor => {
+          const donorElement = document.createElement('div');
+          donorElement.className = 'donor-item';
+          
+          // 根据名称显示不同的文本（处理"苦逼的管理员"显示为"香港的管理员"）
+          const displayName = donor.name === "苦逼的管理员" ? "香港的管理员" : donor.name;
+          
+          donorElement.innerHTML = `
+            <img src="${donor.avatar}" alt="${displayName}" class="donor-avatar" onerror="this.src='img/01.png'">
+            <div class="donor-info">
+              <h4>${displayName}</h4>
+              <p>${donor.amount}</p>
+            </div>
+          `;
+          donorsContainer.appendChild(donorElement);
+        });
+      })
+      .catch(error => {
+        console.error('加载赞赏数据失败:', error);
+        document.getElementById('donorsContainer').innerHTML = `
+          <div style="width: 100%; text-align: center; padding: 20px;">
+            <i class="fas fa-exclamation-triangle" style="color: #d85a5a; font-size: 24px;"></i>
+            <p style="margin-top: 10px;">加载赞赏数据失败</p>
           </div>
         `;
-        donorsContainer.appendChild(donorElement);
       });
-    })
-    .catch(error => {
-      console.error('加载赞赏数据失败:', error);
-      document.getElementById('donorsContainer').innerHTML = `
-        <div style="width: 100%; text-align: center; padding: 20px;">
-          <i class="fas fa-exclamation-triangle" style="color: #d85a5a; font-size: 24px;"></i>
-          <p style="margin-top: 10px;">加载赞赏数据失败</p>
-        </div>
-      `;
-    });
+  }
   </script>
 </body>
 </html>

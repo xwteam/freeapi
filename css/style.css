@@ -568,19 +568,36 @@ footer {
   word-break: break-word;
 }
 
-/* 赞赏名单样式 */
-.donate-content {
-  padding: 10px 0;
+/* 赞赏名单新样式 */
+.donate-section {
+  margin: 30px 0;
   text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.donate-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.donate-desc {
+  color: #666;
+  margin-bottom: 20px;
 }
 
 .donate-notice {
   background-color: #f8f0f0;
   padding: 10px;
-  margin: 15px 0;
+  margin: 15px auto;
   border-radius: 5px;
   color: #d85a5a;
   font-size: 14px;
+  max-width: 500px;
 }
 
 .donate-notice a {
@@ -588,7 +605,7 @@ footer {
   text-decoration: underline;
 }
 
-.donors-container {
+.donors-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -634,6 +651,18 @@ footer {
 }
 
 /* 暗色模式下的赞赏名单样式 */
+.dark-mode .donate-section {
+  background-color: var(--card-bg);
+}
+
+.dark-mode .donate-title {
+  color: var(--text-color);
+}
+
+.dark-mode .donate-desc {
+  color: var(--gray);
+}
+
 .dark-mode .donate-notice {
   background-color: #3a3a3a;
   color: #ff9e9e;
