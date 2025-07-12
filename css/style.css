@@ -990,6 +990,24 @@ footer {
   background-color: rgba(82, 196, 26, 0.1);
 }
 
+.status-ok {
+  color: #52c41a;
+}
+
+.status-error {
+  color: #f5222d;
+}
+
+/* 链接检测中的样式 */
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* 暗色模式下的友情链接样式 */
 .dark-mode .header-box,
 .dark-mode .notice-banner {
