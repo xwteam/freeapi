@@ -717,46 +717,95 @@ footer {
 /* Footer 样式 */
 .site-footer {
   margin-top: 30px;
-  padding: 15px 0;
+  padding: 10px 0;
   text-align: center;
   border-top: 1px solid #eee;
   font-size: 14px;
   color: #888;
+  background-color: #f9f9f9;
 }
 
 .site-footer p {
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.icp-info, .police-info, .site-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.5;
 }
 
 .icp-info, .police-info {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  flex-shrink: 0;
 }
 
 .site-info {
+  flex-grow: 0;
+  white-space: nowrap;
+}
+
+.site-footer a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+}
+
+.site-footer a:hover {
+  color: #1890ff;
+}
+
+.site-footer img {
+  height: 16px;
+  width: auto;
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 .official-group {
   color: #1890ff;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .official-group:hover {
   text-decoration: underline;
 }
 
+.text-danger {
+  color: #ff4d4f;
+}
+
+.fa-heart {
+  font-size: 12px;
+  margin: 0 3px;
+}
+
+.fw-semibold {
+  font-weight: 500;
+}
+
+.text-muted {
+  color: #888;
+}
+
 /* 暗色模式下的 Footer 样式 */
 .dark-mode .site-footer {
   border-top-color: #333;
+  color: #aaa;
+  background-color: #1f1f1f;
+}
+
+.dark-mode .site-footer a {
   color: #aaa;
 }
 
@@ -764,9 +813,21 @@ footer {
   color: #4dabf7;
 }
 
+.dark-mode .text-muted {
+  color: #aaa;
+}
+
+@media (max-width: 992px) {
+  .site-footer p {
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .site-footer p {
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    padding: 10px;
   }
 }
