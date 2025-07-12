@@ -50,18 +50,27 @@ async function loadTitleConfig() {
     globalConfig = config;
     const notice = config.notice?.trim();
     startDeployTypewriterEffect(notice || "为众多开发者免费提供专业的 API 服务，让您无忧探索广阔的数字世界。");
+    
+    // 更新footer内容
+    updateFooterContent(config);
   } catch (err) {
-    console.warn('未能加载 web_config.json，使用默认标题。', err);
+    console.warn('未能加载 web_config.json，使用默认值。', err);
     // 使用默认值
     globalConfig = {
       title: "福利云API",
       subhead: "不止是免费的API，更是一个免费的公益福利云",
       webname: "福利云",
-      notice: "为众多开发者免费提供专业的 API 服务，让您无忧探索广阔的数字世界。"
+      notice: "为众多开发者免费提供专业的 API 服务，让您无忧探索广阔的数字世界。",
+      icp: "粤ICP备16000487号",
+      police: "公安网安备44170202000132",
+      group: "官方群"
     };
     document.getElementById('titleText').textContent = globalConfig.webname;
     document.title = `${globalConfig.title} - ${globalConfig.subhead}`;
     startDeployTypewriterEffect(globalConfig.notice);
+    
+    // 更新footer内容
+    updateFooterContent(globalConfig);
   }
 }
 
@@ -85,6 +94,52 @@ function startDeployTypewriterEffect(text) {
     }
   }
   setTimeout(typeChar, 500);
+}
+
+// 更新footer内容的函数
+function updateFooterContent(config) {
+  // 等待footer加载完成
+  setTimeout(() => {
+    try {
+      // 更新ICP备案号
+      const icpTextElem = document.getElementById('icpText');
+      if (icpTextElem && config.icp) {
+        icpTextElem.textContent = config.icp;
+      }
+      
+      // 更新公安网备案号
+      const policeTextElem = document.getElementById('policeText');
+      if (policeTextElem && config.police) {
+        policeTextElem.textContent = config.police;
+      }
+      
+      // 更新网站名称
+      const webNameTextElem = document.getElementById('webNameText');
+      if (webNameTextElem && config.webname) {
+        webNameTextElem.textContent = config.webname;
+      }
+      
+      // 更新群链接文本
+      const groupLinkElem = document.getElementById('groupLink');
+      if (groupLinkElem) {
+        if (config.group) {
+          const groupTextElem = document.getElementById('groupText');
+          if (groupTextElem) {
+            groupTextElem.textContent = config.group;
+          }
+        }
+        
+        // 更新群链接href
+        if (config.groupUrl) {
+          groupLinkElem.href = config.groupUrl;
+        }
+      }
+      
+      console.log('Footer内容已更新');
+    } catch (error) {
+      console.error('更新footer内容失败:', error);
+    }
+  }, 500); // 延迟500ms，确保footer已加载
 }
 
 const cardContainer = document.getElementById("cardContainer");

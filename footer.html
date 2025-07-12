@@ -13,36 +13,8 @@
     </span>
     
     <span class="site-info">
-      本站由 <span id="webNameText">福</span> <i class="fa fa-heart text-danger"></i> 公益免费运营，欢迎加入我的 
+      本站由 <span id="webNameText">福利云</span> <i class="fa fa-heart text-danger"></i> 公益免费运营，欢迎加入我的 
       <a href="#" class="official-group" id="groupLink" target="_blank"><span id="groupText">官方群</span></a>
     </span>
   </p>
 </footer>
-
-<script>
-// 加载网站配置
-fetch('config/web_config.json')
-  .then(response => response.json())
-  .then(data => {
-    // 更新ICP备案号
-    if (data.icp) {
-      document.getElementById('icpText').textContent = data.icp;
-    }
-    
-    // 更新公安网备案号
-    if (data.police) {
-      document.getElementById('policeText').textContent = data.police;
-    }
-    
-    // 更新网站名称
-    if (data.webname) {
-      document.getElementById('webNameText').textContent = data.webname;
-    }
-    
-    // 更新群链接文本
-    if (data.group) {
-      document.getElementById('groupText').textContent = data.group;
-    }
-  })
-  .catch(error => console.error('加载网站配置失败:', error));
-</script>
