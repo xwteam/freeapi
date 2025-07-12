@@ -580,6 +580,7 @@ footer {
   margin: 15px 0;
   border-radius: 5px;
   color: #d85a5a;
+  font-size: 14px;
 }
 
 .donate-notice a {
@@ -591,8 +592,9 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   margin-top: 20px;
+  padding: 10px;
 }
 
 .donor-item {
@@ -607,11 +609,13 @@ footer {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 8px;
+  border: 1px solid #eee;
 }
 
 .donor-info h4 {
   margin: 5px 0;
   font-size: 14px;
+  color: #333;
 }
 
 .donor-info p {
@@ -630,6 +634,14 @@ footer {
   color: #ff9e9e;
 }
 
+.dark-mode .donor-info h4 {
+  color: #ddd;
+}
+
 .dark-mode .donor-info p {
   color: #aaa;
+}
+
+.dark-mode .donor-avatar {
+  border-color: #444;
 }

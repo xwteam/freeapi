@@ -38,7 +38,7 @@
         <p>感谢赞赏的人，因为你们，让我感受到更新更多免费API的动力。</p>
         
         <div class="donate-notice">
-          <p>首页仅显示排名前 8 位，完整名单请看 <a href="donate.html">这里</a></p>
+          首页仅显示排名前 8 位，完整名单请看 <a href="donate.html">这里</a>
         </div>
         
         <div class="donors-container" id="donorsContainer">
@@ -71,19 +71,44 @@
     .then(response => response.json())
     .then(data => {
       // 按金额排序（先将金额转换为数字）
-      const donors = data.donors.map(donor => {
+      const donors = data.donors.map((donor, index) => {
         // 提取数字部分并转换为浮点数
-        const amountStr = donor.amount.replace(/[^0-9,.]/g, '');
-        const amount = parseFloat(amountStr.replace(/,/g, ''));
+        let amount;
+        try {
+          // 移除非数字字符（保留小数点和数字）
+          const cleanedStr = donor.amount.replace(/[^\d.]/g, '');
+          amount = parseFloat(cleanedStr);
+          if (isNaN(amount)) {
+            amount = 0;
+            console.error(`无法解析金额: ${donor.amount}`);
+          }
+          console.log(`解析金额: ${donor.name} - ${donor.amount} => ${amount}`);
+        } catch (e) {
+          amount = 0;
+          console.error(`解析金额出错: ${donor.amount}`, e);
+        }
         
-        // 使用原始avatar路径
         return { 
           ...donor, 
-          numAmount: amount
+          numAmount: amount,
+          originalIndex: index // 保存原始索引，用于处理重名情况
         };
       })
-      .sort((a, b) => b.numAmount - a.numAmount)
+      .sort((a, b) => {
+        // 先按金额从大到小排序
+        if (b.numAmount !== a.numAmount) {
+          return b.numAmount - a.numAmount;
+        }
+        // 如果金额相同，按原始索引排序
+        return a.originalIndex - b.originalIndex;
+      })
       .slice(0, 8); // 只取前8名
+      
+      console.log('排序后的赞助者：', donors.map(d => `${d.name}: ${d.amount} (${d.numAmount})`));
+      
+      // 确保"苦逼的管理员"按金额从大到小排序
+      const adminDonors = donors.filter(d => d.name === "苦逼的管理员");
+      console.log('管理员赞助者：', adminDonors.map(d => `${d.amount} (${d.numAmount})`));
       
       const donorsContainer = document.getElementById('donorsContainer');
       
