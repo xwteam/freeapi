@@ -722,7 +722,8 @@ footer {
   border-top: 1px solid #eee;
   font-size: 14px;
   color: #888;
-  background-color: #f9f9f9;
+  /* 移除背景颜色 */
+  background-color: transparent;
 }
 
 .site-footer p {
@@ -802,7 +803,8 @@ footer {
 .dark-mode .site-footer {
   border-top-color: #333;
   color: #aaa;
-  background-color: #1f1f1f;
+  /* 移除背景颜色 */
+  background-color: transparent;
 }
 
 .dark-mode .site-footer a {
