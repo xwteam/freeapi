@@ -29,18 +29,22 @@
       </div>
     </div>
 
-    <div class="tip-box">
+    <div class="tip-box" id="donateBox">
       <div class="tip-title">
-        <i class="fas fa-lightbulb"></i>
-        <h3>部署说明</h3>
+        <i class="fas fa-heart"></i>
+        <h3>赞赏名单</h3>
       </div>
-      <ul class="tip-list">
-        <li><strong>部署方式</strong>：Gitee公开仓库 + EdgeOne Pages服务</li>
-        <li><strong>文件结构</strong>：HTML和JSON文件位于仓库同一目录</li>
-        <li><strong>加载机制</strong>：使用相对路径 <code>fetch('data.json')</code> 加载数据</li>
-        <li><strong>优势</strong>：同域名访问，无跨域问题，全球加速</li>
-        <li><strong>更新方法</strong>：在Gitee更新文件后，EdgeOne Pages会自动重新部署</li>
-      </ul>
+      <div class="donate-content">
+        <p>感谢赞赏的人，因为你们，让我感受到更新更多免费API的动力。</p>
+        
+        <div class="donate-notice">
+          <p>首页仅显示排名前 8 位，完整名单请看 <a href="donate.html">这里</a></p>
+        </div>
+        
+        <div class="donors-container" id="donorsContainer">
+          <!-- 捐赠者将通过JavaScript动态加载 -->
+        </div>
+      </div>
     </div>
 
     <div data-include="footer.html"></div>
@@ -61,6 +65,50 @@
   <script src="js/toproll.js" defer></script>
   <script>
   initializeTopNav();
+  
+  // 加载赞赏数据
+  fetch('config/donate.json')
+    .then(response => response.json())
+    .then(data => {
+      // 按金额排序（先将金额转换为数字）
+      const donors = data.donors.map(donor => {
+        // 提取数字部分并转换为浮点数
+        const amountStr = donor.amount.replace(/[^0-9,.]/g, '');
+        const amount = parseFloat(amountStr.replace(/,/g, ''));
+        
+        // 使用原始avatar路径
+        return { 
+          ...donor, 
+          numAmount: amount
+        };
+      })
+      .sort((a, b) => b.numAmount - a.numAmount)
+      .slice(0, 8); // 只取前8名
+      
+      const donorsContainer = document.getElementById('donorsContainer');
+      
+      // 清空容器
+      donorsContainer.innerHTML = '';
+      
+      // 添加赞助者
+      donors.forEach(donor => {
+        const donorElement = document.createElement('div');
+        donorElement.className = 'donor-item';
+        
+        // 根据名称显示不同的文本（处理"苦逼的管理员"显示为"香港的管理员"）
+        const displayName = donor.name === "苦逼的管理员" ? "香港的管理员" : donor.name;
+        
+        donorElement.innerHTML = `
+          <img src="${donor.avatar}" alt="${displayName}" class="donor-avatar" onerror="this.src='img/01.png'">
+          <div class="donor-info">
+            <h4>${displayName}</h4>
+            <p>${donor.amount}</p>
+          </div>
+        `;
+        donorsContainer.appendChild(donorElement);
+      });
+    })
+    .catch(error => console.error('加载赞赏数据失败:', error));
   </script>
 </body>
 </html>
