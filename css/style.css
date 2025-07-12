@@ -713,3 +713,60 @@ footer {
 .dark-mode .donor-avatar {
   border-color: #444;
 }
+
+/* Footer 样式 */
+.site-footer {
+  margin-top: 30px;
+  padding: 15px 0;
+  text-align: center;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+  color: #888;
+}
+
+.site-footer p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.icp-info, .police-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.site-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.official-group {
+  color: #1890ff;
+  text-decoration: none;
+}
+
+.official-group:hover {
+  text-decoration: underline;
+}
+
+/* 暗色模式下的 Footer 样式 */
+.dark-mode .site-footer {
+  border-top-color: #333;
+  color: #aaa;
+}
+
+.dark-mode .official-group {
+  color: #4dabf7;
+}
+
+@media (max-width: 768px) {
+  .site-footer p {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
