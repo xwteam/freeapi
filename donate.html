@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="pageTitle">赞赏名单</title>
+  <title id="pageTitle">赞赏名单 - 福利云API</title>
   <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -329,43 +329,7 @@
   </style>
   
   <!-- 主题切换脚本 -->
-  <script>
-  function toggleTheme() {
-    const htmlElement = document.documentElement;
-    const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    const themeIcon = document.querySelector('#theme-toggle i');
-    if (themeIcon) {
-      themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-    
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (themeToggleBtn) {
-      themeToggleBtn.style.transform = 'scale(0.8)';
-      setTimeout(() => {
-        themeToggleBtn.style.transform = '';
-      }, 300);
-    }
-  }
-  
-  // 页面加载时应用保存的主题
-  document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-    
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    
-    const themeIcon = document.querySelector('#theme-toggle i');
-    if (themeIcon) {
-      themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-  });
-  </script>
+  <script src="js/theme.js?v=1"></script>
 </head>
 <body>
 
@@ -426,13 +390,34 @@
 
   <!-- 浮动按钮 -->
   <div class="floating-buttons">
-    <button id="theme-toggle" class="floating-btn" aria-label="切换主题" onclick="toggleTheme()">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
       <i class="fas fa-moon"></i>
     </button>
     <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
       <i class="fas fa-arrow-up"></i>
     </button>
   </div>
+  
+  <script>
+    // 确保主题切换按钮有正确的点击事件
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('正在设置主题切换按钮的点击事件');
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) {
+        console.log('找到主题切换按钮，添加点击事件');
+        themeToggleBtn.addEventListener('click', function() {
+          console.log('主题切换按钮被点击');
+          if (typeof toggleTheme === 'function') {
+            toggleTheme();
+          } else {
+            console.error('toggleTheme 函数未定义');
+          }
+        });
+      } else {
+        console.error('找不到主题切换按钮');
+      }
+    });
+  </script>
 
   <!-- 脚本 -->
   <script src="js/toproll.js" defer></script>
