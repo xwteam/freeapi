@@ -43,7 +43,7 @@
 
   <!-- 浮动按钮 -->
   <div class="floating-buttons">
-    <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题" onclick="window.toggleTheme ? window.toggleTheme() : console.error('toggleTheme 函数未定义')">
       <i class="fas fa-moon"></i>
     </button>
     <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
