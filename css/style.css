@@ -680,38 +680,39 @@ footer {
   font-weight: bold;
 }
 
-/* 暗色模式下的赞赏名单样式 */
-.dark-mode .donate-section {
+/* 赞赏名单暗色模式样式 */
+[data-theme="dark"] .donate-section {
   background-color: var(--card-bg);
 }
 
-.dark-mode .donate-title {
+[data-theme="dark"] .donate-title {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .donate-desc {
   color: var(--text-color);
 }
 
-.dark-mode .donate-desc {
+[data-theme="dark"] .donate-notice {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .donate-notice a {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .donor-info h4 {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .donor-info p {
   color: var(--gray);
 }
 
-.dark-mode .donate-notice {
-  background-color: #3a3a3a;
-  color: #ff9e9e;
-}
-
-.dark-mode .donate-notice a {
-  color: #ff9e9e;
-}
-
-.dark-mode .donor-info h4 {
-  color: #ddd;
-}
-
-.dark-mode .donor-info p {
-  color: #aaa;
-}
-
-.dark-mode .donor-avatar {
-  border-color: #444;
+[data-theme="dark"] .donor-avatar {
+  border: 2px solid var(--border-color);
+  background-color: var(--tip-box-bg);
 }
 
 /* Footer 样式 */
@@ -796,27 +797,26 @@ footer {
 }
 
 .text-muted {
-  color: #888;
+  color: #6c757d !important;
 }
 
-/* 暗色模式下的 Footer 样式 */
-.dark-mode .site-footer {
-  border-top-color: #333;
-  color: #aaa;
-  /* 移除背景颜色 */
-  background-color: transparent;
+/* 页脚暗色模式样式 */
+[data-theme="dark"] .site-footer {
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
-.dark-mode .site-footer a {
-  color: #aaa;
+[data-theme="dark"] .site-footer a {
+  color: var(--gray);
 }
 
-.dark-mode .official-group {
-  color: #4dabf7;
+[data-theme="dark"] .official-group {
+  background-color: var(--tip-box-bg);
 }
 
-.dark-mode .text-muted {
-  color: #aaa;
+[data-theme="dark"] .text-muted {
+  color: var(--gray) !important;
 }
 
 @media (max-width: 992px) {
@@ -1014,30 +1014,31 @@ footer {
   100% { transform: rotate(360deg); }
 }
 
-/* 暗色模式下的友情链接样式 */
-.dark-mode .header-box,
-.dark-mode .notice-banner {
+/* 链接页面暗色模式样式 */
+[data-theme="dark"] .header-box,
+[data-theme="dark"] .notice-banner {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .main-title {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .link-name {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .link-card {
   background-color: var(--card-bg);
 }
 
-.dark-mode .main-title {
-  color: var(--text-color);
+[data-theme="dark"] .link-info {
+  border-top: 1px solid var(--border-color);
 }
 
-.dark-mode .link-name {
-  color: var(--text-color);
-}
-
-.dark-mode .link-card {
-  background-color: var(--card-bg);
-}
-
-.dark-mode .link-info {
-  background-color: var(--card-bg);
-}
-
-.dark-mode .link-actions {
-  background-color: var(--dark-bg);
+[data-theme="dark"] .link-actions {
+  border-top: 1px solid var(--border-color);
 }
 
 @media (max-width: 992px) {
