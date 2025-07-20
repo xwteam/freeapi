@@ -327,6 +327,45 @@
       border-color: var(--primary);
     }
   </style>
+  
+  <!-- 主题切换脚本 -->
+  <script>
+  function toggleTheme() {
+    const htmlElement = document.documentElement;
+    const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    const themeIcon = document.querySelector('#theme-toggle i');
+    if (themeIcon) {
+      themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+      themeToggleBtn.style.transform = 'scale(0.8)';
+      setTimeout(() => {
+        themeToggleBtn.style.transform = '';
+      }, 300);
+    }
+  }
+  
+  // 页面加载时应用保存的主题
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    const themeIcon = document.querySelector('#theme-toggle i');
+    if (themeIcon) {
+      themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+  });
+  </script>
 </head>
 <body>
 
@@ -420,223 +459,182 @@
       await loadIncludes();
       initializeTopNav();
       loadDonateData();
-      
-      // 应用保存的主题
-      const savedTheme = localStorage.getItem('theme');
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', currentTheme);
-      
-      // 更新图标
-      const themeIcon = document.querySelector('#theme-toggle i');
-      if (themeIcon) {
-        themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      }
     });
+
+    const heroContainer = document.getElementById('heroContainer');
+    const donorContainer = document.getElementById('donorContainer');
+    const qrcodeContainer = document.getElementById('qrcodeContainer');
+    const heroLoader = document.getElementById('heroLoader');
+    const loader = document.getElementById('loader');
+
+    async function loadDonateData() {
+      try {
+        // 显示加载中
+        if (heroLoader) heroLoader.style.display = 'block';
+        if (loader) loader.style.display = 'block';
+        
+        // 加载赞赏数据
+        const response = await fetch('config/donate.json');
+        if (!response.ok) throw new Error(`服务器响应错误: ${response.status}`);
+        
+        const data = await response.json();
+        
+        // 更新标题和副标题
+        if (data.title) document.getElementById('donateTitle').textContent = data.title;
+        if (data.subtitle) document.getElementById('donateSubtitle').textContent = data.subtitle;
+        
+        // 渲染英雄榜（前三名）
+        renderHeroes(data.donors || []);
+        
+        // 渲染所有赞赏者列表
+        renderDonors(data.donors || []);
+        
+        // 渲染二维码
+        renderQRCodes(data.qrcode || '');
+        
+      } catch (error) {
+        console.error('加载赞赏数据失败:', error);
+        const errorHtml = `
+          <div class="error-panel" style="text-align: center;">
+            <h2 class="error-title"><i class="fas fa-exclamation-triangle"></i> 加载数据失败</h2>
+            <p>${error.message}</p>
+            <div class="controls" style="margin-top: 20px;">
+              <button class="btn" onclick="loadDonateData()">
+                <i class="fas fa-redo"></i> 重试
+              </button>
+            </div>
+          </div>
+        `;
+        
+        heroContainer.innerHTML = errorHtml;
+        donorContainer.innerHTML = errorHtml;
+      } finally {
+        // 隐藏加载中
+        if (heroLoader) heroLoader.style.display = 'none';
+        if (loader) loader.style.display = 'none';
+      }
+    }
     
-    // 直接在页面添加主题切换功能
-    function toggleTheme() {
-      console.log('主题切换按钮被直接点击');
-      const htmlElement = document.documentElement;
-      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      // 应用主题
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // 更新图标
-      const themeIcon = document.querySelector('#theme-toggle i');
-      if (themeIcon) {
-        themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    function renderHeroes(donors) {
+      if (!donors.length) {
+        heroContainer.innerHTML = `
+          <div style="text-align: center; padding: 30px; width: 100%;">
+            <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
+            <p style="margin-top: 10px; color: var(--gray);">暂无赞赏数据</p>
+          </div>
+        `;
+        return;
       }
       
-      // 按钮动画
-      const themeToggleBtn = document.getElementById('theme-toggle');
-      if (themeToggleBtn) {
-        themeToggleBtn.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-          themeToggleBtn.style.transform = '';
-        }, 300);
+      // 按金额排序并取前三名
+      const sortedDonors = [...donors].sort((a, b) => {
+        // 提取数字部分
+        const amountA = parseFloat(a.amount.replace(/,/g, '').replace(/元$/, ''));
+        const amountB = parseFloat(b.amount.replace(/,/g, '').replace(/元$/, ''));
+        return amountB - amountA; // 降序排列
+      });
+      
+      const topThree = sortedDonors.slice(0, 3);
+      
+      // 重新排序：第一名在中间，第二名在左边，第三名在右边
+      const orderedHeroes = [];
+      
+      // 确保有足够的赞赏者
+      if (topThree.length >= 1) orderedHeroes[0] = topThree[0]; // 第一名
+      if (topThree.length >= 2) orderedHeroes[1] = topThree[1]; // 第二名
+      if (topThree.length >= 3) orderedHeroes[2] = topThree[2]; // 第三名
+      
+      // 填充缺失的位置
+      while (orderedHeroes.length < 3) {
+        orderedHeroes.push(null);
       }
       
-      return false;
+      const heroCards = [];
+      
+      // 第一名（中间）
+      if (orderedHeroes[0]) {
+        heroCards.push(`
+          <div class="hero-card first">
+            <div class="hero-avatar-container">
+              <img src="${orderedHeroes[0].avatar}" alt="${orderedHeroes[0].intro || orderedHeroes[0].name}" title="${orderedHeroes[0].intro || orderedHeroes[0].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+              <img src="img/01.png" class="hero-medal" alt="第一名" onerror="this.src='images/default-medal.jpg'">
+            </div>
+            <div class="hero-name">${orderedHeroes[0].name}</div>
+            <div class="hero-amount">${orderedHeroes[0].amount}</div>
+          </div>
+        `);
+      }
+      
+      // 第二名（左边）
+      if (orderedHeroes[1]) {
+        heroCards.push(`
+          <div class="hero-card second">
+            <div class="hero-avatar-container">
+              <img src="${orderedHeroes[1].avatar}" alt="${orderedHeroes[1].intro || orderedHeroes[1].name}" title="${orderedHeroes[1].intro || orderedHeroes[1].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+              <img src="img/02.png" class="hero-medal" alt="第二名" onerror="this.src='images/default-medal.jpg'">
+            </div>
+            <div class="hero-name">${orderedHeroes[1].name}</div>
+            <div class="hero-amount">${orderedHeroes[1].amount}</div>
+          </div>
+        `);
+      }
+      
+      // 第三名（右边）
+      if (orderedHeroes[2]) {
+        heroCards.push(`
+          <div class="hero-card third">
+            <div class="hero-avatar-container">
+              <img src="${orderedHeroes[2].avatar}" alt="${orderedHeroes[2].intro || orderedHeroes[2].name}" title="${orderedHeroes[2].intro || orderedHeroes[2].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
+              <img src="img/03.png" class="hero-medal" alt="第三名" onerror="this.src='images/default-medal.jpg'">
+            </div>
+            <div class="hero-name">${orderedHeroes[2].name}</div>
+            <div class="hero-amount">${orderedHeroes[2].amount}</div>
+          </div>
+        `);
+      }
+      
+      heroContainer.innerHTML = heroCards.join('');
     }
 
-         const heroContainer = document.getElementById('heroContainer');
-     const donorContainer = document.getElementById('donorContainer');
-     const qrcodeContainer = document.getElementById('qrcodeContainer');
-     const heroLoader = document.getElementById('heroLoader');
-     const loader = document.getElementById('loader');
-
-     async function loadDonateData() {
-       try {
-         // 显示加载中
-         if (heroLoader) heroLoader.style.display = 'block';
-         if (loader) loader.style.display = 'block';
-         
-         // 加载赞赏数据
-         const response = await fetch('config/donate.json');
-         if (!response.ok) throw new Error(`服务器响应错误: ${response.status}`);
-         
-         const data = await response.json();
-         
-         // 更新标题和副标题
-         if (data.title) document.getElementById('donateTitle').textContent = data.title;
-         if (data.subtitle) document.getElementById('donateSubtitle').textContent = data.subtitle;
-         
-         // 渲染英雄榜（前三名）
-         renderHeroes(data.donors || []);
-         
-         // 渲染所有赞赏者列表
-         renderDonors(data.donors || []);
-         
-         // 渲染二维码
-         renderQRCodes(data.qrcode || '');
-         
-       } catch (error) {
-         console.error('加载赞赏数据失败:', error);
-         const errorHtml = `
-           <div class="error-panel" style="text-align: center;">
-             <h2 class="error-title"><i class="fas fa-exclamation-triangle"></i> 加载数据失败</h2>
-             <p>${error.message}</p>
-             <div class="controls" style="margin-top: 20px;">
-               <button class="btn" onclick="loadDonateData()">
-                 <i class="fas fa-redo"></i> 重试
-               </button>
-             </div>
-           </div>
-         `;
-         
-         heroContainer.innerHTML = errorHtml;
-         donorContainer.innerHTML = errorHtml;
-       } finally {
-         // 隐藏加载中
-         if (heroLoader) heroLoader.style.display = 'none';
-         if (loader) loader.style.display = 'none';
-       }
-     }
-     
-     function renderHeroes(donors) {
-       if (!donors.length) {
-         heroContainer.innerHTML = `
-           <div style="text-align: center; padding: 30px; width: 100%;">
-             <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
-             <p style="margin-top: 10px; color: var(--gray);">暂无赞赏数据</p>
-           </div>
-         `;
-         return;
-       }
-       
-       // 按金额排序并取前三名
-       const sortedDonors = [...donors].sort((a, b) => {
-         // 提取数字部分
-         const amountA = parseFloat(a.amount.replace(/,/g, '').replace(/元$/, ''));
-         const amountB = parseFloat(b.amount.replace(/,/g, '').replace(/元$/, ''));
-         return amountB - amountA; // 降序排列
-       });
-       
-       const topThree = sortedDonors.slice(0, 3);
-       
-       // 重新排序：第一名在中间，第二名在左边，第三名在右边
-       const orderedHeroes = [];
-       
-       // 确保有足够的赞赏者
-       if (topThree.length >= 1) orderedHeroes[0] = topThree[0]; // 第一名
-       if (topThree.length >= 2) orderedHeroes[1] = topThree[1]; // 第二名
-       if (topThree.length >= 3) orderedHeroes[2] = topThree[2]; // 第三名
-       
-       // 填充缺失的位置
-       while (orderedHeroes.length < 3) {
-         orderedHeroes.push(null);
-       }
-       
-       const heroCards = [];
-       
-       // 第一名（中间）
-       if (orderedHeroes[0]) {
-         heroCards.push(`
-           <div class="hero-card first">
-             <div class="hero-avatar-container">
-               <img src="${orderedHeroes[0].avatar}" alt="${orderedHeroes[0].intro || orderedHeroes[0].name}" title="${orderedHeroes[0].intro || orderedHeroes[0].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
-               <img src="img/01.png" class="hero-medal" alt="第一名" onerror="this.src='images/default-medal.jpg'">
-             </div>
-             <div class="hero-name">${orderedHeroes[0].name}</div>
-             <div class="hero-amount">${orderedHeroes[0].amount}</div>
-           </div>
-         `);
-       }
-       
-       // 第二名（左边）
-       if (orderedHeroes[1]) {
-         heroCards.push(`
-           <div class="hero-card second">
-             <div class="hero-avatar-container">
-               <img src="${orderedHeroes[1].avatar}" alt="${orderedHeroes[1].intro || orderedHeroes[1].name}" title="${orderedHeroes[1].intro || orderedHeroes[1].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
-               <img src="img/02.png" class="hero-medal" alt="第二名" onerror="this.src='images/default-medal.jpg'">
-             </div>
-             <div class="hero-name">${orderedHeroes[1].name}</div>
-             <div class="hero-amount">${orderedHeroes[1].amount}</div>
-           </div>
-         `);
-       }
-       
-       // 第三名（右边）
-       if (orderedHeroes[2]) {
-         heroCards.push(`
-           <div class="hero-card third">
-             <div class="hero-avatar-container">
-               <img src="${orderedHeroes[2].avatar}" alt="${orderedHeroes[2].intro || orderedHeroes[2].name}" title="${orderedHeroes[2].intro || orderedHeroes[2].name}" class="hero-avatar" onerror="this.src='images/default-avatar.jpg'">
-               <img src="img/03.png" class="hero-medal" alt="第三名" onerror="this.src='images/default-medal.jpg'">
-             </div>
-             <div class="hero-name">${orderedHeroes[2].name}</div>
-             <div class="hero-amount">${orderedHeroes[2].amount}</div>
-           </div>
-         `);
-       }
-       
-       heroContainer.innerHTML = heroCards.join('');
-     }
-
-     function renderDonors(donors) {
-       if (!donors.length) {
-         donorContainer.innerHTML = `
-           <div style="grid-column: 1 / -1; text-align: center; padding: 30px;">
-             <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
-             <p style="margin-top: 10px; color: var(--gray);">暂无赞赏数据</p>
-           </div>
-         `;
-         return;
-       }
-       
-       donorContainer.innerHTML = donors.map(donor => `
-         <div class="donor-card">
-           <img src="${donor.avatar}" alt="${donor.intro || donor.name}" title="${donor.intro || donor.name}" class="donor-avatar" onerror="this.src='images/default-avatar.jpg'">
-           <div class="donor-name">${donor.name}</div>
-           <div class="donor-amount">${donor.amount}</div>
-         </div>
-       `).join('');
+    function renderDonors(donors) {
+      if (!donors.length) {
+        donorContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 30px;">
+            <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
+            <p style="margin-top: 10px; color: var(--gray);">暂无赞赏数据</p>
+          </div>
+        `;
+        return;
+      }
+      
+      donorContainer.innerHTML = donors.map(donor => `
+        <div class="donor-card">
+          <img src="${donor.avatar}" alt="${donor.intro || donor.name}" title="${donor.intro || donor.name}" class="donor-avatar" onerror="this.src='images/default-avatar.jpg'">
+          <div class="donor-name">${donor.name}</div>
+          <div class="donor-amount">${donor.amount}</div>
+        </div>
+      `).join('');
     }
 
-         function renderQRCodes(qrcode) {
-       qrcodeContainer.innerHTML = '';
-       
-       if (qrcode) {
-         qrcodeContainer.innerHTML = `
-           <div class="qrcode-item" style="width: 100%; margin: 0 auto;">
-             <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 100%; height: auto; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
-             <div class="qrcode-title">扫码赞赏</div>
-           </div>
-         `;
-       } else {
-         qrcodeContainer.innerHTML = `
-           <div style="text-align: center; padding: 30px; width: 100%;">
-             <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
-             <p style="margin-top: 10px; color: var(--gray);">暂无赞赏二维码</p>
-           </div>
-         `;
-       }
-     }
+    function renderQRCodes(qrcode) {
+      qrcodeContainer.innerHTML = '';
+      
+      if (qrcode) {
+        qrcodeContainer.innerHTML = `
+          <div class="qrcode-item" style="width: 100%; margin: 0 auto;">
+            <img src="${qrcode}" alt="赞赏二维码" class="qrcode-img" style="width: 100%; height: auto; object-fit: contain;" onerror="this.src='images/default-qrcode.jpg'">
+            <div class="qrcode-title">扫码赞赏</div>
+          </div>
+        `;
+      } else {
+        qrcodeContainer.innerHTML = `
+          <div style="text-align: center; padding: 30px; width: 100%;">
+            <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--gray);"></i>
+            <p style="margin-top: 10px; color: var(--gray);">暂无赞赏二维码</p>
+          </div>
+        `;
+      }
+    }
   </script>
 </body>
 </html>
