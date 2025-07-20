@@ -1,23 +1,23 @@
 {
 	"data": [{
 			"xwteam_api_id": "1",
-			"xwteam_api_title": "UUID生成",
-			"xwteam_api_desc": "UUID 是 通用唯一识别符（Universally Unique Identifier）的缩写，是一种软件建构的标准，为了确保在分布式系统中的所有元素，都有唯一的辨识信息。"
+			"xwteam_api_title": "免费GPT4o-mini",
+			"xwteam_api_desc": "免费的GPT4o-mini接口，接口已做限制，每5秒请求一次共享调用，纯靠手速，完整版或特定key除外）"
 		},
 		{
 			"xwteam_api_id": "2",
-			"xwteam_api_title": "关注自动本回复",
-			"xwteam_api_desc": "这是一个关注后自动回复文本内容的插件，暂不支持自定义，统一回复固定内容。"
+			"xwteam_api_title": "UUID生成",
+			"xwteam_api_desc": "UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准，亦为开放软件基金会组织在分布式计算环境领域的一部分。"
 		},
 		{
 			"xwteam_api_id": "3",
-			"xwteam_api_title": "天气查询",
-			"xwteam_api_desc": "输入触发关键词可查询城市天气，仅支持查询地级市，无需输入省份"
+			"xwteam_api_title": "生日倒计时",
+			"xwteam_api_desc": "输入出生日期，计算详细的生日信息，以及最近一次生日倒计时。"
 		},
 		{
 			"xwteam_api_id": "4",
-			"xwteam_api_title": "生日倒计时查询",
-			"xwteam_api_desc": "输入出生日期，计算详细的生日信息，以及最近一次生日倒计时，格式为 查询生日20010101"
+			"xwteam_api_title": "AI绘画",
+			"xwteam_api_desc": "速度挺快的AI绘画，但是画的好不好，准不准确，这个就见仁见智了。反正你就说画得快不快吧。<br>2025-07-20 更新：更换AI绘画接口，更好看更准确，接口总调用限制为10秒/次"
 		}
 	]
 }
