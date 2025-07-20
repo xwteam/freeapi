@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="pageTitle">赞赏名单 - 福利云API</title>
+  <title id="pageTitle">赞赏名单</title>
   <link rel="icon" type="image/png" sizes="56x56" href="FreeAPI.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -180,51 +180,50 @@
       font-weight: bold;
     }
     
+    .qrcode-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px auto;
+      width: 100%;
+      max-width: 30%;
+    }
     
-    
-         .qrcode-container {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       margin: 30px auto;
-       width: 100%;
-       max-width: 30%;
-     }
-    
-         .qrcode-item {
-       text-align: center;
-       background: var(--card-bg);
-       border-radius: var(--radius);
-       padding: 10px;
-       box-shadow: var(--shadow);
-       border: 1px solid var(--border-color);
-       transition: var(--transition);
-     }
+    .qrcode-item {
+      text-align: center;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
      
-     .qrcode-item:hover {
-       transform: translateY(-5px);
-     }
+    .qrcode-item:hover {
+      transform: translateY(-5px);
+    }
      
-     .qrcode-img {
-       width: 100%;
-       height: auto;
-       margin-bottom: 10px;
-       border-radius: 8px;
-     }
+    .qrcode-img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
     
-         .qrcode-title {
-       font-size: 1rem;
-       font-weight: bold;
-       color: var(--primary);
-       margin-top: 5px;
-     }
+    .qrcode-title {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-top: 5px;
+    }
     
     .header-box {
-      background-color: #fff;
+      background-color: var(--card-bg);
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow);
       margin-bottom: 30px;
       overflow: hidden;
+      border: 1px solid var(--border-color);
     }
     
     .main-title {
@@ -236,7 +235,7 @@
     }
     
     .notice-banner {
-      background-color: #fff;
+      background-color: var(--card-bg);
       padding: 5px 20px 15px;
     }
     
@@ -281,6 +280,51 @@
       height: 3px;
       background-color: var(--primary);
       margin: 10px auto 0;
+    }
+    
+    /* 暗色主题样式 */
+    [data-theme="dark"] .header-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+    }
+    
+    [data-theme="dark"] .notice-banner {
+      background-color: var(--card-bg);
+    }
+    
+    [data-theme="dark"] .notice-banner p {
+      color: var(--gray);
+    }
+    
+    [data-theme="dark"] .main-title {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .section-title {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .hero-card,
+    [data-theme="dark"] .donor-card,
+    [data-theme="dark"] .qrcode-item {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+    }
+    
+    [data-theme="dark"] .hero-name,
+    [data-theme="dark"] .donor-name {
+      color: var(--text-color);
+    }
+    
+    [data-theme="dark"] .hero-amount,
+    [data-theme="dark"] .donor-amount,
+    [data-theme="dark"] .qrcode-title {
+      color: var(--primary);
+    }
+    
+    [data-theme="dark"] .hero-avatar,
+    [data-theme="dark"] .donor-avatar {
+      border-color: var(--primary);
     }
   </style>
 </head>
@@ -343,7 +387,7 @@
 
   <!-- 浮动按钮 -->
   <div class="floating-buttons">
-    <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题" onclick="toggleTheme()">
       <i class="fas fa-moon"></i>
     </button>
     <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
@@ -376,7 +420,48 @@
       await loadIncludes();
       initializeTopNav();
       loadDonateData();
+      
+      // 应用保存的主题
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      
+      // 更新图标
+      const themeIcon = document.querySelector('#theme-toggle i');
+      if (themeIcon) {
+        themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      }
     });
+    
+    // 直接在页面添加主题切换功能
+    function toggleTheme() {
+      console.log('主题切换按钮被直接点击');
+      const htmlElement = document.documentElement;
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      // 应用主题
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // 更新图标
+      const themeIcon = document.querySelector('#theme-toggle i');
+      if (themeIcon) {
+        themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      }
+      
+      // 按钮动画
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) {
+        themeToggleBtn.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          themeToggleBtn.style.transform = '';
+        }, 300);
+      }
+      
+      return false;
+    }
 
          const heroContainer = document.getElementById('heroContainer');
      const donorContainer = document.getElementById('donorContainer');
