@@ -1,4 +1,6 @@
 function initializeTopNav() {
+  console.log('初始化顶部导航和主题切换...');
+  
   // DOM 元素
   const themeToggleBtn = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
@@ -8,13 +10,18 @@ function initializeTopNav() {
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
 
+  // 调试信息
+  console.log('主题切换按钮:', themeToggleBtn);
+  
   // 主题应用
   const applyTheme = (theme) => {
+    console.log('应用主题:', theme);
     htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     const themeIcon = themeToggleBtn?.querySelector('i');
     if (themeIcon) {
       themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      console.log('更新主题图标为:', themeIcon.className);
     }
     themeToggleBtn?.setAttribute('aria-label', theme === 'dark' ? '切换到亮色主题' : '切换到暗色主题');
     const favicons = document.querySelectorAll('link[rel~="icon"]');
@@ -35,19 +42,35 @@ function initializeTopNav() {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    console.log('初始化主题:', currentTheme, '(保存的主题:', savedTheme, ', 系统偏好:', systemPrefersDark ? 'dark' : 'light', ')');
     applyTheme(currentTheme);
   };
 
   // 点击主题按钮切换
-  themeToggleBtn?.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
-    themeToggleBtn.style.transform = 'scale(0.8)';
-    setTimeout(() => {
-      themeToggleBtn.style.transform = '';
-    }, 300);
-  });
+  if (themeToggleBtn) {
+    console.log('为主题切换按钮添加点击事件');
+    themeToggleBtn.addEventListener('click', () => {
+      console.log('主题切换按钮被点击');
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      console.log('切换主题:', currentTheme, '->', newTheme);
+      applyTheme(newTheme);
+      themeToggleBtn.style.transform = 'scale(0.8)';
+      setTimeout(() => {
+        themeToggleBtn.style.transform = '';
+      }, 300);
+    });
+  } else {
+    console.error('主题切换按钮未找到！ID: theme-toggle');
+    // 尝试直接在文档中查找按钮
+    const allButtons = document.querySelectorAll('button');
+    console.log('文档中的所有按钮:', allButtons.length);
+    allButtons.forEach(btn => {
+      if (btn.id === 'theme-toggle' || btn.classList.contains('floating-btn')) {
+        console.log('找到可能的主题切换按钮:', btn);
+      }
+    });
+  }
 
   // 根据系统变化自动切换
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
@@ -134,3 +157,41 @@ function initializeTopNav() {
     }
   });
 }
+
+// 确保DOM完全加载后再初始化
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM已加载完成，准备初始化主题切换...');
+  
+  // 延迟一点执行，确保所有包含的HTML都已加载
+  setTimeout(() => {
+    console.log('检查主题切换按钮是否存在...');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (!themeToggleBtn) {
+      console.error('主题切换按钮未找到！可能是HTML结构问题。');
+      
+      // 尝试手动添加主题切换按钮
+      if (!document.querySelector('.floating-buttons')) {
+        console.log('尝试添加浮动按钮容器...');
+        const floatingButtons = document.createElement('div');
+        floatingButtons.className = 'floating-buttons';
+        
+        const themeBtn = document.createElement('button');
+        themeBtn.id = 'theme-toggle';
+        themeBtn.className = 'floating-btn';
+        themeBtn.setAttribute('aria-label', '切换主题');
+        
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-moon';
+        themeBtn.appendChild(icon);
+        
+        floatingButtons.appendChild(themeBtn);
+        document.body.appendChild(floatingButtons);
+        
+        console.log('已手动添加主题切换按钮');
+        
+        // 重新初始化
+        initializeTopNav();
+      }
+    }
+  }, 1000);
+});
