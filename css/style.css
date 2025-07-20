@@ -936,7 +936,8 @@ footer {
   padding: 15px;
   flex-grow: 1;
   text-align: center;
-  background-color: #fff;
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
 }
 
 .link-name {
@@ -961,7 +962,7 @@ footer {
 .link-actions {
   display: flex;
   border-top: 1px solid var(--border-color);
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
 }
 
 .link-btn {
@@ -975,11 +976,11 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 5px;
+  background-color: transparent;
 }
 
 .visit-btn {
   color: #1890ff;
-  background-color: transparent;
 }
 
 .visit-btn:hover {
@@ -988,7 +989,6 @@ footer {
 
 .check-btn {
   color: #52c41a;
-  background-color: transparent;
   border-left: 1px solid var(--border-color);
 }
 
@@ -1026,19 +1026,55 @@ footer {
 }
 
 [data-theme="dark"] .link-name {
-  color: var(--primary);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .link-desc {
+  color: var(--gray);
 }
 
 [data-theme="dark"] .link-card {
   background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
 }
 
 [data-theme="dark"] .link-info {
+  background-color: var(--card-bg);
   border-top: 1px solid var(--border-color);
 }
 
 [data-theme="dark"] .link-actions {
+  background-color: var(--card-bg);
   border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .link-btn {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .visit-btn {
+  color: #4dabf7;
+}
+
+[data-theme="dark"] .visit-btn:hover {
+  background-color: rgba(77, 171, 247, 0.2);
+}
+
+[data-theme="dark"] .check-btn {
+  color: #69db7c;
+  border-left: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .check-btn:hover {
+  background-color: rgba(105, 219, 124, 0.2);
+}
+
+[data-theme="dark"] .status-ok {
+  color: #69db7c;
+}
+
+[data-theme="dark"] .status-error {
+  color: #ff6b6b;
 }
 
 @media (max-width: 992px) {
