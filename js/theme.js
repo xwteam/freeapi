@@ -11,6 +11,26 @@ function toggleTheme() {
   htmlElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
   
+  // 强制重新应用链接卡片样式
+  setTimeout(() => {
+    const linkCards = document.querySelectorAll('.link-card');
+    if (linkCards.length > 0) {
+      console.log('找到链接卡片:', linkCards.length, '个，强制重新应用样式');
+      linkCards.forEach(card => {
+        // 强制重新应用链接信息和操作区域的样式
+        const linkInfo = card.querySelector('.link-info');
+        if (linkInfo) {
+          linkInfo.style.backgroundColor = '';
+        }
+        
+        const linkActions = card.querySelector('.link-actions');
+        if (linkActions) {
+          linkActions.style.backgroundColor = '';
+        }
+      });
+    }
+  }, 50);
+  
   const themeIcon = document.querySelector('#theme-toggle i');
   if (themeIcon) {
     themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
@@ -59,7 +79,20 @@ document.addEventListener('DOMContentLoaded', function() {
     themeToggleBtn.removeEventListener('click', toggleTheme);
     // 添加新的事件监听器
     themeToggleBtn.addEventListener('click', toggleTheme);
+    
+    // 确保按钮可点击
+    themeToggleBtn.style.pointerEvents = 'auto';
+    themeToggleBtn.style.cursor = 'pointer';
   } else {
     console.error('在页面加载时找不到主题切换按钮元素');
+    // 尝试延迟再次查找按钮
+    setTimeout(() => {
+      const delayedBtn = document.getElementById('theme-toggle');
+      if (delayedBtn) {
+        console.log('延迟后找到主题切换按钮，添加点击事件');
+        delayedBtn.removeEventListener('click', toggleTheme);
+        delayedBtn.addEventListener('click', toggleTheme);
+      }
+    }, 1000);
   }
 }); 
