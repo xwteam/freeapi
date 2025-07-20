@@ -43,7 +43,7 @@
 
   <!-- 浮动按钮 -->
   <div class="floating-buttons">
-    <button id="theme-toggle" class="floating-btn" aria-label="切换主题" onclick="toggleTheme()">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题" onclick="themeToggleHandler()">
       <i class="fas fa-moon"></i>
     </button>
     <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
@@ -51,8 +51,69 @@
     </button>
   </div>
   
-  <!-- 主题切换脚本 -->
-  <script src="js/theme.js?v=1"></script>
+  <!-- 内联主题切换脚本 -->
+  <script>
+    // 内联主题切换函数
+    function themeToggleHandler() {
+      console.log('内联主题切换函数被调用');
+      
+      const htmlElement = document.documentElement;
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      console.log('当前主题:', currentTheme, '切换为:', newTheme);
+      
+      // 设置主题
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // 更新图标
+      const themeIcon = document.querySelector('#theme-toggle i');
+      if (themeIcon) {
+        themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      }
+      
+      // 按钮动画
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) {
+        themeToggleBtn.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          themeToggleBtn.style.transform = '';
+        }, 300);
+      }
+      
+      // 强制重新应用链接卡片样式
+      setTimeout(() => {
+        const linkCards = document.querySelectorAll('.link-card');
+        linkCards.forEach(card => {
+          // 强制重新应用样式
+          card.style.backgroundColor = '';
+          
+          const linkInfo = card.querySelector('.link-info');
+          if (linkInfo) linkInfo.style.backgroundColor = '';
+          
+          const linkActions = card.querySelector('.link-actions');
+          if (linkActions) linkActions.style.backgroundColor = '';
+        });
+      }, 50);
+    }
+    
+    // 页面加载时应用保存的主题
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+      
+      // 应用主题
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      
+      // 更新图标
+      const themeIcon = document.querySelector('#theme-toggle i');
+      if (themeIcon) {
+        themeIcon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      }
+    });
+  </script>
 
   <!-- 脚本 -->
   <script src="js/main.js" defer></script>
