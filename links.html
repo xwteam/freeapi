@@ -43,13 +43,44 @@
 
   <!-- 浮动按钮 -->
   <div class="floating-buttons">
-    <button id="theme-toggle" class="floating-btn" aria-label="切换主题">
+    <button id="theme-toggle" class="floating-btn" aria-label="切换主题" onclick="toggleTheme()">
       <i class="fas fa-moon"></i>
     </button>
     <button id="scroll-to-top" class="floating-btn" aria-label="返回顶部">
       <i class="fas fa-arrow-up"></i>
     </button>
   </div>
+  
+  <script>
+    // 直接在页面添加主题切换功能
+    function toggleTheme() {
+      console.log('主题切换按钮被直接点击');
+      const htmlElement = document.documentElement;
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      // 应用主题
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // 更新图标
+      const themeIcon = document.querySelector('#theme-toggle i');
+      if (themeIcon) {
+        themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      }
+      
+      // 按钮动画
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) {
+        themeToggleBtn.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          themeToggleBtn.style.transform = '';
+        }, 300);
+      }
+      
+      return false;
+    }
+  </script>
 
   <!-- 脚本 -->
   <script src="js/main.js" defer></script>
