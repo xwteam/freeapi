@@ -53,37 +53,6 @@
   
   <!-- 主题切换脚本 -->
   <script src="js/theme.js?v=1"></script>
-  
-  <script>
-    // 直接在页面添加主题切换功能
-    function toggleTheme() {
-      console.log('主题切换按钮被直接点击');
-      const htmlElement = document.documentElement;
-      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      // 应用主题
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // 更新图标
-      const themeIcon = document.querySelector('#theme-toggle i');
-      if (themeIcon) {
-        themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      }
-      
-      // 按钮动画
-      const themeToggleBtn = document.getElementById('theme-toggle');
-      if (themeToggleBtn) {
-        themeToggleBtn.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-          themeToggleBtn.style.transform = '';
-        }, 300);
-      }
-      
-      return false;
-    }
-  </script>
 
   <!-- 脚本 -->
   <script src="js/main.js" defer></script>
