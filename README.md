@@ -18,7 +18,7 @@
 
 ## ✨ 项目介绍
 
-**福利云API[freeapi]是一款基于Edgeone/CloudFlare Pages + Cloudflare Workers搭建的纯静态API，使用Edgeone/CloudFlare边缘加速，无需数据库**
+**福利云API[freeapi]是一款基于Edgeone/CloudFlare Pages + Cloudflare Workers搭建的纯静态API，使用Edgeone/CloudFlare边缘加速，无需数据库，修改仓库代码，自动更新部署**
 
 ## ⚙️ 工具特性
 
