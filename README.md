@@ -1,7 +1,7 @@
 <p align="center">
 <div align="center">
     <a href="https://gitee.com/xwteam/freeapi">
-        <img src="img/FreeAPI.png" alt="mpay" width=300 />
+        <img src="https://free.xwteam.cn/assets/https://img.xwteam.cn/FreeAPI.png" alt="freeapi" width=300 />
     </a>
 </div>
 <div align="center">
@@ -41,46 +41,46 @@ Fork本项目，**Edgeone/CloudFlare Pages** 绑定Git仓库账号，导入仓�
 
 登录 **腾讯云Edgeone** → 服务概览 → Pages → 创建项目 → 导入Git仓库
 
-![](img/QYW8wq.png)
+![](https://img.xwteam.cn/QYW8wq.png)
 
 选择Git仓库并绑定账号
 
-![](img/1Cb4Q8.png)
+![](https://img.xwteam.cn/1Cb4Q8.png)
 
 选择代码仓库
 
-![](img/HM1a9G.png)
+![](https://img.xwteam.cn/HM1a9G.png)
 
 配置项目，点击开始部署，等待部署结束
 > 注意，加速区域选择包含中国大陆，则绑定域名的时候需要绑定已备案的域名
 
-![](img/V7be4z.png)
+![](https://img.xwteam.cn/V7be4z.png)
 
 至此，部署完成
 
-![](img/HGgC8H.png)
+![](https://img.xwteam.cn/HGgC8H.png)
 
 ### CloudFlare Pages 安装方法
 
 登录 **CloudFlare** → Workers & Pages → Creat
 
-![](img/xhh9e3.png)
+![](https://img.xwteam.cn/xhh9e3.png)
 
 选择 Pages → Import an existing Git repository，点击右侧 Get started
 
-![](img/GY10aB.png)
+![](https://img.xwteam.cn/GY10aB.png)
 
 绑定Git仓库账号 → 选择代码仓库 → 点击 Begin setup
 
-![](img/rhxwXl.png)
+![](https://img.xwteam.cn/rhxwXl.png)
 
 填写Project name → 点击底部 **Save and Deploy** 按钮
 
-![](img/l9iPJS.png)
+![](https://img.xwteam.cn/l9iPJS.png)
 
 至此，部署完成
 
-![](img/rztCbD.png)
+![](https://img.xwteam.cn/rztCbD.png)
 
 ## 配置信息
 
