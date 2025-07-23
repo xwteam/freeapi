@@ -1,44 +1,63 @@
 {
-  "title": "UUID生成",
-  "description": "UUID 是 通用唯一识别符（Universally Unique Identifier）的缩写，是一种软件建构的标准，为了确保在分布式系统中的所有元素，都有唯一的辨识信息。",
-  "url": "https://free.xwteam.cn/api/code/uuid",
-  "method": "GET/POST",
-  "returnFormat": "application/json",
-  "params": [
-    {
-      "name": "无",
-      "required": false,
-      "type": "",
-      "example": "",
-      "description": "无需参数"
-    }
-  ],
-  "example": "https://free.xwteam.cn/api/code/uuid",
-  "returnParams": [
-    {
-      "name": "code",
-      "type": "int",
-      "description": "状态码"
-    },
-    {
-      "name": "msg",
-      "type": "string",
-      "description": "状态信息"
-    },
-    {
-      "name": "data",
-      "type": "string",
-      "description": "请求结果数据集"
-    },
-    {
-      "name": "exec_time",
-      "type": "float",
-      "description": "执行耗时"
-    },
-    {
-      "name": "user_ip",
-      "type": "string",
-      "description": "客户端IP"
-    }
-  ]
-} 
+    "title": "免费GPT4o-mini",
+    "description": "免费的GPT4o-mini接口，接口已做限制，每5秒请求一次共享调用，纯靠手速，完整版或特定key除外）",
+    "url": "https:\/\/free.xwteam.cn\/api\/chatgpt\/chat",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "text",
+            "required": true,
+            "type": "string",
+            "example": "你好",
+            "description": "对话内容，该版本不支持连续对话"
+        },
+        {
+            "name": "chat_id",
+            "required": false,
+            "type": "string",
+            "example": "1",
+            "description": "需要连续对话请使用→https:\/\/api.xwteam.cn\/doc\/167"
+        },
+        {
+            "name": "model",
+            "required": false,
+            "type": "string",
+            "example": "gpt-4o",
+            "description": "需要自定义AI模型请使用→https:\/\/api.xwteam.cn\/doc\/167"
+        }
+    ],
+    "example": "",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}
