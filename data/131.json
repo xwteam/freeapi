@@ -1,0 +1,96 @@
+{
+    "title": "百度电影热搜榜",
+    "description": "百度电影热搜榜",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/hot\/baidu_movie",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/hot\/baidu_movie",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        },
+        {
+            "name": "data.content",
+            "type": "string",
+            "description": "电影热搜榜数据集"
+        },
+        {
+            "name": "data.content.word",
+            "type": "string",
+            "description": "电影名字"
+        },
+        {
+            "name": "data.content.desc",
+            "type": "string",
+            "description": "电影简介描述"
+        },
+        {
+            "name": "data.content.hotChange",
+            "type": "string",
+            "description": "热度变化"
+        },
+        {
+            "name": "data.content.hotScore",
+            "type": "string",
+            "description": "热度值"
+        },
+        {
+            "name": "data.content.img",
+            "type": "string",
+            "description": "电影封面图片"
+        },
+        {
+            "name": "data.content.index",
+            "type": "string",
+            "description": "指数排名（数值越小，排名越前）"
+        },
+        {
+            "name": "data.content.indexUrl",
+            "type": "string",
+            "description": "百度指数"
+        },
+        {
+            "name": "data.content.query",
+            "type": "string",
+            "description": "电影搜索关键词"
+        },
+        {
+            "name": "data.content.url",
+            "type": "string",
+            "description": "电影搜索链接"
+        },
+        {
+            "name": "data.content.show",
+            "type": "string",
+            "description": "电影信息"
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "title": "文本解密",
+    "description": "文本加密，仅限文本，其他加密会出错。网址解密后需要使用URL解码。密钥不建议使用中文和全角符号。不支持特殊符号！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/code\/decode",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "mkey",
+            "required": true,
+            "type": "string",
+            "example": "mima",
+            "description": "填写加密时使用的密钥，密钥验证错误无法解密"
+        },
+        {
+            "name": "data",
+            "required": true,
+            "type": "string",
+            "example": "a8885d72ea15d84a4facc41789189749",
+            "description": "需要解密的文本，网址解密后需要使用URL解码"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/code\/decode?mkey=123&data=43d42d68d46548a13714d8169e19c7ae",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

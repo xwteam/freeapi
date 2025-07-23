@@ -1,0 +1,151 @@
+{
+    "title": "百度实时热搜榜",
+    "description": "百度实时热搜榜和top热搜",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/hot\/baidu",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/hot\/baidu",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        },
+        {
+            "name": "data.content",
+            "type": "string",
+            "description": "热搜榜数据集"
+        },
+        {
+            "name": "data.content.word",
+            "type": "string",
+            "description": "热搜话题"
+        },
+        {
+            "name": "data.content.desc",
+            "type": "string",
+            "description": "话题描述"
+        },
+        {
+            "name": "data.content.hotChange",
+            "type": "string",
+            "description": "热度变化"
+        },
+        {
+            "name": "data.content.hotScore",
+            "type": "string",
+            "description": "热度值"
+        },
+        {
+            "name": "data.content.index",
+            "type": "string",
+            "description": "指数排名（数值越小，排名越前）"
+        },
+        {
+            "name": "data.content.hotTag",
+            "type": "string",
+            "description": "热度标签"
+        },
+        {
+            "name": "data.content.hotTagImg",
+            "type": "string",
+            "description": "热度标签图片"
+        },
+        {
+            "name": "data.content.img",
+            "type": "string",
+            "description": "热搜图片"
+        },
+        {
+            "name": "data.content.url",
+            "type": "string",
+            "description": "热搜链接"
+        },
+        {
+            "name": "data.topContent",
+            "type": "string",
+            "description": "TOP热搜榜数据集"
+        },
+        {
+            "name": "data.topContent.word",
+            "type": "string",
+            "description": "TOP热搜话题"
+        },
+        {
+            "name": "data.topContent.desc",
+            "type": "string",
+            "description": "TOP话题描述"
+        },
+        {
+            "name": "data.topContent.hotChange",
+            "type": "string",
+            "description": "TOP热度变化"
+        },
+        {
+            "name": "data.topContent.hotScore",
+            "type": "string",
+            "description": "TOP热度值"
+        },
+        {
+            "name": "data.topContent.index",
+            "type": "string",
+            "description": "TOP热搜排名（数值越小，排名越前）"
+        },
+        {
+            "name": "data.topContent.hotTag",
+            "type": "string",
+            "description": "TOP热度标签"
+        },
+        {
+            "name": "data.topContent.hotTagImg",
+            "type": "string",
+            "description": "TOP热度标签图片"
+        },
+        {
+            "name": "data.topContent.img",
+            "type": "string",
+            "description": "TOP热搜图片"
+        },
+        {
+            "name": "data.topContent.url",
+            "type": "string",
+            "description": "TOP热搜链接"
+        },
+        {
+            "name": "data.updateTime",
+            "type": "string",
+            "description": "热搜更新时间"
+        },
+        {
+            "name": "data.typeName",
+            "type": "string",
+            "description": "热搜类型"
+        }
+    ]
+}

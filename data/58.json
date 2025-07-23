@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "QQ头像昵称查询",
+    "description": "查询QQ号码头像和昵称",
+    "url": "https:\/\/free.xwteam.cn\/api\/qq\/nick",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "qq",
+            "required": true,
+            "type": "string",
+            "example": "10001",
+            "description": "正确填写需要查询的QQ号码，否则无法查询，为空默认查询10001"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/qq\/nick?qq=10001",
     "returnParams": [
         {
             "name": "code",

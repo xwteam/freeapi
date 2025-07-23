@@ -1,11 +1,26 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "摩斯密码翻译",
+    "description": "摩斯密码和文本互相转换支持中文编码",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/translate\/morse",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "type",
+            "required": true,
+            "type": "string",
+            "example": "encode",
+            "description": "输入转换类型【encode=转换为摩斯密码】【decode=转换为文本内容】"
+        },
+        {
+            "name": "data",
+            "required": true,
+            "type": "string",
+            "example": "摩斯密码翻译接口",
+            "description": "输入需要转换的内容建议POST提交，否则可能出现编码错误"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/translate\/morse?type=encode&data=福利云",
     "returnParams": [
         {
             "name": "code",

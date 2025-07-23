@@ -1,0 +1,56 @@
+{
+    "title": "文本加密",
+    "description": "文本加密，仅限文本，其他加密会出错。加密网址需要使用URL编码。密钥不建议使用中文和全角符号。不支持特殊符号！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/code\/encode",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "mkey",
+            "required": true,
+            "type": "string",
+            "example": "mima",
+            "description": "设置一个不超过6个字符的用于加密的密钥,为空不设置"
+        },
+        {
+            "name": "data",
+            "required": true,
+            "type": "string",
+            "example": "API接口",
+            "description": "需要加密的文本，不超过30个字符，加密网址需要URL编码"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/code\/encode?mkey=123&data=%E7%A6%8F%E5%88%A9%E4%BA%91",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

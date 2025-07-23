@@ -1,11 +1,26 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "货币换算",
+    "description": "官方换算接口，24小时实时货币汇率",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/convert\/currency",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "type",
+            "required": false,
+            "type": "string",
+            "example": "list",
+            "description": "可空，【type=list】查询世界货币符号"
+        },
+        {
+            "name": "money",
+            "required": false,
+            "type": "string",
+            "example": "CNY",
+            "description": "可空，为空默认查询CNY"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/convert\/currency?type=list<br>https:\/\/api.fuli.pp.ua\/api\/convert\/currency?money=货币符号",
     "returnParams": [
         {
             "name": "code",

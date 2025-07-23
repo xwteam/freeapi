@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "QQ号码测吉凶",
+    "description": "QQ号码数理分析测吉凶，包含号码分析和数理评分以及潜在影响等。仅供娱乐参考，请相信科学",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/qq\/lucky",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "qq",
+            "required": true,
+            "type": "string",
+            "example": "10001",
+            "description": "正确填写需要查询的QQ号码，否则无法查询，为空默认查询12345"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/qq\/lucky?qq=12345",
     "returnParams": [
         {
             "name": "code",

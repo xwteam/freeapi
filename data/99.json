@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "数字转大写",
+    "description": "数字转大写，最大支持千万亿以及小数点后4位。超过可能转换不准确。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/convert\/num",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "num",
+            "required": true,
+            "type": "string",
+            "example": "168.88",
+            "description": "请输入需要转换的数字（例如：168.88）"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/convert\/num?num=168.88",
     "returnParams": [
         {
             "name": "code",

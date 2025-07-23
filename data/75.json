@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "微博热搜榜",
+    "description": "微博热搜排名前十榜单",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/hot\/weibo",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/hot\/weibo",
     "returnParams": [
         {
             "name": "code",

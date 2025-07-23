@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "舔狗日记",
+    "description": "你是一个合格的舔狗吗？如果不是，就来这里看看，学习一下怎么当个合格的舔狗！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/simp",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/simp",
     "returnParams": [
         {
             "name": "code",

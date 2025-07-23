@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "随机一句情话",
+    "description": "随机一句情话，慢慢的你就可以变成海王。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/love",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/love",
     "returnParams": [
         {
             "name": "code",

@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "骚扰电话查询",
+    "description": "查询手机号码是否为骚扰电话",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/phone\/disturbance",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "phone",
+            "required": true,
+            "type": "string",
+            "example": "13800138000",
+            "description": "正确填写需要查询的手机号码，否则无法查询"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/phone\/disturbance?phone=13800138000",
     "returnParams": [
         {
             "name": "code",

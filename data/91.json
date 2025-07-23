@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "摸鱼人日历",
+    "description": "让您在职场中游刃有余，健康工作，开心摸鱼。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/day\/my",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/day\/my",
     "returnParams": [
         {
             "name": "code",

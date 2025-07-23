@@ -1,0 +1,63 @@
+{
+    "title": "王者战力查询接口",
+    "description": "王者荣耀英雄战力查询接口",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/game\/hok",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "type",
+            "required": true,
+            "type": "string",
+            "example": "ios_wx",
+            "description": "type=平台（qq=安卓QQ区，wx=安卓微信区，ios_qq=苹果QQ区，ios_wx=苹果微信区）默认type=ios_wx"
+        },
+        {
+            "name": "hero",
+            "required": true,
+            "type": "string",
+            "example": "诸葛亮",
+            "description": "英雄名字（例如：诸葛亮）"
+        },
+        {
+            "name": "format",
+            "required": true,
+            "type": "string",
+            "example": "json",
+            "description": "format=格式（format=json，format=img）默认format=json"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/game\/hok?type=ios_wx&hero=诸葛亮",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

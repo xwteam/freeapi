@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "今日油价查询",
+    "description": "查询全国各个省份的最新油价信息。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/price\/oil",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "prov",
+            "required": true,
+            "type": "string",
+            "example": "广东",
+            "description": "省份合法值为：【北京、上海、天津、重庆、福建、甘肃、广东、广西、贵州、海南、河北、河南、湖北、湖南、吉林、江苏、江西、辽宁、内蒙古、安徽、宁夏、青海、山东、陕西、山西、四川、西藏、黑龙江、新疆、云南、浙江、深圳】"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/price\/oil?prov=广东",
     "returnParams": [
         {
             "name": "code",

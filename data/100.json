@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "每日一句",
+    "description": "每日一句，每天一种心情！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/day",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/day",
     "returnParams": [
         {
             "name": "code",

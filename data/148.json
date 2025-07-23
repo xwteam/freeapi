@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "随机cosplay图片",
+    "description": "男人的减速带？你就说你爱不爱看吧？",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/img\/cosplay",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/img\/cosplay",
     "returnParams": [
         {
             "name": "code",

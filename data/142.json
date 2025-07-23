@@ -1,11 +1,26 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "血型计算",
+    "description": "通过父母血型，计算出孩子可能的血型。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/blood\/type",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "father",
+            "required": true,
+            "type": "string",
+            "example": "A",
+            "description": "父亲血型"
+        },
+        {
+            "name": "mother",
+            "required": true,
+            "type": "string",
+            "example": "B",
+            "description": "母亲血型"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/blood\/type?father=A&mother=B",
     "returnParams": [
         {
             "name": "code",

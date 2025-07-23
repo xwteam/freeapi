@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "语音报时",
+    "description": "超好听的报时语音，用过这个，你还会只想用一段文字报时吗？",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/time\/voice-time",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "hour",
+            "required": true,
+            "type": "string",
+            "example": "09",
+            "description": "填写小时数字(只填小时即可)"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/time\/voice-time?hour=11",
     "returnParams": [
         {
             "name": "code",

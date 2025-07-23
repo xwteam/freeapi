@@ -1,11 +1,26 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "域名IP信息查询",
+    "description": "可通过域名或IP地址查询真实地址和运营商信息",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/ip\/query",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "ip",
+            "required": true,
+            "type": "string",
+            "example": "8.8.8.8",
+            "description": "填写正确ip地址，为空默认取本机ip"
+        },
+        {
+            "name": "domain",
+            "required": true,
+            "type": "string",
+            "example": "www.baidu.com",
+            "description": "填写正确域名地址，填写错误无法查询"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/ip\/query?ip=8.8.8.8<br>https:\/\/api.fuli.pp.ua\/api\/ip\/query?domain=baidu.com",
     "returnParams": [
         {
             "name": "code",

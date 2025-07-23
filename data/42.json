@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "花旗参(英文)鸡汤",
+    "description": "英文的鸡汤，既是鸡汤，又能装逼！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/english",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/english",
     "returnParams": [
         {
             "name": "code",

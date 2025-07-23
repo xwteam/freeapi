@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "食物卡路里热量查询",
+    "description": "超全食物热量和营养库，吃前查一查饮食更健康",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/food\/calories",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "food",
+            "required": true,
+            "type": "string",
+            "example": "炸鸡",
+            "description": "填写食物名称（例如：炸鸡）"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/food\/calories?food=炸鸡",
     "returnParams": [
         {
             "name": "code",

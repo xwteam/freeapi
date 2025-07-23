@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "鸡汤大乐透",
+    "description": "生活处处有惊喜，你不会知道下一秒刷到的鸡汤是好是坏，就像你不知道明天和意外哪个会先来！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/lucky",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/lucky",
     "returnParams": [
         {
             "name": "code",

@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "心灵鸡汤",
+    "description": "一碗心灵鸡汤，温暖你的人生！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/soul",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/soul",
     "returnParams": [
         {
             "name": "code",

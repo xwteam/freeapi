@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "手机号码估价",
+    "description": "评估您的手机号码价值，评估结果不包含话费余额，仅供参考，实际价格以卖家报价为准",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/phone\/price",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "phone",
+            "required": true,
+            "type": "string",
+            "example": "13800138000",
+            "description": "填写需要查询的手机号码"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/phone\/price?phone=13800138000",
     "returnParams": [
         {
             "name": "code",

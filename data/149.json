@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "你是由什么组成的",
+    "description": "你不想知道你是由什么组成的吗？仅供娱乐，认真你就......认真吧！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/analysis\/ingredient",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "check",
+            "required": true,
+            "type": "string",
+            "example": "接口平台",
+            "description": "输入需要查询的东西"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/analysis\/ingredient?check=福利云",
     "returnParams": [
         {
             "name": "code",

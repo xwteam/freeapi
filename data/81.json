@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "垃圾分类",
+    "description": "看看你的垃圾属于什么垃圾",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/rubbish\/classify",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "example": "西瓜",
+            "description": "需要查询的垃圾名字"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/rubbish\/classify?name=西瓜",
     "returnParams": [
         {
             "name": "code",

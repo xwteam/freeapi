@@ -1,0 +1,56 @@
+{
+    "title": "AI绘画",
+    "description": "速度挺快的AI绘画，但是画的好不好，准不准确，这个就见仁见智了。反正你就说画得快不快吧。<br>2025-07-20 更新：更换AI绘画接口，更好看更准确，接口总调用限制为10秒\/次",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/ai\/draw",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "promt",
+            "required": true,
+            "type": "string",
+            "example": "月球上的猫",
+            "description": "描述你要画的内容，支持中文"
+        },
+        {
+            "name": "type",
+            "required": false,
+            "type": "string",
+            "example": "normal",
+            "description": "图片规格，默认方形normal=方形、vertical=竖形、horizontal=横形"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/ai\/draw?promt=超人狗&type=normal",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

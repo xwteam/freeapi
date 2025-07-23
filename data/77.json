@@ -1,0 +1,70 @@
+{
+    "title": "二维码生成接口",
+    "description": "生成指定内容的二维码，识别率高，支持自定义容错级别和大小。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/qrcode\/get",
+    "method": "GET\/POST",
+    "returnFormat": "image\/png",
+    "params": [
+        {
+            "name": "text",
+            "required": true,
+            "type": "string",
+            "example": "API接口平台",
+            "description": "要生成二维码的内容（可以是文字、链接、json等字符串都行）"
+        },
+        {
+            "name": "level",
+            "required": false,
+            "type": "string",
+            "example": "L",
+            "description": "默认L，容错级别L(7%)、M(15%)、Q(25%)、H(30%)   容错级别越高 越容易扫描"
+        },
+        {
+            "name": "size",
+            "required": false,
+            "type": "string",
+            "example": "10",
+            "description": "生成二维码图片大小，默认10"
+        },
+        {
+            "name": "margin",
+            "required": false,
+            "type": "string",
+            "example": "2",
+            "description": "二维码空白边框大小，默认2"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/qrcode\/get?text=%E7%A6%8F%E5%88%A9%E4%BA%91&level=L&size=10&margin=2",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

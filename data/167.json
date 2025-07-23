@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "生日倒计时",
+    "description": "输入出生日期，计算详细的生日信息，以及最近一次生日倒计时。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/life\/birthday",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "date",
+            "required": true,
+            "type": "string",
+            "example": "20010101",
+            "description": "输入8位出生日期，填写公历日期完整版请看文档：https:\/\/api.xwteam.cn\/doc\/165"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/life\/birthday?date=20010101",
     "returnParams": [
         {
             "name": "code",

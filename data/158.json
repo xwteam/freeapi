@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "百科全书",
+    "description": "互联网用户的中文知识性百科全书数据来源于网络以及百度百科",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/wiki\/baike",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "query",
+            "required": true,
+            "type": "string",
+            "example": "广东",
+            "description": "输入需要查询的内容"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/wiki\/baike?query=深圳",
     "returnParams": [
         {
             "name": "code",

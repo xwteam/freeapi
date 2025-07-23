@@ -1,0 +1,63 @@
+{
+    "title": "日期黄历查询",
+    "description": "查询当天公历日期和农历日期，以及节气黄历等信息",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/time\/almanac",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "y",
+            "required": true,
+            "type": "string",
+            "example": "2023",
+            "description": "需要查询的年份，为空则查询当前年份"
+        },
+        {
+            "name": "m",
+            "required": true,
+            "type": "string",
+            "example": "06",
+            "description": "需要查询的月份，为空则查询当前月份"
+        },
+        {
+            "name": "d",
+            "required": true,
+            "type": "string",
+            "example": "20",
+            "description": "需要查询的日期，为空则查询当前日期"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/time\/almanac",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

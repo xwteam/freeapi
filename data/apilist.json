@@ -1,14 +1,319 @@
 {
     "data": [
         {
-            "xwteam_api_id": "2",
-            "xwteam_api_title": "UUID生成",
-            "xwteam_api_desc": "UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准，亦为开放软件基金会组织在分布式计算环境领域的一部分。"
+            "xwteam_api_id": "1",
+            "xwteam_api_title": "随机语录\/随机一言",
+            "xwteam_api_desc": "随机一言，随机输出经典语录。"
         },
         {
-            "xwteam_api_id": "1",
-            "xwteam_api_title": "免费GPT4o-mini",
-            "xwteam_api_desc": "免费的GPT4o-mini接口，接口已做限制，每5秒请求一次共享调用，纯靠手速，完整版或特定key除外）"
+            "xwteam_api_id": "41",
+            "xwteam_api_title": "鸡汤大乐透",
+            "xwteam_api_desc": "生活处处有惊喜，你不会知道下一秒刷到的鸡汤是好是坏，就像你不知道明天和意外哪个会先来！"
+        },
+        {
+            "xwteam_api_id": "42",
+            "xwteam_api_title": "花旗参(英文)鸡汤",
+            "xwteam_api_desc": "英文的鸡汤，既是鸡汤，又能装逼！"
+        },
+        {
+            "xwteam_api_id": "43",
+            "xwteam_api_title": "心灵鸡汤",
+            "xwteam_api_desc": "一碗心灵鸡汤，温暖你的人生！"
+        },
+        {
+            "xwteam_api_id": "44",
+            "xwteam_api_title": "毒鸡汤",
+            "xwteam_api_desc": "兄弟，干了这碗度鸡汤，让你的人生更黑暗！人生没有过不去的坎，但是人生会有过不完的坎。"
+        },
+        {
+            "xwteam_api_id": "47",
+            "xwteam_api_title": "手机号码归属地查询",
+            "xwteam_api_desc": "查询全国手机号码归属地，运营商，手机卡类型等信息"
+        },
+        {
+            "xwteam_api_id": "48",
+            "xwteam_api_title": "手机号码测吉凶",
+            "xwteam_api_desc": "手机号码主体数理寓意测吉凶，包含号码核心数理寓意和号码易经卦象寓意。仅供娱乐参考，请相信科学。"
+        },
+        {
+            "xwteam_api_id": "49",
+            "xwteam_api_title": "QQ号码测吉凶",
+            "xwteam_api_desc": "QQ号码数理分析测吉凶，包含号码分析和数理评分以及潜在影响等。仅供娱乐参考，请相信科学"
+        },
+        {
+            "xwteam_api_id": "50",
+            "xwteam_api_title": "文本加密",
+            "xwteam_api_desc": "文本加密，仅限文本，其他加密会出错。加密网址需要使用URL编码。密钥不建议使用中文和全角符号。不支持特殊符号！"
+        },
+        {
+            "xwteam_api_id": "51",
+            "xwteam_api_title": "文本解密",
+            "xwteam_api_desc": "文本加密，仅限文本，其他加密会出错。网址解密后需要使用URL解码。密钥不建议使用中文和全角符号。不支持特殊符号！"
+        },
+        {
+            "xwteam_api_id": "52",
+            "xwteam_api_title": "日期黄历查询",
+            "xwteam_api_desc": "查询当天公历日期和农历日期，以及节气黄历等信息"
+        },
+        {
+            "xwteam_api_id": "54",
+            "xwteam_api_title": "域名IP信息查询",
+            "xwteam_api_desc": "可通过域名或IP地址查询真实地址和运营商信息"
+        },
+        {
+            "xwteam_api_id": "56",
+            "xwteam_api_title": "随机二次元图片",
+            "xwteam_api_desc": "随机获取一张来自新浪的二次元图片"
+        },
+        {
+            "xwteam_api_id": "57",
+            "xwteam_api_title": "网抑云随机热评",
+            "xwteam_api_desc": "网抑云时间到，各位老抑郁赶紧上车，马上要发车了！"
+        },
+        {
+            "xwteam_api_id": "58",
+            "xwteam_api_title": "QQ头像昵称查询",
+            "xwteam_api_desc": "查询QQ号码头像和昵称"
+        },
+        {
+            "xwteam_api_id": "62",
+            "xwteam_api_title": "舔狗日记",
+            "xwteam_api_desc": "你是一个合格的舔狗吗？如果不是，就来这里看看，学习一下怎么当个合格的舔狗！"
+        },
+        {
+            "xwteam_api_id": "63",
+            "xwteam_api_title": "随机一张手机壁纸",
+            "xwteam_api_desc": "随机获取一张手机壁纸，可选手机美女壁纸或手机动漫壁纸，默认是手机美女壁纸。"
+        },
+        {
+            "xwteam_api_id": "71",
+            "xwteam_api_title": "随机一张图片壁纸",
+            "xwteam_api_desc": "随机输出一张图片壁纸，可选美女、动漫、必应或风景，默认为风景。"
+        },
+        {
+            "xwteam_api_id": "75",
+            "xwteam_api_title": "微博热搜榜",
+            "xwteam_api_desc": "微博热搜排名前十榜单"
+        },
+        {
+            "xwteam_api_id": "77",
+            "xwteam_api_title": "二维码生成接口",
+            "xwteam_api_desc": "生成指定内容的二维码，识别率高，支持自定义容错级别和大小。"
+        },
+        {
+            "xwteam_api_id": "79",
+            "xwteam_api_title": "王者战力查询接口",
+            "xwteam_api_desc": "王者荣耀英雄战力查询接口"
+        },
+        {
+            "xwteam_api_id": "80",
+            "xwteam_api_title": "骚扰电话查询",
+            "xwteam_api_desc": "查询手机号码是否为骚扰电话"
+        },
+        {
+            "xwteam_api_id": "81",
+            "xwteam_api_title": "垃圾分类",
+            "xwteam_api_desc": "看看你的垃圾属于什么垃圾"
+        },
+        {
+            "xwteam_api_id": "82",
+            "xwteam_api_title": "手机号码估价",
+            "xwteam_api_desc": "评估您的手机号码价值，评估结果不包含话费余额，仅供参考，实际价格以卖家报价为准"
+        },
+        {
+            "xwteam_api_id": "88",
+            "xwteam_api_title": "今日油价查询",
+            "xwteam_api_desc": "查询全国各个省份的最新油价信息。"
+        },
+        {
+            "xwteam_api_id": "91",
+            "xwteam_api_title": "摸鱼人日历",
+            "xwteam_api_desc": "让您在职场中游刃有余，健康工作，开心摸鱼。"
+        },
+        {
+            "xwteam_api_id": "94",
+            "xwteam_api_title": "随机一句情话",
+            "xwteam_api_desc": "随机一句情话，慢慢的你就可以变成海王。"
+        },
+        {
+            "xwteam_api_id": "98",
+            "xwteam_api_title": "奥运会排行榜",
+            "xwteam_api_desc": "奥运会国家奖牌排名榜，按照总数排名"
+        },
+        {
+            "xwteam_api_id": "99",
+            "xwteam_api_title": "数字转大写",
+            "xwteam_api_desc": "数字转大写，最大支持千万亿以及小数点后4位。超过可能转换不准确。"
+        },
+        {
+            "xwteam_api_id": "100",
+            "xwteam_api_title": "每日一句",
+            "xwteam_api_desc": "每日一句，每天一种心情！"
+        },
+        {
+            "xwteam_api_id": "103",
+            "xwteam_api_title": "食物卡路里热量查询",
+            "xwteam_api_desc": "超全食物热量和营养库，吃前查一查饮食更健康"
+        },
+        {
+            "xwteam_api_id": "126",
+            "xwteam_api_title": "摩斯密码翻译",
+            "xwteam_api_desc": "摩斯密码和文本互相转换支持中文编码"
+        },
+        {
+            "xwteam_api_id": "129",
+            "xwteam_api_title": "百度实时热搜榜",
+            "xwteam_api_desc": "百度实时热搜榜和top热搜"
+        },
+        {
+            "xwteam_api_id": "130",
+            "xwteam_api_title": "百度小说热搜榜",
+            "xwteam_api_desc": "百度小说热搜榜"
+        },
+        {
+            "xwteam_api_id": "131",
+            "xwteam_api_title": "百度电影热搜榜",
+            "xwteam_api_desc": "百度电影热搜榜"
+        },
+        {
+            "xwteam_api_id": "132",
+            "xwteam_api_title": "百度电视剧热搜榜",
+            "xwteam_api_desc": "百度电视剧热搜榜"
+        },
+        {
+            "xwteam_api_id": "133",
+            "xwteam_api_title": "百度汽车热搜榜",
+            "xwteam_api_desc": "百度汽车热搜榜"
+        },
+        {
+            "xwteam_api_id": "134",
+            "xwteam_api_title": "百度游戏热搜榜",
+            "xwteam_api_desc": "百度游戏热搜榜"
+        },
+        {
+            "xwteam_api_id": "136",
+            "xwteam_api_title": "院线热播",
+            "xwteam_api_desc": "院线正在热映的电影，数据来源猫眼电影"
+        },
+        {
+            "xwteam_api_id": "137",
+            "xwteam_api_title": "即将上映",
+            "xwteam_api_desc": "院线即将上映的电影，数据来源猫眼电影"
+        },
+        {
+            "xwteam_api_id": "139",
+            "xwteam_api_title": "黄金实时交易行情",
+            "xwteam_api_desc": "在线查询实时金价，上海交易所金价以及国际市场行情"
+        },
+        {
+            "xwteam_api_id": "140",
+            "xwteam_api_title": "今日品牌金价查询",
+            "xwteam_api_desc": "查询品牌金店当日金价(部分品牌，非全国所有品牌金店)"
+        },
+        {
+            "xwteam_api_id": "142",
+            "xwteam_api_title": "血型计算",
+            "xwteam_api_desc": "通过父母血型，计算出孩子可能的血型。"
+        },
+        {
+            "xwteam_api_id": "143",
+            "xwteam_api_title": "人生进度条",
+            "xwteam_api_desc": "根据你的生日，计算你的人生进度。数据以2021年统计的人均寿命78.2岁计算。"
+        },
+        {
+            "xwteam_api_id": "145",
+            "xwteam_api_title": "经期小助手",
+            "xwteam_api_desc": "通过智能算法精准预测和计算女性的月经周期，不仅能帮助女性更好地了解自己的身体状况，还能及时提醒经期时间和注意事项。"
+        },
+        {
+            "xwteam_api_id": "146",
+            "xwteam_api_title": "语音报时",
+            "xwteam_api_desc": "超好听的报时语音，用过这个，你还会只想用一段文字报时吗？"
+        },
+        {
+            "xwteam_api_id": "148",
+            "xwteam_api_title": "随机cosplay图片",
+            "xwteam_api_desc": "男人的减速带？你就说你爱不爱看吧？"
+        },
+        {
+            "xwteam_api_id": "149",
+            "xwteam_api_title": "你是由什么组成的",
+            "xwteam_api_desc": "你不想知道你是由什么组成的吗？仅供娱乐，认真你就......认真吧！"
+        },
+        {
+            "xwteam_api_id": "150",
+            "xwteam_api_title": "实时公交站点查询",
+            "xwteam_api_desc": "查询公交车到站的距离，预计到站的时间，准确实时公交信息"
+        },
+        {
+            "xwteam_api_id": "151",
+            "xwteam_api_title": "高考倒计时",
+            "xwteam_api_desc": "高考加油！祝所有考生高考顺利，取得理想成绩！愿你们以梦为马，不负韶华，取得佳绩！"
+        },
+        {
+            "xwteam_api_id": "152",
+            "xwteam_api_title": "豆瓣电影评分top25",
+            "xwteam_api_desc": "豆瓣评分前25的电影，数据来源豆瓣电影"
+        },
+        {
+            "xwteam_api_id": "155",
+            "xwteam_api_title": "台风实时路径",
+            "xwteam_api_desc": "台风实时路径查询接口免费版接口无实时路径，完整版请查看文档：https:\/\/api.xwteam.cn\/doc\/155"
+        },
+        {
+            "xwteam_api_id": "156",
+            "xwteam_api_title": "60秒读懂世界",
+            "xwteam_api_desc": "每天60秒，读懂世界。"
+        },
+        {
+            "xwteam_api_id": "157",
+            "xwteam_api_title": "货币换算",
+            "xwteam_api_desc": "官方换算接口，24小时实时货币汇率"
+        },
+        {
+            "xwteam_api_id": "158",
+            "xwteam_api_title": "百科全书",
+            "xwteam_api_desc": "互联网用户的中文知识性百科全书数据来源于网络以及百度百科"
+        },
+        {
+            "xwteam_api_id": "159",
+            "xwteam_api_title": "B站实时热搜榜",
+            "xwteam_api_desc": "哔哩哔哩实时热搜榜"
+        },
+        {
+            "xwteam_api_id": "160",
+            "xwteam_api_title": "知乎实时热门问题",
+            "xwteam_api_desc": "你不想知道大伙最近都在聊什么吗？"
+        },
+        {
+            "xwteam_api_id": "161",
+            "xwteam_api_title": "知乎热搜榜",
+            "xwteam_api_desc": "知乎实时热搜榜"
+        },
+        {
+            "xwteam_api_id": "162",
+            "xwteam_api_title": "头条热搜榜",
+            "xwteam_api_desc": "头条实时热搜榜"
+        },
+        {
+            "xwteam_api_id": "163",
+            "xwteam_api_title": "抖音热搜榜",
+            "xwteam_api_desc": "抖音实时热搜榜，抖音实时上升趋势热点"
+        },
+        {
+            "xwteam_api_id": "166",
+            "xwteam_api_title": "AI绘画",
+            "xwteam_api_desc": "速度挺快的AI绘画，但是画的好不好，准不准确，这个就见仁见智了。反正你就说画得快不快吧。<br>2025-07-20 更新：更换AI绘画接口，更好看更准确，接口总调用限制为10秒\/次"
+        },
+        {
+            "xwteam_api_id": "167",
+            "xwteam_api_title": "生日倒计时",
+            "xwteam_api_desc": "输入出生日期，计算详细的生日信息，以及最近一次生日倒计时。"
+        },
+        {
+            "xwteam_api_id": "168",
+            "xwteam_api_title": "UUID生成",
+            "xwteam_api_desc": "UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准，亦为开放软件基金会组织在分布式计算环境领域的一部分。"
         }
     ]
 }

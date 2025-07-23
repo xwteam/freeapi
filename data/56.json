@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "随机二次元图片",
+    "description": "随机获取一张来自新浪的二次元图片",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/img\/comic",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/img\/comic",
     "returnParams": [
         {
             "name": "code",

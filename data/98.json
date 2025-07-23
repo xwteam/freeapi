@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "奥运会排行榜",
+    "description": "奥运会国家奖牌排名榜，按照总数排名",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/rank\/olympic",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/rank\/olympic",
     "returnParams": [
         {
             "name": "code",

@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "高考倒计时",
+    "description": "高考加油！祝所有考生高考顺利，取得理想成绩！愿你们以梦为马，不负韶华，取得佳绩！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/college\/exam-countdown",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/college\/exam-countdown",
     "returnParams": [
         {
             "name": "code",

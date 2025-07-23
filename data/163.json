@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "抖音热搜榜",
+    "description": "抖音实时热搜榜，抖音实时上升趋势热点",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/hot\/douyin",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/hot\/douyin",
     "returnParams": [
         {
             "name": "code",

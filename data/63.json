@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "随机一张手机壁纸",
+    "description": "随机获取一张手机壁纸，可选手机美女壁纸或手机动漫壁纸，默认是手机美女壁纸。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/img\/mobile",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "type",
+            "required": true,
+            "type": "string",
+            "example": "1",
+            "description": "type=1 美女壁纸，type=2 动漫壁纸，默认type=1"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/img\/mobile?type=1",
     "returnParams": [
         {
             "name": "code",

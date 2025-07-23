@@ -1,0 +1,63 @@
+{
+    "title": "经期小助手",
+    "description": "通过智能算法精准预测和计算女性的月经周期，不仅能帮助女性更好地了解自己的身体状况，还能及时提醒经期时间和注意事项。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/female\/menstruation",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "mdate",
+            "required": true,
+            "type": "string",
+            "example": "2024-05-05",
+            "description": "最后一次月经开始时间"
+        },
+        {
+            "name": "acl",
+            "required": true,
+            "type": "string",
+            "example": "28",
+            "description": "平均月经周期天数月经周期长度应在21到35天之间"
+        },
+        {
+            "name": "mdays",
+            "required": true,
+            "type": "string",
+            "example": "5",
+            "description": "经期天数月经天数应在3到7天之间"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/female\/menstruation?mdate=2024-05-05&acl=28&mdays=5",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

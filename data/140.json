@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "今日品牌金价查询",
+    "description": "查询品牌金店当日金价(部分品牌，非全国所有品牌金店)",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/gold\/brand",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/gold\/brand",
     "returnParams": [
         {
             "name": "code",

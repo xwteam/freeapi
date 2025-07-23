@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "黄金实时交易行情",
+    "description": "在线查询实时金价，上海交易所金价以及国际市场行情",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/gold\/trade",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "line",
+            "required": false,
+            "type": "string",
+            "example": "yt",
+            "description": "仅line=yt时有用"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/gold\/trade",
     "returnParams": [
         {
             "name": "code",

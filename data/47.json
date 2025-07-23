@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "手机号码归属地查询",
+    "description": "查询全国手机号码归属地，运营商，手机卡类型等信息",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/phone\/area",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "mobile",
+            "required": true,
+            "type": "string",
+            "example": "13800138000",
+            "description": "正确填写需要查询的手机号码，否则无法查询，为空默认查询13800138000"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/phone\/area?mobile=13800138000",
     "returnParams": [
         {
             "name": "code",

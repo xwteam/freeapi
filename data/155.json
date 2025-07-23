@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "台风实时路径",
+    "description": "台风实时路径查询接口免费版接口<br>无实时路径，完整版请查看文档：https:\/\/api.xwteam.cn\/doc\/155",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/weather\/typhoon",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "tfhm",
+            "required": false,
+            "type": "string",
+            "example": "202414",
+            "description": "台风编号，年份+第几号台风"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/weather\/typhoon",
     "returnParams": [
         {
             "name": "code",

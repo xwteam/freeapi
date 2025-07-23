@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "人生进度条",
+    "description": "根据你的生日，计算你的人生进度。数据以2021年统计的人均寿命78.2岁计算。",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/life\/progress",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "birthdate",
+            "required": true,
+            "type": "string",
+            "example": "19910101",
+            "description": "出生日期，格式为：19910101"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/life\/progress?birthdate=20010101",
     "returnParams": [
         {
             "name": "code",

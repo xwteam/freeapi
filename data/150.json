@@ -1,0 +1,63 @@
+{
+    "title": "实时公交站点查询",
+    "description": "查询公交车到站的距离，预计到站的时间，准确实时公交信息",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/traffic\/bus",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "city",
+            "required": true,
+            "type": "string",
+            "example": "深圳",
+            "description": "你所在的城市名称"
+        },
+        {
+            "name": "site",
+            "required": true,
+            "type": "string",
+            "example": "京基",
+            "description": "你所在的站点名称"
+        },
+        {
+            "name": "backward",
+            "required": false,
+            "type": "string",
+            "example": "1",
+            "description": "对向站点(反方向路线)"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/traffic\/bus?city=深圳&site=京基",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}

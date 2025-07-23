@@ -1,11 +1,11 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "知乎实时热门问题",
+    "description": "你不想知道大伙最近都在聊什么吗？",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/hot\/zhihu_hot",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
     "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "example": "https:\/\/api.fuli.pp.ua\/api\/hot\/zhihu_hot",
     "returnParams": [
         {
             "name": "code",

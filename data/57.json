@@ -1,11 +1,19 @@
 {
-    "title": "随机语录\/随机一言",
-    "description": "随机一言，随机输出经典语录。",
-    "url": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "title": "网抑云随机热评",
+    "description": "网抑云时间到，各位老抑郁赶紧上车，马上要发车了！",
+    "url": "https:\/\/api.fuli.pp.ua\/api\/soup\/upset",
     "method": "GET\/POST",
     "returnFormat": "application\/json",
-    "params": [],
-    "example": "https:\/\/api.fuli.pp.ua\/api\/randtext\/get",
+    "params": [
+        {
+            "name": "type",
+            "required": false,
+            "type": "string",
+            "example": "2",
+            "description": "返回格式，1=json，2=文本，默认为json"
+        }
+    ],
+    "example": "https:\/\/api.fuli.pp.ua\/api\/soup\/upset",
     "returnParams": [
         {
             "name": "code",
