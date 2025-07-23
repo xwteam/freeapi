@@ -89,6 +89,7 @@ Fork本项目，**Edgeone/CloudFlare Pages** 绑定Git仓库账号，导入仓�
 3. 赞赏信息修改 config/donate.json
 4. API接口列表信息 data/apilist.json
 5. API接口文档信息 data/对应接口ID.json
+6. 导航菜单直接修改**nav.html**
 
 ## 🔎补充说明
 
