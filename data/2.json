@@ -1,44 +1,49 @@
 {
-  "title": "UUID生成",
-  "description": "UUID 是 通用唯一识别符（Universally Unique Identifier）的缩写，是一种软件建构的标准，为了确保在分布式系统中的所有元素，都有唯一的辨识信息。",
-  "url": "https://free.xwteam.cn/api/gold/trade",
-  "method": "GET/POST",
-  "returnFormat": "application/json",
-  "params": [
-    {
-      "name": "line",
-      "required": false,
-      "type": "string",
-      "example": "yt",
-      "description": "仅line=yt时有用"
-    }
-  ],
-  "example": "https://free.xwteam.cn/api/code/uuid<br>https://free.xwteam.cn/api/gold/trade?line=yt",
-  "returnParams": [
-    {
-      "name": "code",
-      "type": "int",
-      "description": "状态码"
-    },
-    {
-      "name": "msg",
-      "type": "string",
-      "description": "状态信息"
-    },
-    {
-      "name": "data",
-      "type": "string",
-      "description": "请求结果数据集"
-    },
-    {
-      "name": "exec_time",
-      "type": "float",
-      "description": "执行耗时"
-    },
-    {
-      "name": "user_ip",
-      "type": "string",
-      "description": "客户端IP"
-    }
-  ]
-} 
+    "title": "UUID生成",
+    "description": "UUID 是 通用唯一识别符（Universally Unique Identifier）的缩写，是一种软件建构的标准，为了确保在分布式系统中的所有元素，都有唯一的辨识信息。",
+    "url": "https:\/\/free.xwteam.cn\/api\/gold\/trade",
+    "method": "GET\/POST",
+    "returnFormat": "application\/json",
+    "params": [
+        {
+            "name": "line",
+            "required": false,
+            "type": "string",
+            "example": "yt",
+            "description": "仅line=yt时有用"
+        }
+    ],
+    "example": "https:\/\/free.xwteam.cn\/api\/code\/uuid<br>https:\/\/free.xwteam.cn\/api\/gold\/trade?line=yt",
+    "returnParams": [
+        {
+            "name": "code",
+            "type": "int",
+            "description": "状态码"
+        },
+        {
+            "name": "msg",
+            "type": "string",
+            "description": "状态信息"
+        },
+        {
+            "name": "data",
+            "type": "string",
+            "description": "请求结果数据集"
+        },
+        {
+            "name": "debug",
+            "type": "string\/array",
+            "description": "调试数据"
+        },
+        {
+            "name": "exec_time",
+            "type": "float",
+            "description": "执行耗时"
+        },
+        {
+            "name": "user_ip",
+            "type": "string",
+            "description": "客户端IP"
+        }
+    ]
+}
