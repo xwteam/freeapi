@@ -1,7 +1,7 @@
 <p align="center">
 <div align="center">
     <a href="https://gitee.com/xwteam/freeapi">
-        <img src="https://free.xwteam.cn/assets/https://img.xwteam.cn/FreeAPI.png" alt="freeapi" width=300 />
+        <img src="https://free.xwteam.cn/assets/img/FreeAPI.png" alt="freeapi" width=300 />
     </a>
 </div>
 <div align="center">
