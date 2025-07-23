@@ -1,28 +1,14 @@
 {
-	"data": [{
-			"xwteam_api_id": "1",
-			"xwteam_api_title": "免费GPT4o-mini",
-			"xwteam_api_desc": "免费的GPT4o-mini接口，接口已做限制，每5秒请求一次共享调用，纯靠手速，完整版或特定key除外）"
-		},
-		{
-			"xwteam_api_id": "2",
-			"xwteam_api_title": "UUID生成",
-			"xwteam_api_desc": "UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准，亦为开放软件基金会组织在分布式计算环境领域的一部分。"
-		},
-		{
-			"xwteam_api_id": "3",
-			"xwteam_api_title": "生日倒计时",
-			"xwteam_api_desc": "输入出生日期，计算详细的生日信息，以及最近一次生日倒计时。"
-		},
-		{
-			"xwteam_api_id": "4",
-			"xwteam_api_title": "AI绘画",
-			"xwteam_api_desc": "速度挺快的AI绘画，但是画的好不好，准不准确，这个就见仁见智了。反正你就说画得快不快吧。<br>2025-07-20 更新：更换AI绘画接口，更好看更准确，接口总调用限制为10秒/次"
-		},
-		{
-			"xwteam_api_id": "5",
-			"xwteam_api_title": "微信步数",
-			"xwteam_api_desc": "Zepp Life(原小米运动)接口，注册帐号并绑定微信，即可一键云运动，想走多少步，就走多少步。"
-		}
-	]
+    "data": [
+        {
+            "xwteam_api_id": "2",
+            "xwteam_api_title": "UUID生成",
+            "xwteam_api_desc": "UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准，亦为开放软件基金会组织在分布式计算环境领域的一部分。"
+        },
+        {
+            "xwteam_api_id": "1",
+            "xwteam_api_title": "免费GPT4o-mini",
+            "xwteam_api_desc": "免费的GPT4o-mini接口，接口已做限制，每5秒请求一次共享调用，纯靠手速，完整版或特定key除外）"
+        }
+    ]
 }
