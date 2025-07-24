@@ -155,8 +155,7 @@
           const donorElement = document.createElement('div');
           donorElement.className = 'donor-item';
           
-          // 根据名称显示不同的文本（处理"苦逼的管理员"显示为"香港的管理员"）
-          const displayName = donor.name === "苦逼的管理员" ? "香港的管理员" : donor.name;
+          const displayName = donor.name === "苦逼的管理员" ? "苦逼的管理员" : donor.name;
           
           donorElement.innerHTML = `
             <img src="${donor.avatar}" alt="${displayName}" class="donor-avatar" onerror="this.src='img/01.png'">
